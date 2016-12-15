@@ -1,0 +1,5 @@
+**/.classpath
+**/.project
+**/.settings/
+store-core/target/
+store-web/target/

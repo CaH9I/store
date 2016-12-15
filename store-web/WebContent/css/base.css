@@ -1,0 +1,29 @@
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+	vertical-align: middle;
+}
+
+.flex-center {
+	display: flex;
+	align-items: center;
+}
+
+.text-logo {
+	font: bold 40px/40px 'Lucida Console';
+}
+
+.cart-item {
+	padding: .15em .3em;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.margin-bottom-20 {
+	margin-bottom: 20px;
+}
