@@ -1,23 +1,20 @@
 package com.expertsoft.core.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
-import com.expertsoft.core.model.JdbcProductDao;
 import com.expertsoft.core.model.entity.MobilePhone;
 
 @Component
-public class StoreService {
+public class ShoppingCartService {
 	
-	private JdbcProductDao productDao;
 	private ShoppingCart shoppingCart;
+	private ProductService productService;
 	
 	@Autowired
-	public StoreService(JdbcProductDao productDao) {
-		this.productDao = productDao;
+	public ShoppingCartService(ProductService productService) {
+		this.productService = productService;
 	}
 	
 	@Autowired
@@ -29,17 +26,9 @@ public class StoreService {
 		return shoppingCart;
 	}
 	
-	public List<MobilePhone> getAll() {
-		return productDao.findAll();
-	}
-	
-	public MobilePhone getById(long id) {
-		return productDao.findById(id);
-	}
-	
 	public void addToCart(ShoppingCartEntry entry, Errors errors) {
 		if (!errors.hasErrors()) {
-			MobilePhone phone = productDao.findById(entry.getProductId());
+			MobilePhone phone = productService.getById(entry.getProductId());
 			shoppingCart.add(phone, entry.getQuantity());
 		}
 	}

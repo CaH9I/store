@@ -8,23 +8,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.expertsoft.core.service.StoreService;
+import com.expertsoft.core.service.ProductService;
+import com.expertsoft.core.service.ShoppingCartService;
 
 @Controller
 @RequestMapping("/product-detail")
 public class ProductDetailController {
 	
-	private StoreService storeService;
+	private ProductService productService;
+	private ShoppingCartService cartService;
 	
 	@Autowired
-	public ProductDetailController(StoreService storeService) {
-		this.storeService = storeService;
+	public ProductDetailController(ProductService productService, ShoppingCartService cartService) {
+		this.productService = productService;
+		this.cartService = cartService;
 	}
 
 	@RequestMapping(value="/{id}", method=GET)
 	public String productDetail(@PathVariable long id, Model model) {
-		model.addAttribute(storeService.getById(id));
-		model.addAttribute(storeService.getShoppingCart());
+		model.addAttribute(productService.getById(id));
+		model.addAttribute(cartService.getShoppingCart());
 		return "productDetail";
 	}
 }

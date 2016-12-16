@@ -7,23 +7,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.expertsoft.core.service.StoreService;
+import com.expertsoft.core.service.ProductService;
+import com.expertsoft.core.service.ShoppingCartService;
 
 @Controller
 @RequestMapping(value={"/", "/product-list"})
 public class ProductListController {
 	
-	private StoreService storeService;
+	private ProductService productService;
+	private ShoppingCartService cartService;
 	
 	@Autowired
-	public ProductListController(StoreService storeService) {
-		this.storeService = storeService;
+	public ProductListController(ProductService productService, ShoppingCartService cartService) {
+		this.productService = productService;
+		this.cartService = cartService;
 	}
 
 	@RequestMapping(method=GET)
 	public String productList(Model model) {
-		model.addAttribute(storeService.getAll());
-		model.addAttribute(storeService.getShoppingCart());
+		model.addAttribute(productService.getAll());
+		model.addAttribute(cartService.getShoppingCart());
 		return "productList";
 	}
 }
