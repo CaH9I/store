@@ -1,7 +1,5 @@
 package com.expertsoft.core.model;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +22,13 @@ public class JdbcProductDaoIntTestImpl implements JdbcProductDaoIntTest {
 	@Test
 	@Override
 	public void findAllMobilePhones() {
-		assertNotNull(productDao.findAll());
+		productDao.findAll();
 	}
 	
 	@Test
 	@Override
 	public void findMobilePhoneById() {
-		assertNotNull(productDao.findById(1));
+		productDao.findById(1);
 	}
 
 }
