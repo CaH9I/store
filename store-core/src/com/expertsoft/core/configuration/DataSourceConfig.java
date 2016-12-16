@@ -50,7 +50,7 @@ public class DataSourceConfig {
 			populator.addScript(new ClassPathResource("com/expertsoft/core/sql/schema.sql"));
 		}
 		if (env.getProperty("db.insertData", Boolean.class)) {
-			populator.addScript(new ClassPathResource("com/expertsoft/core/sql/test-data.sql"));
+			populator.addScript(new ClassPathResource("com/expertsoft/core/sql/data.sql"));
 		}
 		
 		return populator;
@@ -63,5 +63,4 @@ public class DataSourceConfig {
 		initializer.setDatabasePopulator(populator);
 		return initializer;
 	}
-
 }

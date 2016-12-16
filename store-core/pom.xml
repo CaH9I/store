@@ -14,12 +14,19 @@
   
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
     <resources>
       <resource>
         <directory>src/com/expertsoft/core/sql</directory>
         <targetPath>com/expertsoft/core/sql</targetPath>
       </resource>
     </resources>
+    <testResources>
+      <testResource>
+        <directory>test/com/expertsoft/core/sql</directory>
+        <targetPath>com/expertsoft/core/sql</targetPath>
+      </testResource>
+    </testResources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -139,6 +146,12 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.8.0.7</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -1,7 +1,3 @@
-DROP TABLE mobile_phone;
-
-DROP SEQUENCE mobile_phone_id_seq;
-
 CREATE SEQUENCE mobile_phone_id_seq
     INCREMENT 1
     START 1
