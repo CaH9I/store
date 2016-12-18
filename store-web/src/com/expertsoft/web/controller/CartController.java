@@ -1,14 +1,13 @@
 package com.expertsoft.web.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,25 +25,27 @@ public class CartController {
 		this.cartService = cartService;
 	}
 	
-	@RequestMapping(method=GET)
+	@GetMapping
 	public String cart(Model model) {
 		model.addAttribute(cartService.getShoppingCart());
 		return "cart";
 	}
 	
-	@RequestMapping(value="/add-to-cart", method=POST)
+	@PostMapping("/add-to-cart")
 	public String addToCart(@Valid ShoppingCartEntry entry, Errors errors, Model model) {
-		cartService.addToCart(entry, errors);
+		if (errors.hasErrors()) {
+			model.addAttribute("errors", errors);
+			return "json/addToCartError";
+		}
+		cartService.addToCart(entry);
 		model.addAttribute(cartService.getShoppingCart());
-		model.addAttribute("errors", errors);
-		return "json/addToCart";
+		return "json/addToCartSuccess";
 	}
 	
-	@RequestMapping(method=POST)
-	public String delete(@RequestParam long productId, Model model) {
-		cartService.removeFromCart(productId);
-		model.addAttribute(cartService.getShoppingCart());
-		return "cart";
+	@PostMapping
+	public String delete(@RequestParam long productToRemoveId, Model model) {
+		cartService.removeFromCart(productToRemoveId);
+		return "redirect:/cart";
 	}
 
 }

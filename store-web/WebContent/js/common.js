@@ -10,7 +10,7 @@ function addToCart(e) {
 	var data = $(this).serialize();
 	
 	$.post(url, data, function(response) {
-		if (!response.errors.length) {
+		if (!response.errors) {
 			$('#cart-item .item-number').html(response.itemsText);
 			$('#cart-item .item-price').html(response.priceText);
 		} else {

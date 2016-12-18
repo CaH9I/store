@@ -26,11 +26,9 @@ public class ShoppingCartService {
 		return shoppingCart;
 	}
 	
-	public void addToCart(ShoppingCartEntry entry, Errors errors) {
-		if (!errors.hasErrors()) {
-			MobilePhone phone = productService.getById(entry.getProductId());
-			shoppingCart.add(phone, entry.getQuantity());
-		}
+	public void addToCart(ShoppingCartEntry entry) {
+		MobilePhone phone = productService.getById(entry.getProductId());
+		shoppingCart.add(phone, entry.getQuantity());
 	}
 	
 	public void removeFromCart(long productId) {

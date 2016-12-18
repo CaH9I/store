@@ -1,10 +1,9 @@
 package com.expertsoft.web.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,7 +23,7 @@ public class ProductDetailController {
 		this.cartService = cartService;
 	}
 
-	@RequestMapping(value="/{id}", method=GET)
+	@GetMapping("/{id}")
 	public String productDetail(@PathVariable long id, Model model) {
 		model.addAttribute(productService.getById(id));
 		model.addAttribute(cartService.getShoppingCart());
