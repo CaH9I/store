@@ -3,3 +3,5 @@
 **/.settings/
 store-core/target/
 store-web/target/
+**/.externalToolBuilders/
+**/maven-eclipse.xml
