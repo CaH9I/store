@@ -1,6 +1,6 @@
-package com.expertsoft.core.service;
+package com.expertsoft.core.service.component;
 
-import static org.springframework.context.annotation.ScopedProxyMode.INTERFACES;
+import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 import static org.springframework.web.context.WebApplicationContext.SCOPE_SESSION;
 
 import java.util.HashMap;
@@ -12,12 +12,11 @@ import org.springframework.stereotype.Component;
 import com.expertsoft.core.model.entity.MobilePhone;
 
 @Component
-@Scope(value=SCOPE_SESSION, proxyMode=INTERFACES)
-public class ShoppingCartImpl implements ShoppingCart {
+@Scope(value=SCOPE_SESSION, proxyMode=TARGET_CLASS)
+public class ShoppingCart {
 	
 	private Map<MobilePhone, Integer> items = new HashMap<MobilePhone, Integer>();
 
-	@Override
 	public void add(MobilePhone phone, int quantity) {
 		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {
 			if (entry.getKey().equals(phone)) {
@@ -29,7 +28,6 @@ public class ShoppingCartImpl implements ShoppingCart {
 		items.put(phone, quantity);
 	}
 
-	@Override
 	public void remove(long productid) {
 		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {
 			MobilePhone phone = entry.getKey();
@@ -40,12 +38,14 @@ public class ShoppingCartImpl implements ShoppingCart {
 		}
 	}
 
-	@Override
 	public Map<MobilePhone, Integer> getItems() {
 		return items;
 	}
+	
+	public void setItems(Map<MobilePhone, Integer> items) {
+		this.items = items;
+	}
 
-	@Override
 	public int getNumberOfItems() {
 		int result = 0;
 		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {
@@ -54,7 +54,6 @@ public class ShoppingCartImpl implements ShoppingCart {
 		return result;
 	}
 
-	@Override
 	public double getSubtotal() {
 		double result = 0;
 		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {

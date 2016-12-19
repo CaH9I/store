@@ -1,17 +1,17 @@
-package com.expertsoft.core.service;
+package com.expertsoft.core.service.component;
 
 import javax.validation.constraints.Min;
 
-public class ShoppingCartEntry {
+public class AddToCartForm {
 
 	private long productId;
 	
 	@Min(value=1, message="{validation.addToCart.quantity}")
 	private int quantity;
 	
-	public ShoppingCartEntry() {}
+	public AddToCartForm() {}
 	
-	public ShoppingCartEntry(long productId, int quantity) {
+	public AddToCartForm(long productId, int quantity) {
 		this.productId = productId;
 		this.quantity = quantity;
 	}

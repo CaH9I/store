@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,7 @@
   	  <h3>Cart</h3>
   	  <a class="btn btn-default margin-bottom-20" href="${pageContext.request.contextPath}/product-list">&#8592; Back to product list</a>
   	  <c:if test="${not empty shoppingCart.items}">
-  	    <form method="post">
+  	    <form:form method="post" modelAttribute="updateCartForm">
   	      <table class="table table-bordered table-striped">
   	        <thead>
   	          <tr class="bg-primary">
@@ -23,7 +24,7 @@
   	          </tr>
   	        </thead>
   	        <tbody>
-  	          <c:forEach var="entry" items="${shoppingCart.items}">
+  	          <c:forEach var="entry" items="${shoppingCart.items}" varStatus="status">
   	            <c:set var="phone" value="${entry.key}"/>
   	            <c:set var="quantity" value="${entry.value}"/>
   	            <tr>
@@ -32,15 +33,15 @@
   	              <td>${phone.display}</td>
   	              <td><fmt:formatNumber value="${phone.price * quantity}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
   	              <td>
-  	                <input type="hidden" name="productId" value="${phone.id}"/>
-  	                <input name="quantity" value="${quantity}" class="form-control"/>
+  	                <form:input path="items[${phone.id}]" class="form-control"/>
   	              </td>
   	              <td><button type="submit" name="productToRemoveId" value="${phone.id}" class="btn btn-success">Delete</button></td>
   	            </tr>
   	          </c:forEach>
   	        </tbody>
   	      </table>
-  	    </form>
+  	      <input type="submit" value="Update" class="btn btn-success"/>
+  	    </form:form>
   	  </c:if>
   	</div>
   </body>

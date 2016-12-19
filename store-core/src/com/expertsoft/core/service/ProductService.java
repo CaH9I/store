@@ -3,12 +3,12 @@ package com.expertsoft.core.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.expertsoft.core.model.JdbcProductDao;
 import com.expertsoft.core.model.entity.MobilePhone;
 
-@Component
+@Service
 public class ProductService {
 	
 	private JdbcProductDao productDao;
