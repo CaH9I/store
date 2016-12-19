@@ -1,17 +1,17 @@
 package com.expertsoft.core.service.component;
 
-import javax.validation.constraints.Min;
+import com.expertsoft.core.service.validator.IntegerNumber;
 
 public class AddToCartForm {
 
 	private long productId;
 	
-	@Min(value=1, message="{validation.addToCart.quantity}")
-	private int quantity;
+	@IntegerNumber(min=1, message="{addToCart.quantity.invalid}")
+	private String quantity;
 	
 	public AddToCartForm() {}
 	
-	public AddToCartForm(long productId, int quantity) {
+	public AddToCartForm(long productId, String quantity) {
 		this.productId = productId;
 		this.quantity = quantity;
 	}
@@ -24,11 +24,11 @@ public class AddToCartForm {
 		this.productId = productId;
 	}
 
-	public int getQuantity() {
+	public String getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
 }

@@ -18,13 +18,14 @@ public class ShoppingCart {
 	private Map<MobilePhone, Integer> items = new HashMap<MobilePhone, Integer>();
 
 	public void add(MobilePhone phone, int quantity) {
+		// check if the item is already in cart
 		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {
 			if (entry.getKey().equals(phone)) {
 				entry.setValue(entry.getValue() + quantity);
 				return;
 			}
 		}
-
+		// cart doesn't contain this item
 		items.put(phone, quantity);
 	}
 

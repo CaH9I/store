@@ -32,7 +32,8 @@ public class ShoppingCartService {
 	
 	public void addToCart(AddToCartForm form) {
 		MobilePhone phone = productService.getById(form.getProductId());
-		shoppingCart.add(phone, form.getQuantity());
+		int quantity = Integer.parseInt(form.getQuantity());
+		shoppingCart.add(phone, quantity);
 	}
 	
 	public void removeFromCart(long productId) {
@@ -40,9 +41,12 @@ public class ShoppingCartService {
 	}
 	
 	public void updateCart(UpdateCartForm form) {
-		for (Map.Entry<MobilePhone, Integer> entry : shoppingCart.getItems().entrySet()) {
-			int quantity = form.getItems().get(String.valueOf(entry.getKey().getId()));
-			entry.setValue(quantity);
+		for (Map.Entry<MobilePhone, Integer> cartEntry : shoppingCart.getItems().entrySet()) {
+			String productId = String.valueOf(cartEntry.getKey().getId());
+			Integer quantity = Integer.valueOf(form.getItems().get(productId));
+			if (quantity != null) {
+				cartEntry.setValue(quantity);
+			}
 		}
 	}
 }
