@@ -11,7 +11,7 @@
       <div class="col-xs-6 no-padding margin-bottom-20">
         <a class="btn btn-default" href="${pageContext.request.contextPath}/cart">&#8592; Back to cart</a>
       </div>
-      <c:if test="${not empty shoppingCart.items}">
+      <c:if test="${not empty shoppingCart.order.items}">
         <table class="table table-bordered table-striped no-border">
           <thead>
             <tr class="bg-primary">
@@ -23,7 +23,7 @@
              </tr>
           </thead>
           <tbody>
-            <c:forEach var="entry" items="${shoppingCart.items}">
+            <c:forEach var="entry" items="${shoppingCart.order.items}">
               <c:set var="phone" value="${entry.key}"/>
               <c:set var="quantity" value="${entry.value}"/>
               <tr>
@@ -39,7 +39,7 @@
             <tr>
               <td colspan="3" rowspan="3" class="no-border"></td>
               <td>Subtotal</td>
-              <td><fmt:formatNumber value="${shoppingCart.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+              <td><fmt:formatNumber value="${shoppingCart.order.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
             </tr>
             <tr>
               <td>Delivery</td>

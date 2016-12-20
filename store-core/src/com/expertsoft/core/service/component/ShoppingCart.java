@@ -3,64 +3,56 @@ package com.expertsoft.core.service.component;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 import static org.springframework.web.context.WebApplicationContext.SCOPE_SESSION;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.ListIterator;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
+import com.expertsoft.core.model.entity.Order;
 
 @Component
 @Scope(value=SCOPE_SESSION, proxyMode=TARGET_CLASS)
 public class ShoppingCart {
 	
-	private Map<MobilePhone, Integer> items = new HashMap<MobilePhone, Integer>();
+	private Order order = new Order();
+	
+	public Order getOrder() {
+		return order;
+	}
+	
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 
 	public void add(MobilePhone phone, int quantity) {
+		List<CommerceItem> items = order.getCommerceItems();
 		// check if the item is already in cart
-		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {
-			if (entry.getKey().equals(phone)) {
-				entry.setValue(entry.getValue() + quantity);
+		for (CommerceItem item : order.getCommerceItems()) {
+			if (item.getPhone().equals(phone)) {
+				item.setQuantity(item.getQuantity() + quantity);
 				return;
 			}
 		}
 		// cart doesn't contain this item
-		items.put(phone, quantity);
+		items.add(phone, quantity);
 	}
 
-	public void remove(long productid) {
-		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {
-			MobilePhone phone = entry.getKey();
-			if (phone.getId() == productid) {
-				items.remove(phone);
+	public void remove(long productId) {
+		ListIterator<CommerceItem> it = order.getCommerceItems().listIterator();
+		while (it.hasNext()) {
+			CommerceItem item = it.next();
+			if (item.getPhone().getId() == productId) {
+				it.remove();
 				break;
 			}
 		}
 	}
 
-	public Map<MobilePhone, Integer> getItems() {
-		return items;
-	}
-	
-	public void setItems(Map<MobilePhone, Integer> items) {
-		this.items = items;
-	}
-
 	public int getNumberOfItems() {
-		int result = 0;
-		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {
-			result += entry.getValue();
-		}
-		return result;
-	}
-
-	public double getSubtotal() {
-		double result = 0;
-		for (Map.Entry<MobilePhone, Integer> entry : items.entrySet()) {
-			result += entry.getKey().getPrice() * entry.getValue();
-		}
-		return result;
+		return order.getCommerceItems().stream().mapToInt(ci -> ci.getQuantity()).sum();
 	}
 
 }

@@ -15,7 +15,7 @@
             ${shoppingCart.numberOfItems eq 1 ? 'item' : 'items'}
           </span>
           <span class="item-price">
-            <fmt:formatNumber value="${shoppingCart.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/>
+            <fmt:formatNumber value="${shoppingCart.order.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/>
           </span>
         </span>
       </a>

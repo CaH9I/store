@@ -14,7 +14,7 @@
       <div class="col-xs-6 no-padding margin-bottom-20">
         <a class="btn btn-default" href="${pageContext.request.contextPath}/product-list">&#8592; Back to product list</a>
       </div>
-      <c:if test="${not empty shoppingCart.items}">
+      <c:if test="${not empty shoppingCart.order.items}">
         <form:form method="post" modelAttribute="updateCartForm">
           <button type="submit" name="checkout" value="true" class="btn btn-success pull-right">Order</button>
           <table class="table table-bordered table-striped">
@@ -29,7 +29,7 @@
               </tr>
             </thead>
             <tbody>
-              <c:forEach var="entry" items="${shoppingCart.items}">
+              <c:forEach var="entry" items="${shoppingCart.order.items}">
                 <c:set var="phone" value="${entry.key}"/>
                 <c:set var="quantity" value="${entry.value}"/>
                 <tr>

@@ -41,7 +41,7 @@ public class ShoppingCartService {
 	}
 	
 	public void updateCart(UpdateCartForm form) {
-		for (Map.Entry<MobilePhone, Integer> cartEntry : shoppingCart.getItems().entrySet()) {
+		for (Map.Entry<MobilePhone, Integer> cartEntry : shoppingCart.getOrder().getItems().entrySet()) {
 			String productId = String.valueOf(cartEntry.getKey().getId());
 			Integer quantity = Integer.valueOf(form.getItems().get(productId));
 			if (quantity != null) {

@@ -7,6 +7,6 @@
     ${shoppingCart.numberOfItems eq 1 ? 'item' : 'items'}
   </json:property>
   <json:property name="priceText">
-    <fmt:formatNumber value="${shoppingCart.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/>
+    <fmt:formatNumber value="${shoppingCart.order.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/>
   </json:property>
 </json:object>

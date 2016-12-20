@@ -7,12 +7,12 @@ import com.expertsoft.core.model.entity.MobilePhone;
 
 public class UpdateCartForm {
 	
-	private Map<String, String> items = new HashMap<String, String>();
+	private Map<String, String> items = new HashMap<>();
 	
 	public UpdateCartForm() {}
 	
 	public UpdateCartForm(ShoppingCart cart) {
-		for (Map.Entry<MobilePhone, Integer> entry : cart.getItems().entrySet()) {
+		for (Map.Entry<MobilePhone, Integer> entry : cart.getOrder().getItems().entrySet()) {
 			String id = String.valueOf(entry.getKey().getId());
 			String quantity = entry.getValue().toString();
 			items.put(id, quantity);
