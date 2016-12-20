@@ -41,3 +41,15 @@
     color: #a94442;
     font-size: 72.5%;
 }
+
+.no-border {
+    border-style: none !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-left {
+    text-align: left !important;
+}

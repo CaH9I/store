@@ -7,11 +7,16 @@
   <jsp:include page="include/head.jsp"/>
   <body>
     <div class="container">
-      <jsp:include page="include/header.jsp"/>
+      <jsp:include page="include/header.jsp">
+        <jsp:param name="includeCartFragment" value="true"/>
+      </jsp:include>
       <h3>Cart</h3>
-      <a class="btn btn-default margin-bottom-20" href="${pageContext.request.contextPath}/product-list">&#8592; Back to product list</a>
+      <div class="col-xs-6 no-padding margin-bottom-20">
+        <a class="btn btn-default" href="${pageContext.request.contextPath}/product-list">&#8592; Back to product list</a>
+      </div>
       <c:if test="${not empty shoppingCart.items}">
         <form:form method="post" modelAttribute="updateCartForm">
+          <button type="submit" name="checkout" value="true" class="btn btn-success pull-right">Order</button>
           <table class="table table-bordered table-striped">
             <thead>
               <tr class="bg-primary">
@@ -24,7 +29,7 @@
               </tr>
             </thead>
             <tbody>
-              <c:forEach var="entry" items="${shoppingCart.items}" varStatus="status">
+              <c:forEach var="entry" items="${shoppingCart.items}">
                 <c:set var="phone" value="${entry.key}"/>
                 <c:set var="quantity" value="${entry.value}"/>
                 <tr>
@@ -41,8 +46,13 @@
               </c:forEach>
             </tbody>
           </table>
-          <div class="text-right">
-            <input type="submit" value="Update" class="btn btn-success"/>
+          <div class="text-right form-inline">
+            <div class="form-group">
+              <input type="submit" value="Update" class="btn btn-primary"/>
+            </div>
+            <div class="form-group">
+              <button type="submit" name="checkout" value="true" class="btn btn-success">Order</button>
+            </div>
           </div>
         </form:form>
       </c:if>

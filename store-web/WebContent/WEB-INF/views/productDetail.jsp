@@ -5,7 +5,9 @@
   <jsp:include page="include/head.jsp"/>
   <body>
     <div class="container">
-    <jsp:include page="include/header.jsp"/>
+      <jsp:include page="include/header.jsp">
+        <jsp:param name="includeCartFragment" value="true"/>
+      </jsp:include>
       <a class="btn btn-default" href="${pageContext.request.contextPath}/product-list">&#8592; Back to product list</a>
       <h2>${mobilePhone.model}</h2>
       <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 no-padding">

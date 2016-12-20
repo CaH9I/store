@@ -6,7 +6,9 @@
   <jsp:include page="include/head.jsp"/>
   <body>
     <div class="container">
-      <jsp:include page="include/header.jsp"/>
+      <jsp:include page="include/header.jsp">
+        <jsp:param name="includeCartFragment" value="true"/>
+      </jsp:include>
       <h3>Phones</h3>
       <table class="table table-bordered table-striped">
         <thead>
