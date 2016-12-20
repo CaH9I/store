@@ -9,7 +9,9 @@
     <a href="${pageContext.request.contextPath}/cart">
       <span id="cart-item" class="cart-item pull-right bg-primary">
         My Cart:
-        <span class="item-number">${shoppingCart.numberOfItems} items</span>
+        <span class="item-number">${shoppingCart.numberOfItems}
+          ${shoppingCart.numberOfItems eq 1 ? 'item' : 'items'}
+        </span>
         <span class="item-price">
           <fmt:formatNumber value="${shoppingCart.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/>
         </span>
