@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Order {
 	private long id;
-	private List<CommerceItem> items = new ArrayList<>();
+	private List<CommerceItem> commerceItems = new ArrayList<>();
 	private String firstName;
 	private String lastname;
 	private String address;
@@ -22,13 +22,13 @@ public class Order {
 	}
 	
 	public List<CommerceItem> getCommerceItems() {
-		return items;
+		return commerceItems;
 	}
 	
-	public void setCommerceItems(List<CommerceItem> items) {
-		this.items = items;
+	public void setCommerceItems(List<CommerceItem> commerceItems) {
+		this.commerceItems = commerceItems;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -76,5 +76,12 @@ public class Order {
 	public void setDelivery(double delivery) {
 		this.delivery = delivery;
 	}
-
+	
+	public int getNumberOfItems() {
+		return commerceItems.stream().mapToInt(ci -> ci.getQuantity()).sum();
+	}
+	
+	public double getSubtotal() {
+		return commerceItems.stream().mapToDouble(ci -> ci.getPrice() * ci.getQuantity()).sum();
+	}
 }

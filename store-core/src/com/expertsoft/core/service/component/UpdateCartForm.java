@@ -3,7 +3,7 @@ package com.expertsoft.core.service.component;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.expertsoft.core.model.entity.MobilePhone;
+import com.expertsoft.core.model.entity.CommerceItem;
 
 public class UpdateCartForm {
 	
@@ -12,10 +12,10 @@ public class UpdateCartForm {
 	public UpdateCartForm() {}
 	
 	public UpdateCartForm(ShoppingCart cart) {
-		for (Map.Entry<MobilePhone, Integer> entry : cart.getOrder().getItems().entrySet()) {
-			String id = String.valueOf(entry.getKey().getId());
-			String quantity = entry.getValue().toString();
-			items.put(id, quantity);
+		for (CommerceItem item : cart.getOrder().getCommerceItems()) {
+			String productId = String.valueOf(item.getPhone().getId());
+			String quantity = String.valueOf(item.getQuantity());
+			items.put(productId, quantity);
 		}
 	}
 

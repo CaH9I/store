@@ -1,10 +1,13 @@
 package com.expertsoft.core.service;
 
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.service.component.AddToCartForm;
 import com.expertsoft.core.service.component.ShoppingCart;
@@ -33,20 +36,36 @@ public class ShoppingCartService {
 	public void addToCart(AddToCartForm form) {
 		MobilePhone phone = productService.getById(form.getProductId());
 		int quantity = Integer.parseInt(form.getQuantity());
-		shoppingCart.add(phone, quantity);
+		
+		List<CommerceItem> items = shoppingCart.getOrder().getCommerceItems();
+		// check if the item is already in cart
+		for (CommerceItem ci : items) {
+			if (ci.getPhone().equals(phone)) {
+				ci.setQuantity(ci.getQuantity() + quantity);
+				return;
+			}
+		}
+		// cart doesn't contain this item
+		items.add(new CommerceItem(phone, quantity, phone.getPrice()));
 	}
 	
 	public void removeFromCart(long productId) {
-		shoppingCart.remove(productId);
+		ListIterator<CommerceItem> it = shoppingCart.getOrder().getCommerceItems().listIterator();
+		while (it.hasNext()) {
+			CommerceItem ci = it.next();
+			if (ci.getPhone().getId() == productId) {
+				it.remove();
+				break;
+			}
+		}
 	}
 	
 	public void updateCart(UpdateCartForm form) {
-		for (Map.Entry<MobilePhone, Integer> cartEntry : shoppingCart.getOrder().getItems().entrySet()) {
-			String productId = String.valueOf(cartEntry.getKey().getId());
-			Integer quantity = Integer.valueOf(form.getItems().get(productId));
-			if (quantity != null) {
-				cartEntry.setValue(quantity);
-			}
+		Map<String, String> updatedItems = form.getItems();
+		for (CommerceItem ci : shoppingCart.getOrder().getCommerceItems()) {
+			String productId = String.valueOf(ci.getPhone().getId());
+			int newQuantity = Integer.parseInt(updatedItems.get(productId));
+			ci.setQuantity(newQuantity);
 		}
 	}
 }

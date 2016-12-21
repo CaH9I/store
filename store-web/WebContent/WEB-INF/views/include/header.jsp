@@ -11,8 +11,8 @@
       <a href="${pageContext.request.contextPath}/cart">
         <span id="cart-item" class="cart-item pull-right bg-primary">
           My Cart:
-          <span class="item-number">${shoppingCart.numberOfItems}
-            ${shoppingCart.numberOfItems eq 1 ? 'item' : 'items'}
+          <span class="item-number">${shoppingCart.order.numberOfItems}
+            ${shoppingCart.order.numberOfItems eq 1 ? 'item' : 'items'}
           </span>
           <span class="item-price">
             <fmt:formatNumber value="${shoppingCart.order.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/>

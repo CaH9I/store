@@ -1,4 +1,4 @@
-package com.expertsoft.core.service.component;
+package com.expertsoft.core.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
-import com.expertsoft.core.service.ProductService;
 
 @Service
 public class OrderService {
@@ -20,7 +19,7 @@ public class OrderService {
 		this.productService = productService;
 	}
 	
-	public void updateOrder(Order order) {
+	/*public void updateOrder(Order order) {
 		Map<MobilePhone, Integer> items = new HashMap<>();
 		double subtotal = 0;
 		
@@ -33,6 +32,6 @@ public class OrderService {
 		
 		order.setSubtotal(subtotal);
 		order.setItems(items);
-	}
+	}*/
 
 }

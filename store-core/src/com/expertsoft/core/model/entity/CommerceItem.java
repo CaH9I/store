@@ -6,6 +6,14 @@ public class CommerceItem {
 	private double price;
 	private int quantity;
 	
+	public CommerceItem() {}
+	
+	public CommerceItem(MobilePhone phone, int quantity, double price) {
+		this.phone = phone;
+		this.quantity = quantity;
+		this.price = price;
+	}
+	
 	public long getId() {
 		return id;
 	}

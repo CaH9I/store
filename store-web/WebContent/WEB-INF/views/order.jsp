@@ -11,7 +11,8 @@
       <div class="col-xs-6 no-padding margin-bottom-20">
         <a class="btn btn-default" href="${pageContext.request.contextPath}/cart">&#8592; Back to cart</a>
       </div>
-      <c:if test="${not empty shoppingCart.order.items}">
+      <c:set var="order" value="${shoppingCart.order}"/>
+      <c:if test="${not empty order.commerceItems}">
         <table class="table table-bordered table-striped no-border">
           <thead>
             <tr class="bg-primary">
@@ -23,9 +24,9 @@
              </tr>
           </thead>
           <tbody>
-            <c:forEach var="entry" items="${shoppingCart.order.items}">
-              <c:set var="phone" value="${entry.key}"/>
-              <c:set var="quantity" value="${entry.value}"/>
+            <c:forEach var="ci" items="${order.commerceItems}">
+              <c:set var="phone" value="${ci.phone}"/>
+              <c:set var="quantity" value="${ci.quantity}"/>
               <tr>
                 <td><a href="${pageContext.request.contextPath}/product-detail/${phone.id}">${phone.model}</a></td>
                 <td>${phone.color}</td>
@@ -39,15 +40,15 @@
             <tr>
               <td colspan="3" rowspan="3" class="no-border"></td>
               <td>Subtotal</td>
-              <td><fmt:formatNumber value="${shoppingCart.order.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+              <td><fmt:formatNumber value="${order.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
             </tr>
             <tr>
               <td>Delivery</td>
-              <td><fmt:formatNumber value="0" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+              <td><fmt:formatNumber value="${order.delivery}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
             </tr>
             <tr>
               <td>Total</td>
-              <td><fmt:formatNumber value="0" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+              <td><fmt:formatNumber value="${order.subtotal + order.delivery}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
             </tr>
           </tfoot>
         </table>
