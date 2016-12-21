@@ -9,7 +9,7 @@ public class Order {
 	private String firstName;
 	private String lastname;
 	private String address;
-	private String phone;
+	private String phoneNumber;
 	private String additionalInfo;
 	private double delivery;
 	
@@ -53,12 +53,12 @@ public class Order {
 		this.address = address;
 	}
 	
-	public String getPhone() {
-		return phone;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 	
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	
 	public String getAdditionalInfo() {
@@ -83,5 +83,9 @@ public class Order {
 	
 	public double getSubtotal() {
 		return commerceItems.stream().mapToDouble(ci -> ci.getPrice() * ci.getQuantity()).sum();
+	}
+	
+	public double getTotal() {
+		return getSubtotal() + delivery;
 	}
 }
