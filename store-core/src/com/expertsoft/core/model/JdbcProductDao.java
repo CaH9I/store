@@ -5,8 +5,8 @@ import java.util.List;
 import com.expertsoft.core.model.entity.MobilePhone;
 
 public interface JdbcProductDao {
-	
-	List<MobilePhone> findAll();
-	
-	MobilePhone findById(long id);
+
+    List<MobilePhone> findAll();
+
+    MobilePhone findById(long id);
 }
