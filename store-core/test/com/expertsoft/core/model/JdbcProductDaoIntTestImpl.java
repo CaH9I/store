@@ -11,24 +11,24 @@ import com.expertsoft.core.configuration.TestDataSourceConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={JdbcProductDaoImpl.class, TestDataSourceConfig.class})
 public class JdbcProductDaoIntTestImpl implements JdbcProductDaoIntTest {
-	
-	private JdbcProductDao productDao;
-	
-	@Autowired
-	public void setProductDao(JdbcProductDao productDao) {
-		this.productDao = productDao;
-	}
-	
-	@Test
-	@Override
-	public void findAllMobilePhones() {
-		productDao.findAll();
-	}
-	
-	@Test
-	@Override
-	public void findMobilePhoneById() {
-		productDao.findById(1);
-	}
+
+    private JdbcProductDao productDao;
+
+    @Autowired
+    public void setProductDao(JdbcProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    @Test
+    @Override
+    public void findAllMobilePhones() {
+        productDao.findAll();
+    }
+
+    @Test
+    @Override
+    public void findMobilePhoneById() {
+        productDao.findById(1);
+    }
 
 }

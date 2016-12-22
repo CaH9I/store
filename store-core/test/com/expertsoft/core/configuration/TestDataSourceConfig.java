@@ -9,17 +9,18 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 @Configuration
 public class TestDataSourceConfig {
-	
-	@Bean
-	public DataSource dataSource() {
-		return new EmbeddedDatabaseBuilder()
-				.addScript("classpath:com/expertsoft/core/sql/test-schema.sql")
-				.addScript("classpath:com/expertsoft/core/sql/test-data.sql")
-				.build();
-	}
-	
-	@Bean
-	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
-	}
+
+    @Bean
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .addScript("classpath:com/expertsoft/core/sql/test-schema.sql")
+                .addScript("classpath:com/expertsoft/core/sql/test-data.sql")
+                .build();
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
 }
