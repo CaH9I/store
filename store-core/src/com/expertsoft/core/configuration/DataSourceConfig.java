@@ -9,14 +9,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.support.ResourceTransactionManager;
 
 import com.expertsoft.core.model.JdbcProductDao;
 
 @Configuration
+@EnableTransactionManagement
 @ComponentScan(basePackageClasses=JdbcProductDao.class)
 public class DataSourceConfig {
 	 
@@ -35,6 +39,11 @@ public class DataSourceConfig {
 		ds.setUsername(env.getProperty("db.user"));
 		ds.setPassword(env.getProperty("db.password"));
 		return ds;
+	}
+	
+	@Bean
+	public ResourceTransactionManager transactionManager(DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
 	}
 	
 	@Bean

@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS commerce_item;
+DROP TABLE IF EXISTS store_order;
+DROP TABLE IF EXISTS mobile_phone;
+DROP SEQUENCE IF EXISTS order_id_seq;
+DROP SEQUENCE IF EXISTS mobile_phone_id_seq;
+
 CREATE SEQUENCE mobile_phone_id_seq
     INCREMENT 1
     START 1
@@ -33,28 +39,14 @@ CREATE TABLE store_order
     additional_info character varying(255),
     CONSTRAINT order_pkey PRIMARY KEY (id)
 );
-
-CREATE SEQUENCE commerce_item_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807;
     
 CREATE TABLE commerce_item
 (
-    id bigint NOT NULL DEFAULT nextval('commerce_item_id_seq'),
+    order_id bigint NOT NULL,
     product_id bigint NOT NULL,
     price double precision NOT NULL,
     quantity integer NOT NULL,
-    CONSTRAINT commerce_item_pkey PRIMARY KEY (id),
+    CONSTRAINT commerce_item_pkey PRIMARY KEY (order_id, product_id),
+    CONSTRAINT commerce_item_order_id_fkey FOREIGN KEY (order_id) REFERENCES store_order (id),
     CONSTRAINT commerce_item_product_id_fkey FOREIGN KEY (product_id) REFERENCES mobile_phone (id)
-);
-
-CREATE TABLE order_commerce_item
-(
-    order_id bigint NOT NULL,
-    commerce_item_id bigint NOT NULL,
-    CONSTRAINT order_commerce_item_pkey PRIMARY KEY (commerce_item_id, order_id),
-    CONSTRAINT order_commerce_item_commerce_item_id_fkey FOREIGN KEY (commerce_item_id) REFERENCES commerce_item (id),
-    CONSTRAINT order_commerce_item_order_id_fkey FOREIGN KEY (order_id) REFERENCES store_order (id)
 );

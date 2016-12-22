@@ -5,9 +5,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.expertsoft.core.model.entity.MobilePhone;
 
@@ -32,21 +33,23 @@ public class JdbcProductDaoImpl implements JdbcProductDao {
 		}
 	}
 	
-	private JdbcOperations jdbcOperations;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
-	public JdbcProductDaoImpl(JdbcOperations jdbcOperations) {
-		this.jdbcOperations = jdbcOperations;
+	public JdbcProductDaoImpl(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<MobilePhone> findAll() {
-		return jdbcOperations.query(FIND_ALL_MOBILE_PHONES, new MobilePhoneRowMapper());
+		return jdbcTemplate.query(FIND_ALL_MOBILE_PHONES, new MobilePhoneRowMapper());
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public MobilePhone findById(long id) {
-		return jdbcOperations.queryForObject(FIND_MOBILE_PHONE_BY_ID, new MobilePhoneRowMapper(), id);
+		return jdbcTemplate.queryForObject(FIND_MOBILE_PHONE_BY_ID, new MobilePhoneRowMapper(), id);
 	}
 
 }
