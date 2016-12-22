@@ -23,29 +23,29 @@ import com.expertsoft.core.configuration.ServiceConfig;
 @PropertySource("classpath:application.properties")
 @ComponentScan("com.expertsoft.web.controller")
 @Import({DataSourceConfig.class, ServiceConfig.class})
-public class ServletConfig extends WebMvcConfigurerAdapter{
-	
-	@Bean
-	public ViewResolver viewResolver() {
-		return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
-	}
-	
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
-	}
-	
-	@Bean
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-		source.setBasename("messages");
-		return source;
-	}
-	
-	@Override
-	public Validator getValidator() {
-		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-		validator.setValidationMessageSource(messageSource());
-	    return validator;
-	}
+public class ServletConfig extends WebMvcConfigurerAdapter {
+
+    @Bean
+    public ViewResolver viewResolver() {
+        return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        source.setBasename("messages");
+        return source;
+    }
+
+    @Override
+    public Validator getValidator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource());
+        return validator;
+    }
 }

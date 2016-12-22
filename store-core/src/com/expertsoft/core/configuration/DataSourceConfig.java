@@ -21,53 +21,53 @@ import org.springframework.transaction.support.ResourceTransactionManager;
 @EnableTransactionManagement
 @ComponentScan("com.expertsoft.core.model")
 public class DataSourceConfig {
-	 
-	private Environment env;
-	
-	@Autowired
-	public DataSourceConfig(Environment env) {
-		this.env = env;
-	}
-	
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName(env.getProperty("db.driver"));
-		ds.setUrl(env.getProperty("db.url"));
-		ds.setUsername(env.getProperty("db.user"));
-		ds.setPassword(env.getProperty("db.password"));
-		return ds;
-	}
-	
-	@Bean
-	public ResourceTransactionManager transactionManager(DataSource dataSource) {
-		return new DataSourceTransactionManager(dataSource);
-	}
-	
-	@Bean
-	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
-	}
-	
-	@Bean
-	public DatabasePopulator databasePopulator() {
-		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		
-		if (env.getProperty("db.insertSchema", Boolean.class)) {
-			populator.addScript(new ClassPathResource("com/expertsoft/core/sql/schema.sql"));
-		}
-		if (env.getProperty("db.insertData", Boolean.class)) {
-			populator.addScript(new ClassPathResource("com/expertsoft/core/sql/data.sql"));
-		}
-		
-		return populator;
-	}
-	
-	@Bean
-	public DataSourceInitializer dataSourceInitializer(DataSource ds, DatabasePopulator populator) {
-		DataSourceInitializer initializer = new DataSourceInitializer();
-		initializer.setDataSource(ds);
-		initializer.setDatabasePopulator(populator);
-		return initializer;
-	}
+
+    private Environment env;
+
+    @Autowired
+    public DataSourceConfig(Environment env) {
+        this.env = env;
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setDriverClassName(env.getProperty("db.driver"));
+        ds.setUrl(env.getProperty("db.url"));
+        ds.setUsername(env.getProperty("db.user"));
+        ds.setPassword(env.getProperty("db.password"));
+        return ds;
+    }
+
+    @Bean
+    public ResourceTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public DatabasePopulator databasePopulator() {
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+
+        if (env.getProperty("db.insertSchema", Boolean.class)) {
+            populator.addScript(new ClassPathResource("com/expertsoft/core/sql/schema.sql"));
+        }
+        if (env.getProperty("db.insertData", Boolean.class)) {
+            populator.addScript(new ClassPathResource("com/expertsoft/core/sql/data.sql"));
+        }
+
+        return populator;
+    }
+
+    @Bean
+    public DataSourceInitializer dataSourceInitializer(DataSource ds, DatabasePopulator populator) {
+        DataSourceInitializer initializer = new DataSourceInitializer();
+        initializer.setDataSource(ds);
+        initializer.setDatabasePopulator(populator);
+        return initializer;
+    }
 }

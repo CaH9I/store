@@ -9,23 +9,23 @@ import com.expertsoft.core.service.component.OrderForm;
 
 @Service
 public class OrderService {
-	
-	private JdbcOrderDao orderDao;
-	
-	@Autowired
-	public OrderService(JdbcOrderDao orderDao) {
-		this.orderDao = orderDao;
-	}
-	
-	public void saveOrder(Order order) {
-		orderDao.save(order);
-	}
-	
-	public void populateOrder(Order order, OrderForm orderForm) {
-		order.setFirstName(orderForm.getFirstName());
-		order.setLastName(orderForm.getLastName());
-		order.setAddress(orderForm.getAddress());
-		order.setPhoneNumber(orderForm.getPhoneNumber());
-		order.setAdditionalInfo(orderForm.getAdditionalInfo());
-	}
+
+    private JdbcOrderDao orderDao;
+
+    @Autowired
+    public OrderService(JdbcOrderDao orderDao) {
+        this.orderDao = orderDao;
+    }
+
+    public void saveOrder(Order order) {
+        orderDao.save(order);
+    }
+
+    public void populateOrder(Order order, OrderForm orderForm) {
+        order.setFirstName(orderForm.getFirstName());
+        order.setLastName(orderForm.getLastName());
+        order.setAddress(orderForm.getAddress());
+        order.setPhoneNumber(orderForm.getPhoneNumber());
+        order.setAdditionalInfo(orderForm.getAdditionalInfo());
+    }
 }

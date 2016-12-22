@@ -9,25 +9,25 @@ import org.springframework.stereotype.Component;
 import com.expertsoft.core.model.entity.Order;
 
 @Component
-@Scope(value=SCOPE_SESSION, proxyMode=TARGET_CLASS)
+@Scope(value = SCOPE_SESSION, proxyMode = TARGET_CLASS)
 public class ShoppingCart {
-	
-	private Order order = new Order();
-	private Order lastOrder = new Order();
-	
-	public Order getOrder() {
-		return order;
-	}
-	
-	public void setOrder(Order order) {
-		this.order = order;
-	}
 
-	public Order getLastOrder() {
-		return lastOrder;
-	}
+    private Order order = new Order();
+    private Order lastOrder = new Order();
 
-	public void setLastOrder(Order lastOrder) {
-		this.lastOrder = lastOrder;
-	}
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Order getLastOrder() {
+        return lastOrder;
+    }
+
+    public void setLastOrder(Order lastOrder) {
+        this.lastOrder = lastOrder;
+    }
 }
