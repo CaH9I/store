@@ -31,6 +31,7 @@ public class OrderController {
 
     @GetMapping
     public String order(Model model) {
+        orderService.addDeliveryInfo(cartService.getShoppingCart().getOrder());
         model.addAttribute(cartService.getShoppingCart());
         model.addAttribute(new OrderForm());
         return "order";

@@ -17,6 +17,7 @@ CREATE TABLE store_order
     last_name character varying(50) NOT NULL,
     address character varying(255) NOT NULL,
     phone character varying(50) NOT NULL,
+    delivery_amount double precision NOT NULL,
     additional_info character varying(255)
 );
 
@@ -29,4 +30,9 @@ CREATE TABLE commerce_item
     CONSTRAINT commerce_item_pkey PRIMARY KEY (order_id, product_id),
     CONSTRAINT commerce_item_order_id_fkey FOREIGN KEY (order_id) REFERENCES store_order (id),
     CONSTRAINT commerce_item_product_id_fkey FOREIGN KEY (product_id) REFERENCES mobile_phone (id)
+);
+
+CREATE TABLE fixed_delivery_price
+(
+    amount double precision NOT NULL
 );

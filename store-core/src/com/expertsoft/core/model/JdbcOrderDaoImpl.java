@@ -19,7 +19,7 @@ import com.expertsoft.core.model.entity.Order;
 @Repository
 public class JdbcOrderDaoImpl implements JdbcOrderDao {
 
-    private static final String INSERT_ORDER = "INSERT INTO store_order(first_name,last_name,address,phone,additional_info) VALUES(?,?,?,?,?)";
+    private static final String INSERT_ORDER = "INSERT INTO store_order(first_name,last_name,address,phone,delivery_amount,additional_info) VALUES(?,?,?,?,?,?)";
     private static final String INSERT_COMMERCE_ITEM = "INSERT INTO commerce_item(order_id,product_id,price,quantity) VALUES(?,?,?,?)";
 
     private JdbcTemplate jdbcTemplate;
@@ -45,7 +45,8 @@ public class JdbcOrderDaoImpl implements JdbcOrderDao {
             statement.setString(2, order.getLastName());
             statement.setString(3, order.getAddress());
             statement.setString(4, order.getPhoneNumber());
-            statement.setString(5, order.getAdditionalInfo());
+            statement.setDouble(5, order.getDelivery());
+            statement.setString(6, order.getAdditionalInfo());
             return statement;
         }, keyHolder);
 
