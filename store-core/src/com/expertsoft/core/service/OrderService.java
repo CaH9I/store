@@ -23,7 +23,7 @@ public class OrderService {
 	
 	public void populateOrder(Order order, OrderForm orderForm) {
 		order.setFirstName(orderForm.getFirstName());
-		order.setLastname(orderForm.getLastName());
+		order.setLastName(orderForm.getLastName());
 		order.setAddress(orderForm.getAddress());
 		order.setPhoneNumber(orderForm.getPhoneNumber());
 		order.setAdditionalInfo(orderForm.getAdditionalInfo());

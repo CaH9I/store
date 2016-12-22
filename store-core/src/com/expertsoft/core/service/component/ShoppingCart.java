@@ -13,6 +13,7 @@ import com.expertsoft.core.model.entity.Order;
 public class ShoppingCart {
 	
 	private Order order = new Order();
+	private Order lastOrder = new Order();
 	
 	public Order getOrder() {
 		return order;
@@ -20,5 +21,13 @@ public class ShoppingCart {
 	
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public Order getLastOrder() {
+		return lastOrder;
+	}
+
+	public void setLastOrder(Order lastOrder) {
+		this.lastOrder = lastOrder;
 	}
 }

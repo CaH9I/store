@@ -42,7 +42,7 @@ public class JdbcOrderDaoImpl implements JdbcOrderDao {
 		jdbcTemplate.update(connection -> {
 			PreparedStatement statement = connection.prepareStatement(INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, order.getFirstName());
-			statement.setString(2, order.getLastname());
+			statement.setString(2, order.getLastName());
 			statement.setString(3, order.getAddress());
 			statement.setString(4, order.getPhoneNumber());
 			statement.setString(5, order.getAdditionalInfo());

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.expertsoft.core.service.ShoppingCartService;
+import com.expertsoft.core.service.component.AddToCartForm;
 import com.expertsoft.core.service.component.UpdateCartForm;
 import com.expertsoft.core.service.validator.UpdateCartValidator;
 
@@ -44,7 +45,7 @@ public class CartController {
 	}
 	
 	@PostMapping(params="productToRemoveId")
-	public String deleteProduct(@RequestParam long productToRemoveId, Model model) {
+	public String removeFromCart(@RequestParam long productToRemoveId, Model model) {
 		cartService.removeFromCart(productToRemoveId);
 		return "redirect:/cart";
 	}
@@ -59,5 +60,15 @@ public class CartController {
 		cartService.updateCart(form);
 		return checkout ? "redirect:/order" : "redirect:/cart";
 	}
-
+	
+	@PostMapping("/add-to-cart")
+	public String addToCart(@Valid AddToCartForm form, Errors errors, Model model) {
+		if (errors.hasErrors()) {
+			model.addAttribute("errors", errors);
+			return "json/addToCartError";
+		}
+		cartService.addToCart(form);
+		model.addAttribute(cartService.getShoppingCart());
+		return "json/addToCartSuccess";
+	}
 }

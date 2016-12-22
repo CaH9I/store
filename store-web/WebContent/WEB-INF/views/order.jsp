@@ -12,47 +12,9 @@
       <div class="col-xs-6 no-padding margin-bottom-20">
         <a class="btn btn-default" href="${pageContext.request.contextPath}/cart">&#8592; Back to cart</a>
       </div>
-      <c:set var="order" value="${shoppingCart.order}"/>
+      <c:set var="order" value="${shoppingCart.order}" scope="request"/>
       <c:if test="${not empty order.commerceItems}">
-        <table class="table table-bordered table-striped no-border">
-          <thead>
-            <tr class="bg-primary">
-              <th>Model</th>
-              <th>Color</th>
-              <th>Display size</th>
-              <th>Quantity</th>
-              <th>Price</th>
-             </tr>
-          </thead>
-          <tbody>
-            <c:forEach var="ci" items="${order.commerceItems}">
-              <c:set var="phone" value="${ci.phone}"/>
-              <c:set var="quantity" value="${ci.quantity}"/>
-              <tr>
-                <td><a href="${pageContext.request.contextPath}/product-detail/${phone.id}">${phone.model}</a></td>
-                <td>${phone.color}</td>
-                <td>${phone.display}</td>
-                <td>${quantity}</td>
-                <td><fmt:formatNumber value="${ci.price * quantity}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
-              </tr>
-            </c:forEach>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="3" rowspan="3" class="no-border"></td>
-              <td>Subtotal</td>
-              <td><fmt:formatNumber value="${order.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
-            </tr>
-            <tr>
-              <td>Delivery</td>
-              <td><fmt:formatNumber value="${order.delivery}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
-            </tr>
-            <tr>
-              <td>Total</td>
-              <td><fmt:formatNumber value="${order.total}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
-            </tr>
-          </tfoot>
-        </table>
+        <jsp:include page="include/orderTable.jsp"/>
         <form:form modelAttribute="orderForm" method="post" class="form-horizontal col-lg-4 col-md-5 col-sm-6 col-xs-8">
           <div class="form-group">
             <form:label path="firstName" class="col-xs-4 control-label text-left">First name</form:label>

@@ -46,6 +46,13 @@ public class OrderController {
 		Order order = cartService.getShoppingCart().getOrder();
 		orderService.populateOrder(order, orderForm);
 		orderService.saveOrder(order);
-		return "redirect:/order";
+		cartService.clearCart();
+		return "redirect:/order/confirm";
+	}
+	
+	@GetMapping("/confirm")
+	public String confirmOrder(Model model) {
+		model.addAttribute(cartService.getShoppingCart());
+		return "orderConfirm";
 	}
 }

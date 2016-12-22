@@ -21,7 +21,7 @@ import com.expertsoft.core.configuration.ServiceConfig;
 @Configuration
 @EnableWebMvc
 @PropertySource("classpath:application.properties")
-@ComponentScan("com.expertsoft.web")
+@ComponentScan("com.expertsoft.web.controller")
 @Import({DataSourceConfig.class, ServiceConfig.class})
 public class ServletConfig extends WebMvcConfigurerAdapter{
 	

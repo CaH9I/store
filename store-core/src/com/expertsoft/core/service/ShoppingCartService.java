@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
+import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.component.AddToCartForm;
 import com.expertsoft.core.service.component.ShoppingCart;
 import com.expertsoft.core.service.component.UpdateCartForm;
@@ -67,5 +68,10 @@ public class ShoppingCartService {
 			int newQuantity = Integer.parseInt(updatedItems.get(productId));
 			ci.setQuantity(newQuantity);
 		}
+	}
+	
+	public void clearCart() {
+		shoppingCart.setLastOrder(shoppingCart.getOrder());
+		shoppingCart.setOrder(new Order());
 	}
 }

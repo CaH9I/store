@@ -17,11 +17,9 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.ResourceTransactionManager;
 
-import com.expertsoft.core.model.JdbcProductDao;
-
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackageClasses=JdbcProductDao.class)
+@ComponentScan("com.expertsoft.core.model")
 public class DataSourceConfig {
 	 
 	private Environment env;
