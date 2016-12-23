@@ -55,6 +55,7 @@ public class DataSourceConfig {
 
         if (env.getProperty("db.insertSchema", Boolean.class)) {
             populator.addScript(new ClassPathResource("com/expertsoft/core/sql/schema.sql"));
+            populator.addScript(new ClassPathResource("com/expertsoft/core/sql/security-schema.sql"));
         }
         if (env.getProperty("db.insertData", Boolean.class)) {
             populator.addScript(new ClassPathResource("com/expertsoft/core/sql/data.sql"));

@@ -4,8 +4,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -15,14 +13,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.expertsoft.core.configuration.DataSourceConfig;
-import com.expertsoft.core.configuration.ServiceConfig;
-
 @Configuration
 @EnableWebMvc
-@PropertySource("classpath:application.properties")
 @ComponentScan("com.expertsoft.web.controller")
-@Import({DataSourceConfig.class, ServiceConfig.class})
 public class ServletConfig extends WebMvcConfigurerAdapter {
 
     @Bean
