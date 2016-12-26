@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -23,12 +24,12 @@ public class JdbcProductDaoImpl implements JdbcProductDao {
         public MobilePhone mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new MobilePhone(
                 rs.getLong("id"),
-                rs.getString("model"), 
-                rs.getString("display"), 
-                rs.getString("length"), 
-                rs.getString("width"), 
-                rs.getString("color"), 
-                rs.getDouble("price"), 
+                rs.getString("model"),
+                rs.getString("display"),
+                rs.getString("length"),
+                rs.getString("width"),
+                rs.getString("color"),
+                rs.getDouble("price"),
                 rs.getString("camera"));
         }
     }
@@ -49,7 +50,11 @@ public class JdbcProductDaoImpl implements JdbcProductDao {
     @Override
     @Transactional(readOnly = true)
     public MobilePhone findById(long id) {
-        return jdbcTemplate.queryForObject(FIND_MOBILE_PHONE_BY_ID, new MobilePhoneRowMapper(), id);
+        try {
+            return jdbcTemplate.queryForObject(FIND_MOBILE_PHONE_BY_ID, new MobilePhoneRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new RecordNotFoundException(e);
+        }
     }
 
 }
