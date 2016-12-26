@@ -28,6 +28,10 @@
     margin-bottom: 20px;
 }
 
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
 .error-input {
     border-color: #a94442;
 }
@@ -52,4 +56,13 @@
 
 .text-left {
     text-align: left !important;
+}
+
+.padding-aside-15 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.width-50 {
+    width: 75px;
 }

@@ -1,7 +1,6 @@
 package com.expertsoft.core.model.entity;
 
 public class CommerceItem {
-    private long id;
     private MobilePhone phone;
     private double price;
     private int quantity;
@@ -12,14 +11,6 @@ public class CommerceItem {
         this.phone = phone;
         this.quantity = quantity;
         this.price = price;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public MobilePhone getPhone() {

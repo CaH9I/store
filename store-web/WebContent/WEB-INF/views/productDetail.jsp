@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html>
@@ -37,7 +38,7 @@
             <td>${mobilePhone.camera}</td>
           </tr>
         </table>
-        <form method="post" class="form-inline add-to-cart margin-bottom-20" action="${pageContext.request.contextPath}/cart/add-to-cart">
+        <form:form method="post" class="form-inline add-to-cart margin-bottom-20" action="${pageContext.request.contextPath}/cart/add-to-cart">
           <input type="hidden" name="productId" value="${mobilePhone.id}"/>
           <div class="form-group">
             <input name="quantity" class="form-control" value="1" maxlength="4"/>
@@ -45,7 +46,7 @@
           <div class="form-group">
             <input type="submit" value="Add to cart" class="btn btn-success"/>
           </div>
-        </form>
+        </form:form>
         <div id="errors-section"></div>
       </div>
     </div>

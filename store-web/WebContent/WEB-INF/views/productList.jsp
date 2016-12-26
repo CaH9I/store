@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
         </thead>
         <tbody>
           <c:forEach var="phone" items="${mobilePhoneList}">
-            <form method="post" class="add-to-cart" action="${pageContext.request.contextPath}/cart/add-to-cart">
+            <form:form method="post" class="add-to-cart" action="${pageContext.request.contextPath}/cart/add-to-cart">
               <input type="hidden" name="productId" value="${phone.id}"/>
               <tr>
                 <td><a href="${pageContext.request.contextPath}/product-detail/${phone.id}">${phone.model}</a></td>
@@ -33,7 +34,7 @@
                 <td><input name="quantity" value="1" class="form-control" maxlength="4"/></td>
                 <td><input type="submit" value="Add to cart" class="btn btn-success"/></td>
               </tr>
-            </form>
+            </form:form>
           </c:forEach>
         </tbody>
       </table>

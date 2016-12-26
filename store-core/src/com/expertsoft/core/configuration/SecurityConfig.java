@@ -23,11 +23,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().permitAll();
+        http
+          .authorizeRequests()
+            .antMatchers("/admin/**").hasRole("ADMIN")
+            .anyRequest().permitAll()
+          .and()
+          .formLogin()
+          .and()
+          .logout()
+            .logoutSuccessUrl("/");
+
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new StandardPasswordEncoder("secret"));
+        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new StandardPasswordEncoder("j7k-l1y-z74"));
     }
 }

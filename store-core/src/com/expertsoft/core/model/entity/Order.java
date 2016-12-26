@@ -13,6 +13,18 @@ public class Order {
     private String additionalInfo;
     private double delivery;
 
+    public Order() {}
+
+    public Order(long id, String firstName, String lastName, String address, String phoneNumber, String additionalInfo, double delivery) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.additionalInfo = additionalInfo;
+        this.delivery = delivery;
+    }
+
     public long getId() {
         return id;
     }

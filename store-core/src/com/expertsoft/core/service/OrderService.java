@@ -1,5 +1,7 @@
 package com.expertsoft.core.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +37,17 @@ public class OrderService {
     public void addDeliveryInfo(Order order) {
         double amount = deliveryDao.findFixedDeliveryAmount();
         order.setDelivery(amount);
+    }
+
+    public List<Order> getAllOrders() {
+        return orderDao.findAll();
+    }
+
+    public void deleteOrderById(long id) {
+        orderDao.deleteById(id);
+    }
+
+    public Order getById(long id) {
+        return orderDao.findById(id);
     }
 }

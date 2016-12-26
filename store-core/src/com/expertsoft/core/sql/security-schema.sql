@@ -17,7 +17,7 @@ CREATE TABLE users
 (
     id bigint NOT NULL DEFAULT nextval('user_id_seq'),
     username character varying(50) NOT NULL,
-    password character varying(50) NOT NULL,
+    password character varying(255) NOT NULL,
     enabled boolean NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (id),
     CONSTRAINT user_username_key UNIQUE (username)
