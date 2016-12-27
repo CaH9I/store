@@ -36,7 +36,7 @@ public class ShoppingCartService {
 
     public void addToCart(AddToCartForm form) {
         MobilePhone phone = productService.getById(form.getProductId());
-        int quantity = Integer.parseInt(form.getQuantity());
+        int quantity = form.getQuantity();
 
         List<CommerceItem> items = shoppingCart.getOrder().getCommerceItems();
         // check if the item is already in cart

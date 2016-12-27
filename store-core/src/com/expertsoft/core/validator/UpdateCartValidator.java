@@ -27,7 +27,7 @@ public class UpdateCartValidator implements Validator {
                     paramErrors.rejectValue(path, "cart.quantity.notPositive");
                 }
             } catch (NumberFormatException e) {
-                paramErrors.rejectValue(path, "cart.quantity.invalid");
+                paramErrors.rejectValue(path, "typeMismatch.java.lang.Integer");
             }
         }
     }
