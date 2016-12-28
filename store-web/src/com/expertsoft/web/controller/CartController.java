@@ -47,8 +47,7 @@ public class CartController {
     }
 
     @PostMapping
-    public String updateCart(@ModelAttribute @Valid UpdateCartForm form, Errors errors,
-            @RequestParam(required = false) boolean checkout, Model model) {
+    public String updateCart(@ModelAttribute @Valid UpdateCartForm form, Errors errors, @RequestParam(required = false) boolean checkout, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
             model.addAttribute(form);
