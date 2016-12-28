@@ -9,14 +9,18 @@ function addToCart(e) {
     var url = $(this).attr('action');
     var data = $(this).serialize();
     
-    $.post(url, data, function(response) {
-        if (!response.errors) {
-            $('#cart-item .item-number').html(response.itemsText);
-            $('#cart-item .item-price').html(response.priceText);
-        } else {
-            response.errors.forEach(function(msg) {
-                $('#errors-section').append(msg);
+    $.post(url, data)
+        .done(function(data) {
+            $('#cart-item .item-number').html(data.itemsText);
+            $('#cart-item .item-price').html(data.priceText);
+        })
+        .fail(function(data) {
+            data.responseJSON.errors.forEach(function(msg) {
+                $('#errors-section').append(
+                    $('<div>').addClass('alert alert-danger alert-dismissable').text(msg).append(
+                        $('<a>').addClass('close').attr({href:'#', 'aria-label':'close', title:'close', 'data-dismiss':'alert'}).html('&times;')
+                    )
+                );
             });
-        }
-    });
+        });
 }

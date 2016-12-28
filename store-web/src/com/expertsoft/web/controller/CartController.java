@@ -1,5 +1,8 @@
 package com.expertsoft.web.controller;
 
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +66,10 @@ public class CartController {
     }
 
     @PostMapping("/add-to-cart")
-    public String addToCart(@Valid AddToCartForm form, Errors errors, Model model) {
+    public String addToCart(@Valid AddToCartForm form, Errors errors, Model model, HttpServletResponse response) {
         if (errors.hasErrors()) {
             model.addAttribute("errors", errors);
+            response.setStatus(SC_BAD_REQUEST);
             return "json/addToCartError";
         }
         cartService.addToCart(form);
