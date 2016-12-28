@@ -38,8 +38,8 @@
                   <td>${phone.display}</td>
                   <td><app:price price="${ci.price * quantity}"/></td>
                   <td>
-                    <form:input path="items[${phone.id}]" class="form-control" cssErrorClass="form-control error-input" maxlength="9"/>
-                    <form:errors path="items[${phone.id}]" cssClass="error-text"/>
+                    <form:input path="items[${phone.id}].quantity" class="form-control" cssErrorClass="form-control error-input" maxlength="9"/>
+                    <form:errors path="items[${phone.id}].quantity" cssClass="error-text"/>
                   </td>
                   <td><button type="submit" name="productToRemoveId" value="${phone.id}" class="btn btn-default">Delete</button></td>
                 </tr>

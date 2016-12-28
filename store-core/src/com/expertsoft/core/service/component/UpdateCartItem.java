@@ -2,27 +2,15 @@ package com.expertsoft.core.service.component;
 
 import javax.validation.constraints.Min;
 
-public class AddToCartForm {
-
-    private long productId;
+public class UpdateCartItem {
 
     @Min(value = 1, message = "{cart.quantity.notPositive}")
     private int quantity;
 
-    public AddToCartForm() {
-    }
+    public UpdateCartItem() {}
 
-    public AddToCartForm(long productId, Integer quantity) {
-        this.productId = productId;
+    public UpdateCartItem(int quantity) {
         this.quantity = quantity;
-    }
-
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
     }
 
     public int getQuantity() {
@@ -32,4 +20,5 @@ public class AddToCartForm {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 }

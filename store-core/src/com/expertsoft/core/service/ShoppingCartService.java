@@ -13,6 +13,7 @@ import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.component.AddToCartForm;
 import com.expertsoft.core.service.component.ShoppingCart;
 import com.expertsoft.core.service.component.UpdateCartForm;
+import com.expertsoft.core.service.component.UpdateCartItem;
 
 @Service
 public class ShoppingCartService {
@@ -62,10 +63,10 @@ public class ShoppingCartService {
     }
 
     public void updateCart(UpdateCartForm form) {
-        Map<String, String> updatedItems = form.getItems();
+        Map<String, UpdateCartItem> updatedItems = form.getItems();
         for (CommerceItem ci : shoppingCart.getOrder().getCommerceItems()) {
             String productId = String.valueOf(ci.getPhone().getId());
-            int newQuantity = Integer.parseInt(updatedItems.get(productId));
+            int newQuantity = updatedItems.get(productId).getQuantity();
             ci.setQuantity(newQuantity);
         }
     }
