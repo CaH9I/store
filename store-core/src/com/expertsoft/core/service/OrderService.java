@@ -5,19 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.expertsoft.core.model.JdbcDeliveryDao;
-import com.expertsoft.core.model.JdbcOrderDao;
+import com.expertsoft.core.model.DeliveryDao;
+import com.expertsoft.core.model.OrderDao;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.component.OrderForm;
 
 @Service
 public class OrderService {
 
-    private JdbcOrderDao orderDao;
-    private JdbcDeliveryDao deliveryDao;
+    private OrderDao orderDao;
+    private DeliveryDao deliveryDao;
 
     @Autowired
-    public OrderService(JdbcOrderDao orderDao, JdbcDeliveryDao deliveryDao) {
+    public OrderService(OrderDao orderDao, DeliveryDao deliveryDao) {
         this.orderDao = orderDao;
         this.deliveryDao = deliveryDao;
     }

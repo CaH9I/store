@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.expertsoft.core.model.JdbcProductDao;
+import com.expertsoft.core.model.ProductDao;
 import com.expertsoft.core.model.entity.MobilePhone;
 
 @Service
 public class ProductService {
 
-    private JdbcProductDao productDao;
+    private ProductDao productDao;
 
     @Autowired
-    public ProductService(JdbcProductDao productDao) {
+    public ProductService(ProductDao productDao) {
         this.productDao = productDao;
     }
 
