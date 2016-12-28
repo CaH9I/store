@@ -41,7 +41,7 @@ public class OrderController {
     @PostMapping
     public String placeOrder(@ModelAttribute @Valid OrderForm orderForm, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute(cartService.getShoppingCart());
+            model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
             model.addAttribute(orderForm);
             return "order";
         }
