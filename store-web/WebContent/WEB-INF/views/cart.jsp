@@ -1,6 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="app"%>
 
 <!DOCTYPE html>
 <html>
@@ -36,7 +36,7 @@
                   <td><a href="${pageContext.request.contextPath}/product-detail/${phone.id}">${phone.model}</a></td>
                   <td>${phone.color}</td>
                   <td>${phone.display}</td>
-                  <td><fmt:formatNumber value="${ci.price * quantity}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+                  <td><app:price price="${ci.price * quantity}"/></td>
                   <td>
                     <form:input path="items[${phone.id}]" class="form-control" cssErrorClass="form-control error-input" maxlength="9"/>
                     <form:errors path="items[${phone.id}]" cssClass="error-text"/>

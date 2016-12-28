@@ -1,5 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="app"%>
 
 <table class="table table-bordered no-border">
   <thead>
@@ -20,7 +20,7 @@
         <td>${phone.color}</td>
         <td>${phone.display}</td>
         <td>${quantity}</td>
-        <td><fmt:formatNumber value="${ci.price * quantity}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+        <td><app:price price="${ci.price * quantity}"/></td>
       </tr>
     </c:forEach>
   </tbody>
@@ -28,15 +28,15 @@
     <tr>
       <td colspan="3" rowspan="3" class="no-border"></td>
       <td>Subtotal</td>
-      <td><fmt:formatNumber value="${order.subtotal}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+      <td><app:price price="${order.subtotal}"/></td>
     </tr>
     <tr>
       <td>Delivery</td>
-      <td><fmt:formatNumber value="${order.delivery}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+      <td><app:price price="${order.delivery}"/></td>
     </tr>
     <tr>
       <td>Total</td>
-      <td><fmt:formatNumber value="${order.total}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+      <td><app:price price="${order.total}"/></td>
     </tr>
   </tfoot>
 </table>

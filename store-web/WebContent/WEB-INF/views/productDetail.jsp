@@ -1,5 +1,5 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="app"%>
 
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@
           </tr>
           <tr>
             <td>Price</td>
-            <td><fmt:formatNumber value="${mobilePhone.price}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+            <td><app:price price="${mobilePhone.price}"/></td>
           </tr>
           <tr>
             <td>Camera</td>

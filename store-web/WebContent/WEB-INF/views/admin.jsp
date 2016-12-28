@@ -1,6 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="app"%>
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@
                 <td>${order.address}</td>
                 <td>${order.phoneNumber}</td>
                 <td>${order.additionalInfo}</td>
-                <td><fmt:formatNumber value="${order.total}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/></td>
+                <td><app:price price="${order.total}"/></td>
                 <td>
                   <form:form method="POST">
                     <button type="submit" name="orderToRemoveId" value="${order.id}" class="btn btn-danger">Delete</button>
