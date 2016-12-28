@@ -11,7 +11,6 @@
       <div class="col-xs-6 no-padding margin-bottom-20">
         <a class="btn btn-default" href="${pageContext.request.contextPath}/cart">&#8592; Back to cart</a>
       </div>
-      <c:set var="order" value="${shoppingCart.order}" scope="request"/>
       <c:if test="${not empty order.commerceItems}">
         <jsp:include page="include/orderTable.jsp"/>
         <form:form modelAttribute="orderForm" method="post" class="form-horizontal col-lg-4 col-md-5 col-sm-6 col-xs-8">

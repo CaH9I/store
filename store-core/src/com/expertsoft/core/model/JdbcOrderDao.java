@@ -85,9 +85,10 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     @Transactional
-    public void save(Order order) {
+    public long save(Order order) {
         long orderId = insertOrder(order);
         insertCommerceItems(orderId, order.getCommerceItems());
+        return orderId;
     }
 
     private long insertOrder(Order order) {

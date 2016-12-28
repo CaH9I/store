@@ -1,30 +1,19 @@
 package com.expertsoft.core.service;
 
-import java.util.List;
-import java.util.ListIterator;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.expertsoft.core.model.entity.CommerceItem;
-import com.expertsoft.core.model.entity.MobilePhone;
-import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.component.AddToCartForm;
 import com.expertsoft.core.service.component.ShoppingCart;
 import com.expertsoft.core.service.component.UpdateCartForm;
-import com.expertsoft.core.service.component.UpdateCartItem;
 
 @Service
 public class ShoppingCartService {
 
     private ShoppingCart shoppingCart;
-    private ProductService productService;
-
-    @Autowired
-    public ShoppingCartService(ProductService productService) {
-        this.productService = productService;
-    }
 
     @Autowired
     public void setShoppingCart(ShoppingCart shoppingCart) {
@@ -36,43 +25,36 @@ public class ShoppingCartService {
     }
 
     public void addToCart(AddToCartForm form) {
-        MobilePhone phone = productService.getById(form.getProductId());
+        long productId = form.getProductId();
         int quantity = form.getQuantity();
 
-        List<CommerceItem> items = shoppingCart.getOrder().getCommerceItems();
+        Map<Long, Integer> items = shoppingCart.getItems();
         // check if the item is already in cart
-        for (CommerceItem ci : items) {
-            if (ci.getPhone().equals(phone)) {
-                ci.setQuantity(ci.getQuantity() + quantity);
+        for (Map.Entry<Long, Integer> entry : items.entrySet()) {
+            if (entry.getKey().longValue() == productId) {
+                entry.setValue(entry.getValue() + quantity);
                 return;
             }
         }
         // cart doesn't contain this item
-        items.add(new CommerceItem(phone, quantity, phone.getPrice()));
+        items.put(productId, quantity);
     }
 
     public void removeFromCart(long productId) {
-        ListIterator<CommerceItem> it = shoppingCart.getOrder().getCommerceItems().listIterator();
-        while (it.hasNext()) {
-            CommerceItem ci = it.next();
-            if (ci.getPhone().getId() == productId) {
-                it.remove();
-                break;
-            }
-        }
+        shoppingCart.getItems().entrySet().removeIf(e -> e.getKey().longValue() == productId);
     }
 
     public void updateCart(UpdateCartForm form) {
-        Map<String, UpdateCartItem> updatedItems = form.getItems();
-        for (CommerceItem ci : shoppingCart.getOrder().getCommerceItems()) {
-            String productId = String.valueOf(ci.getPhone().getId());
-            int newQuantity = updatedItems.get(productId).getQuantity();
-            ci.setQuantity(newQuantity);
-        }
+        Map<Long, Integer> cartItems = shoppingCart.getItems();
+
+        form.getItems().entrySet().forEach(entry -> {
+            long productId = Long.parseLong(entry.getKey());
+            int quantity = entry.getValue().getQuantity();
+            cartItems.replace(productId, quantity);
+        });
     }
 
     public void clearCart() {
-        shoppingCart.setLastOrder(shoppingCart.getOrder());
-        shoppingCart.setOrder(new Order());
+        shoppingCart.setItems(new HashMap<>());
     }
 }

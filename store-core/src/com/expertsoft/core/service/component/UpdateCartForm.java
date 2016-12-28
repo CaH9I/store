@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import com.expertsoft.core.model.entity.CommerceItem;
-
 public class UpdateCartForm {
 
     @Valid
@@ -15,10 +13,9 @@ public class UpdateCartForm {
     public UpdateCartForm() {}
 
     public UpdateCartForm(ShoppingCart cart) {
-        for (CommerceItem item : cart.getOrder().getCommerceItems()) {
-            String productId = String.valueOf(item.getPhone().getId());
-            items.put(productId, new UpdateCartItem(item.getQuantity()));
-        }
+        cart.getItems().entrySet().forEach(entry -> {
+            items.put(entry.getKey().toString(), new UpdateCartItem(entry.getValue()));
+        });
     }
 
     public Map<String, UpdateCartItem> getItems() {

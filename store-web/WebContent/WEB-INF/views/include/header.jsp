@@ -14,11 +14,11 @@
         <a href="${pageContext.request.contextPath}/cart">
           <span id="cart-item" class="cart-item pull-right bg-primary">
             My Cart:
-            <span class="item-number">${shoppingCart.order.numberOfItems}
-              ${shoppingCart.order.numberOfItems eq 1 ? 'item' : 'items'}
+            <span class="item-number">${order.numberOfItems}
+              ${order.numberOfItems eq 1 ? 'item' : 'items'}
             </span>
             <span class="item-price">
-              <app:price price="${shoppingCart.order.subtotal}"/>
+              <app:price price="${order.subtotal}"/>
             </span>
           </span>
         </a>

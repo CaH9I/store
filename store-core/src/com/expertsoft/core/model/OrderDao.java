@@ -6,7 +6,7 @@ import com.expertsoft.core.model.entity.Order;
 
 public interface OrderDao {
 
-    void save(Order order);
+    long save(Order order);
 
     List<Order> findAll();
 

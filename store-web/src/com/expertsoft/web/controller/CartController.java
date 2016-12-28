@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.expertsoft.core.service.OrderService;
 import com.expertsoft.core.service.ShoppingCartService;
 import com.expertsoft.core.service.component.AddToCartForm;
 import com.expertsoft.core.service.component.UpdateCartForm;
@@ -24,15 +25,17 @@ import com.expertsoft.core.service.component.UpdateCartForm;
 public class CartController {
 
     private ShoppingCartService cartService;
+    private OrderService orderService;
 
     @Autowired
-    public CartController(ShoppingCartService cartService) {
+    public CartController(ShoppingCartService cartService, OrderService orderService) {
         this.cartService = cartService;
+        this.orderService = orderService;
     }
 
     @GetMapping
     public String cart(Model model) {
-        model.addAttribute(cartService.getShoppingCart());
+        model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
         model.addAttribute(new UpdateCartForm(cartService.getShoppingCart()));
         return "cart";
     }
@@ -47,7 +50,7 @@ public class CartController {
     public String updateCart(@ModelAttribute @Valid UpdateCartForm form, Errors errors,
             @RequestParam(required = false) boolean checkout, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute(cartService.getShoppingCart());
+            model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
             model.addAttribute(form);
             return "cart";
         }
@@ -63,7 +66,7 @@ public class CartController {
             return "json/addToCartError";
         }
         cartService.addToCart(form);
-        model.addAttribute(cartService.getShoppingCart());
+        model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
         return "json/addToCartSuccess";
     }
 }

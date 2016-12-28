@@ -7,7 +7,6 @@
     <div class="container">
       <jsp:include page="include/header.jsp"/>
       <h3 class="margin-bottom-20">Thank for your order</h3>
-      <c:set var="order" value="${shoppingCart.lastOrder}" scope="request"/>
       <c:if test="${not empty order.commerceItems}">
         <jsp:include page="include/orderTable.jsp"/>
         <jsp:include page="include/orderInfo.jsp"/>
