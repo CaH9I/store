@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -58,11 +57,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     @Transactional(readOnly = true)
     public MobilePhone findById(long id) {
-        try {
-            return jdbcTemplate.queryForObject(FIND_MOBILE_PHONE_BY_ID, new MobilePhoneRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new RecordNotFoundException(e);
-        }
+        return jdbcTemplate.queryForObject(FIND_MOBILE_PHONE_BY_ID, new MobilePhoneRowMapper(), id);
     }
 
     @Override

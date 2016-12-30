@@ -152,7 +152,7 @@ public class JdbcOrderDao implements OrderDao {
         jdbcTemplate.query(FIND_ORDER_BY_ID, rowHandler, orderId);
         List<Order> orders = rowHandler.getOrders();
 
-        if (orders.size() == 0) {
+        if (orders.isEmpty()) {
             throw new RecordNotFoundException();
         }
 
