@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <c:forEach var="phone" items="${mobilePhoneList}">
+          <c:forEach var="phone" items="${mobilePhones}">
             <form:form method="post" class="add-to-cart" action="${pageContext.request.contextPath}/cart/add-to-cart">
               <input type="hidden" name="productId" value="${phone.id}"/>
               <tr>

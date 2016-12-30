@@ -8,7 +8,7 @@
   <body>
     <div class="container">
       <jsp:include page="include/header.jsp"/>
-      <c:if test="${not empty orderList}">
+      <c:if test="${not empty orders}">
         <h3>Orders</h3>
         <table class="table table-bordered table-striped">
           <thead>
@@ -24,7 +24,7 @@
             </tr>
           </thead>
           <tbody>
-            <c:forEach var="order" items="${orderList}">
+            <c:forEach var="order" items="${orders}">
               <tr>
                 <td><a href="${pageContext.request.contextPath}/admin/${order.id}">Order #${order.id}</a></td>
                 <td>${order.firstName}</td>

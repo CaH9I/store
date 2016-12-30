@@ -31,17 +31,17 @@ public class OrderController {
 
     @GetMapping
     public String order(Model model) {
-        Order oder = orderService.createOrder(cartService.getShoppingCart(), true);
-        model.addAttribute(oder);
-        model.addAttribute(new OrderForm());
+        Order order = orderService.createOrder(cartService.getShoppingCart(), true);
+        model.addAttribute("order", order);
+        model.addAttribute("orderForm", new OrderForm());
         return "order";
     }
 
     @PostMapping
     public String placeOrder(@ModelAttribute @Valid OrderForm orderForm, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
-            model.addAttribute(orderForm);
+            model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
+            model.addAttribute("orderForm", orderForm);
             return "order";
         }
         Order order = orderService.createOrder(cartService.getShoppingCart());

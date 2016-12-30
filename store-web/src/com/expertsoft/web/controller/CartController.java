@@ -35,8 +35,8 @@ public class CartController {
 
     @GetMapping
     public String cart(Model model) {
-        model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
-        model.addAttribute(new UpdateCartForm(cartService.getShoppingCart()));
+        model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
+        model.addAttribute("updateCartForm", new UpdateCartForm(cartService.getShoppingCart()));
         return "cart";
     }
 
@@ -49,8 +49,8 @@ public class CartController {
     @PostMapping
     public String updateCart(@ModelAttribute @Valid UpdateCartForm form, Errors errors, @RequestParam(required = false) boolean checkout, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
-            model.addAttribute(form);
+            model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
+            model.addAttribute("updateCartForm", form);
             return "cart";
         }
         cartService.updateCart(form);
@@ -65,7 +65,7 @@ public class CartController {
             return "json/addToCartError";
         }
         cartService.addToCart(form);
-        model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
+        model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
         return "json/addToCartSuccess";
     }
 }

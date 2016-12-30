@@ -28,8 +28,8 @@ public class ProductDetailController {
 
     @GetMapping
     public String productDetail(@PathVariable long id, Model model) {
-        model.addAttribute(productService.getById(id));
-        model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
+        model.addAttribute("mobilePhone", productService.getById(id));
+        model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
         return "productDetail";
     }
 }

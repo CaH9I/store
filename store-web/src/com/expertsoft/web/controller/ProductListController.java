@@ -27,8 +27,8 @@ public class ProductListController {
 
     @GetMapping
     public String productList(Model model) {
-        model.addAttribute(productService.getAll());
-        model.addAttribute(orderService.createOrder(cartService.getShoppingCart()));
+        model.addAttribute("mobilePhones", productService.getAll());
+        model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
         return "productList";
     }
 }

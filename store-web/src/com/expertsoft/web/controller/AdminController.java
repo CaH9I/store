@@ -24,7 +24,7 @@ public class AdminController {
 
     @GetMapping
     public String admin(Model model) {
-        model.addAttribute(orderService.getAllOrders());
+        model.addAttribute("orders", orderService.getAllOrders());
         return "admin";
     }
 
@@ -36,7 +36,7 @@ public class AdminController {
 
     @GetMapping("/{id}")
     public String orderDetail(@PathVariable long id, Model model) {
-        model.addAttribute(orderService.getById(id));
+        model.addAttribute("order", orderService.getById(id));
         return "orderDetail";
     }
 }
