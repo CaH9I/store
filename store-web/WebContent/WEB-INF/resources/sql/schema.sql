@@ -37,7 +37,9 @@ CREATE TABLE store_order
     last_name character varying(50) NOT NULL,
     address character varying(255) NOT NULL,
     phone character varying(50) NOT NULL,
+    subtotal double precision NOT NULL,
     delivery_amount double precision NOT NULL,
+    total double precision NOT NULL,
     additional_info character varying(255),
     CONSTRAINT order_pkey PRIMARY KEY (id)
 );

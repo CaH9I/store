@@ -2,7 +2,7 @@ package com.expertsoft.core.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +69,7 @@ public class JdbcProductDao implements ProductDao {
     @Transactional(readOnly = true)
     public List<MobilePhone> findByIds(Set<Long> ids) {
         if (ids.isEmpty()) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
         Map<String, Object> params = new HashMap<>();
         params.put("ids", ids);

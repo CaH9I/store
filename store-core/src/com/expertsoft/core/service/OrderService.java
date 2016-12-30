@@ -1,6 +1,7 @@
 package com.expertsoft.core.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,11 +41,6 @@ public class OrderService {
         order.setAdditionalInfo(orderForm.getAdditionalInfo());
     }
 
-    public void addDeliveryInfo(Order order) {
-        double amount = deliveryDao.findFixedDeliveryAmount();
-        order.setDelivery(amount);
-    }
-
     public List<Order> getAllOrders() {
         return orderDao.findAll();
     }
@@ -58,15 +54,29 @@ public class OrderService {
     }
 
     public Order createOrder(ShoppingCart cart) {
+        return createOrder(cart, false);
+    }
+
+    public Order createOrder(ShoppingCart cart, boolean addDelivery) {
         Order order = new Order();
         List<MobilePhone> phones = productDao.findByIds(cart.getItems().keySet());
+        double subtotal = 0;
 
-        cart.getItems().entrySet().forEach(entry -> {
-            MobilePhone phone = phones.stream().filter(ph -> ph.getId() == entry.getKey().longValue()).findFirst().get();
+        for (Map.Entry<Long, Integer> entry : cart.getItems().entrySet()) {
+            MobilePhone phone = phones.stream()
+                    .filter(ph -> ph.getId() == entry.getKey().longValue())
+                    .findFirst().get();
             int quantity = entry.getValue();
             CommerceItem ci = new CommerceItem(phone, quantity, phone.getPrice());
             order.getCommerceItems().add(ci);
-        });
+            subtotal += ci.getPrice() * ci.getQuantity();
+        }
+
+        order.setSubtotal(subtotal);
+        if (addDelivery) {
+            order.setDelivery(deliveryDao.findFixedDeliveryAmount());
+        }
+        order.setTotal(subtotal + order.getDelivery());
 
         return order;
     }

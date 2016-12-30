@@ -11,18 +11,22 @@ public class Order {
     private String address;
     private String phoneNumber;
     private String additionalInfo;
+    private double subtotal;
     private double delivery;
+    private double total;
 
     public Order() {}
 
-    public Order(long id, String firstName, String lastName, String address, String phoneNumber, String additionalInfo, double delivery) {
+    public Order(long id, String firstName, String lastName, String address, String phoneNumber, String additionalInfo, double subtotal, double delivery, double total) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.additionalInfo = additionalInfo;
+        this.subtotal = subtotal;
         this.delivery = delivery;
+        this.total = total;
     }
 
     public long getId() {
@@ -81,6 +85,14 @@ public class Order {
         this.additionalInfo = additionalInfo;
     }
 
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
     public double getDelivery() {
         return delivery;
     }
@@ -89,15 +101,15 @@ public class Order {
         this.delivery = delivery;
     }
 
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     public int getNumberOfItems() {
         return commerceItems.stream().mapToInt(ci -> ci.getQuantity()).sum();
-    }
-
-    public double getSubtotal() {
-        return commerceItems.stream().mapToDouble(ci -> ci.getPrice() * ci.getQuantity()).sum();
-    }
-
-    public double getTotal() {
-        return getSubtotal() + delivery;
     }
 }

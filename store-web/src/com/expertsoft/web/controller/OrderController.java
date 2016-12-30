@@ -31,8 +31,7 @@ public class OrderController {
 
     @GetMapping
     public String order(Model model) {
-        Order oder = orderService.createOrder(cartService.getShoppingCart());
-        orderService.addDeliveryInfo(oder);
+        Order oder = orderService.createOrder(cartService.getShoppingCart(), true);
         model.addAttribute(oder);
         model.addAttribute(new OrderForm());
         return "order";
