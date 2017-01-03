@@ -30,7 +30,7 @@ public class JdbcProductDaoIntTest {
     }
 
     @Test
-    public void f() {
+    public void findMobilePhonesByIds() {
         productDao.findByIds(Collections.singleton(1L));
     }
 
