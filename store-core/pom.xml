@@ -13,14 +13,7 @@
   <packaging>jar</packaging>
   
   <build>
-    <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>test</testSourceDirectory>
-    <testResources>
-      <testResource>
-        <directory>test/com/expertsoft/core/sql</directory>
-        <targetPath>com/expertsoft/core/sql</targetPath>
-      </testResource>
-    </testResources>
+    <sourceDirectory>main/src</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -31,31 +24,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.19.1</version>
-        <configuration>
-          <includes>
-            <include>**/*.java</include>
-          </includes>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
-  
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>1.8.0.7</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+
 </project>

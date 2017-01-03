@@ -21,7 +21,7 @@
         <configuration>
           <port>8080</port>
           <path>/store</path>
-          <warSourceDirectory>WebContent</warSourceDirectory>
+          <warSourceDirectory>web</warSourceDirectory>
         </configuration>
       </plugin>
     </plugins>
