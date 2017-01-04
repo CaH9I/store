@@ -10,17 +10,20 @@
       <jsp:include page="include/header.jsp"/>
       <c:if test="${not empty orders}">
         <h3>Orders</h3>
+        <div class="col-xs-6 no-padding margin-bottom-20">
+          <a class="btn btn-default" href="${pageContext.request.contextPath}/product-list">&#8592; Back to store</a>
+        </div>
         <table class="table table-bordered table-striped">
           <thead>
             <tr class="bg-primary">
-              <td>Order id</td>
-              <td>First name</td>
-              <td>Last name</td>
-              <td>Address</td>
-              <td>Phone number</td>
-              <td>Additional info</td>
-              <td>Total</td>
-              <td>Action</td>
+              <th>Order id</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Address</th>
+              <th>Phone number</th>
+              <th>Additional info</th>
+              <th>Total</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>

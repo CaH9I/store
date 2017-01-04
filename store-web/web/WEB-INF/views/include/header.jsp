@@ -26,10 +26,19 @@
     </c:if>
   </div>
   <security:authorize access="isAuthenticated()">
-    <div class="text-right padding-aside-15">
+    <div class="flex-center flex-end padding-aside-15">
+      <security:authorize access="hasRole('ADMIN')">
+        <a class="admin-link" href="${pageContext.request.contextPath}/admin">Administration</a>
+      </security:authorize>
+      <span class="padding-aside-15">Hi,&nbsp;<security:authentication property="principal.username"/></span>
       <form:form method="POST" action="${pageContext.request.contextPath}/logout">
         <input type="submit" value="Logout" class="btn btn-primary"/>
       </form:form>
+    </div>
+  </security:authorize>
+  <security:authorize access="isAnonymous()">
+    <div class="flex-center flex-end padding-aside-15">
+      <a href="${pageContext.request.contextPath}/login">Login</a>
     </div>
   </security:authorize>
 </div>

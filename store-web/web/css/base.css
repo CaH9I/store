@@ -12,6 +12,10 @@
     align-items: center;
 }
 
+.flex-end {
+    justify-content: flex-end;
+}
+
 .text-logo {
     font: bold 40px/40px 'Lucida Console';
 }
@@ -65,4 +69,14 @@
 
 .width-50 {
     width: 75px;
+}
+
+.admin-link {
+    font-weight: bold;
+    margin-right: auto;
+    color: #d9534f;
+}
+
+.admin-link:hover {
+    color: #c9302c;
 }
