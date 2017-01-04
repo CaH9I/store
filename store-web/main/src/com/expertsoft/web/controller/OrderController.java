@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.OrderService;
 import com.expertsoft.core.service.ShoppingCartService;
-import com.expertsoft.core.service.component.OrderForm;
+import com.expertsoft.web.form.OrderForm;
 
 @Controller
 @RequestMapping("/order")
@@ -38,14 +38,14 @@ public class OrderController {
     }
 
     @PostMapping
-    public String placeOrder(@ModelAttribute @Valid OrderForm orderForm, Errors errors, Model model) {
+    public String placeOrder(@ModelAttribute @Valid OrderForm form, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
-            model.addAttribute("orderForm", orderForm);
+            model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart(), true));
+            model.addAttribute("orderForm", form);
             return "order";
         }
-        Order order = orderService.createOrder(cartService.getShoppingCart());
-        orderService.populateOrder(order, orderForm);
+        Order order = orderService.createOrder(cartService.getShoppingCart(), true);
+        orderService.populateOrder(order, form.getFirstName(), form.getLastName(), form.getAddress(), form.getPhoneNumber(), form.getAdditionalInfo());
         long orderId = orderService.saveOrder(order);
         cartService.clearCart();
         return "redirect:/order/" + orderId;

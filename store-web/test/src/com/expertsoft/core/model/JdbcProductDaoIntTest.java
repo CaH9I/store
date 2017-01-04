@@ -1,12 +1,19 @@
 package com.expertsoft.core.model;
 
-import java.util.Collections;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.expertsoft.core.model.entity.MobilePhone;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:config/context.xml")
@@ -21,17 +28,23 @@ public class JdbcProductDaoIntTest {
 
     @Test
     public void findAllMobilePhones() {
-        productDao.findAll();
+        List<MobilePhone> phones = productDao.findAll();
+        assertFalse(phones.isEmpty());
     }
 
     @Test
     public void findMobilePhoneById() {
-        productDao.findById(1);
+        MobilePhone phone = productDao.findById(1L);
+        assertEquals(1L, phone.getId());
     }
 
     @Test
     public void findMobilePhonesByIds() {
-        productDao.findByIds(Collections.singleton(1L));
+        Set<Long> ids = new HashSet<>();
+        ids.add(1L);
+        ids.add(3L);
+        List<MobilePhone> phones = productDao.findByIds(ids);
+        assertEquals(2, phones.size());
     }
 
 }

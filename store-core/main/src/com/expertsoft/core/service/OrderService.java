@@ -12,7 +12,6 @@ import com.expertsoft.core.model.ProductDao;
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
-import com.expertsoft.core.service.component.OrderForm;
 import com.expertsoft.core.service.component.ShoppingCart;
 
 @Service
@@ -33,12 +32,12 @@ public class OrderService {
         return orderDao.save(order);
     }
 
-    public void populateOrder(Order order, OrderForm orderForm) {
-        order.setFirstName(orderForm.getFirstName());
-        order.setLastName(orderForm.getLastName());
-        order.setAddress(orderForm.getAddress());
-        order.setPhoneNumber(orderForm.getPhoneNumber());
-        order.setAdditionalInfo(orderForm.getAdditionalInfo());
+    public void populateOrder(Order order, String firstName, String lastName, String address, String phoneNumber, String additionalInfo) {
+        order.setFirstName(firstName);
+        order.setLastName(lastName);
+        order.setAddress(address);
+        order.setPhoneNumber(phoneNumber);
+        order.setAdditionalInfo(additionalInfo);
     }
 
     public List<Order> getAllOrders() {

@@ -89,10 +89,7 @@ public class MobilePhone {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
+        return (int) id;
     }
 
     @Override
@@ -101,7 +98,7 @@ public class MobilePhone {
             return false;
         }
         MobilePhone other = (MobilePhone) obj;
-        return id == other.id ? true : false;
+        return id == other.id;
     }
 
 }

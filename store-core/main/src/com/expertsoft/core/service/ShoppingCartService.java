@@ -6,9 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.expertsoft.core.service.component.AddToCartForm;
 import com.expertsoft.core.service.component.ShoppingCart;
-import com.expertsoft.core.service.component.UpdateCartForm;
 
 @Service
 public class ShoppingCartService {
@@ -24,10 +22,7 @@ public class ShoppingCartService {
         return shoppingCart;
     }
 
-    public void addToCart(AddToCartForm form) {
-        long productId = form.getProductId();
-        int quantity = form.getQuantity();
-
+    public void addToCart(long productId, int quantity) {
         Map<Long, Integer> items = shoppingCart.getItems();
         // check if the item is already in cart
         for (Map.Entry<Long, Integer> entry : items.entrySet()) {
@@ -42,15 +37,14 @@ public class ShoppingCartService {
 
     public void removeFromCart(long productId) {
         shoppingCart.getItems().entrySet().removeIf(e -> e.getKey().longValue() == productId);
+        return;
     }
 
-    public void updateCart(UpdateCartForm form) {
+    public void updateCart(Map<Long, Integer> items) {
         Map<Long, Integer> cartItems = shoppingCart.getItems();
 
-        form.getItems().entrySet().forEach(entry -> {
-            long productId = Long.parseLong(entry.getKey());
-            int quantity = entry.getValue().getQuantity();
-            cartItems.replace(productId, quantity);
+        items.entrySet().forEach(entry -> {
+            cartItems.replace(entry.getKey(), entry.getValue());
         });
     }
 

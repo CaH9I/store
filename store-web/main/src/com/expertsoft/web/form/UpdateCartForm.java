@@ -1,9 +1,11 @@
-package com.expertsoft.core.service.component;
+package com.expertsoft.web.form;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;
+
+import com.expertsoft.core.service.component.ShoppingCart;
 
 public class UpdateCartForm {
 

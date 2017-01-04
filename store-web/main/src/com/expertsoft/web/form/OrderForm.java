@@ -1,4 +1,4 @@
-package com.expertsoft.core.service.component;
+package com.expertsoft.web.form;
 
 import org.hibernate.validator.constraints.NotBlank;
 

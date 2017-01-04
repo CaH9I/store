@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.expertsoft.core.service.OrderService;
 import com.expertsoft.core.service.ShoppingCartService;
-import com.expertsoft.core.service.component.AddToCartForm;
-import com.expertsoft.core.service.component.UpdateCartForm;
+import com.expertsoft.web.form.AddToCartForm;
+import com.expertsoft.web.form.UpdateCartForm;
+import com.expertsoft.web.util.FormUtil;
 
 @Controller
 @RequestMapping("/cart")
@@ -53,7 +54,7 @@ public class CartController {
             model.addAttribute("updateCartForm", form);
             return "cart";
         }
-        cartService.updateCart(form);
+        cartService.updateCart(FormUtil.buildItemsMap(form));
         return checkout ? "redirect:/order" : "redirect:/cart";
     }
 
@@ -64,7 +65,7 @@ public class CartController {
             response.setStatus(SC_BAD_REQUEST);
             return "json/addToCartError";
         }
-        cartService.addToCart(form);
+        cartService.addToCart(form.getProductId(), form.getQuantity());
         model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
         return "json/addToCartSuccess";
     }
