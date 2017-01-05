@@ -15,12 +15,11 @@
     c:_0="${db.url}" c:_1="${db.user}" c:_2="${db.password}" p:driverClassName="${db.driver}"/>
 
   <initialize-database enabled="${db.insertSchema}">
-    <script location="classpath:sql/schema.sql"/>
-    <script location="classpath:sql/security-schema.sql"/>
+    <script location="classpath:sql/core-schema.sql"/>
   </initialize-database>
 
   <initialize-database enabled="${db.insertData}">
-    <script location="classpath:sql/data.sql"/>
+    <script location="classpath:sql/core-data.sql"/>
   </initialize-database>
 
 </beans:beans>

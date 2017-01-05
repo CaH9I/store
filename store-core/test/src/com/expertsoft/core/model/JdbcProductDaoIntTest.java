@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.expertsoft.core.model.entity.MobilePhone;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:config/context.xml")
+@ContextConfiguration(locations = "classpath:config/core-context.xml")
 public class JdbcProductDaoIntTest {
 
     private ProductDao productDao;

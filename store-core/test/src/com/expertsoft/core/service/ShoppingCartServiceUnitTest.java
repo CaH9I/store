@@ -52,7 +52,7 @@ public class ShoppingCartServiceUnitTest {
     }
 
     @Test
-    public void addToCartNewitem() {
+    public void addToCartNewItem() {
         when(shoppingCart.getItems()).thenReturn(items);
         cartService.addToCart(4L, 2);
 
