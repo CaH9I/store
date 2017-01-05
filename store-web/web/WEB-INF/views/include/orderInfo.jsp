@@ -18,6 +18,12 @@
       <div class="col-xs-4">Phone</div>
       <div class="col-xs-8">${order.phoneNumber}</div>
     </div>
+    <c:if test="${param.displayState}">
+      <div class="row form-group">
+        <div class="col-xs-4">State</div>
+        <div class="col-xs-8">${order.state}</div>
+      </div>
+    </c:if>
     <c:if test="${not empty order.additionalInfo}">
       <div class="row form-group">
         <div class="col-xs-12">${order.additionalInfo}</div>

@@ -41,7 +41,9 @@ CREATE TABLE store_order
     delivery_amount double precision NOT NULL,
     total double precision NOT NULL,
     additional_info character varying(255),
-    CONSTRAINT order_pkey PRIMARY KEY (id)
+    state character varying(50) NOT NULL,
+    CONSTRAINT order_pkey PRIMARY KEY (id),
+    CONSTRAINT store_order_state_check CHECK (state IN ('SUBMITTED', 'DELIVERED'))
 );
 
 CREATE TABLE commerce_item

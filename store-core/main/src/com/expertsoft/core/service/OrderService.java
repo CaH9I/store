@@ -1,5 +1,7 @@
 package com.expertsoft.core.service;
 
+import static com.expertsoft.core.util.OrderStates.DELIVERED;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +32,10 @@ public class OrderService {
 
     public long saveOrder(Order order) {
         return orderDao.save(order);
+    }
+
+    public void changeOrderToDelivered(long orderId) {
+        orderDao.updateStateById(orderId, DELIVERED);
     }
 
     public void populateOrder(Order order, String firstName, String lastName, String address, String phoneNumber, String additionalInfo) {

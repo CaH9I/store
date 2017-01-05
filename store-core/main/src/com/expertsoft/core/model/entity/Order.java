@@ -14,15 +14,17 @@ public class Order {
     private double subtotal;
     private double delivery;
     private double total;
+    private String state;
 
     public Order() {}
 
-    public Order(long id, String firstName, String lastName, String address, String phoneNumber, String additionalInfo, double subtotal, double delivery, double total) {
+    public Order(long id, String firstName, String lastName, String address, String phoneNumber, String state, String additionalInfo, double subtotal, double delivery, double total) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.state = state;
         this.additionalInfo = additionalInfo;
         this.subtotal = subtotal;
         this.delivery = delivery;
@@ -107,6 +109,14 @@ public class Order {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public int getNumberOfItems() {

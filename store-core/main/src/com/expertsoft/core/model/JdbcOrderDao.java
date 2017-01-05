@@ -1,5 +1,7 @@
 package com.expertsoft.core.model;
 
+import static com.expertsoft.core.util.OrderStates.SUBMITTED;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,12 +25,13 @@ import com.expertsoft.core.model.entity.Order;
 @Repository
 public class JdbcOrderDao implements OrderDao {
 
-    private static final String INSERT_ORDER = "INSERT INTO store_order(first_name,last_name,address,phone,subtotal,delivery_amount,total,additional_info) VALUES(?,?,?,?,?,?,?,?)";
+    private static final String INSERT_ORDER = "INSERT INTO store_order(first_name,last_name,address,phone,subtotal,delivery_amount,total,additional_info,state) VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String INSERT_COMMERCE_ITEM = "INSERT INTO commerce_item(order_id,product_id,price,quantity) VALUES(?,?,?,?)";
-    private static final String FIND_ALL_ORDERS = "SELECT o.id,o.first_name,o.last_name,o.address,o.phone,o.subtotal,o.delivery_amount,o.total,o.additional_info,c.product_id,c.price,c.quantity,m.model,m.display,m.length,m.width,m.color,m.camera FROM store_order o, commerce_item c, mobile_phone m WHERE c.order_id=o.id AND c.product_id=m.id";
-    private static final String FIND_ORDER_BY_ID = "SELECT o.id,o.first_name,o.last_name,o.address,o.phone,o.subtotal,o.delivery_amount,o.total,o.additional_info,c.product_id,c.price,c.quantity,m.model,m.display,m.length,m.width,m.color,m.camera FROM store_order o, commerce_item c, mobile_phone m WHERE c.order_id=o.id AND c.product_id=m.id AND o.id=?";
+    private static final String FIND_ALL_ORDERS = "SELECT o.id,o.first_name,o.last_name,o.address,o.phone,o.state,o.subtotal,o.delivery_amount,o.total,o.additional_info,c.product_id,c.price,c.quantity,m.model,m.display,m.length,m.width,m.color,m.camera FROM store_order o, commerce_item c, mobile_phone m WHERE c.order_id=o.id AND c.product_id=m.id";
+    private static final String FIND_ORDER_BY_ID = "SELECT o.id,o.first_name,o.last_name,o.address,o.phone,o.state,o.subtotal,o.delivery_amount,o.total,o.additional_info,c.product_id,c.price,c.quantity,m.model,m.display,m.length,m.width,m.color,m.camera FROM store_order o, commerce_item c, mobile_phone m WHERE c.order_id=o.id AND c.product_id=m.id AND o.id=?";
     private static final String DELETE_COMMERCE_ITEMS_BY_ORDER_ID = "DELETE FROM commerce_item WHERE order_id = ?";
     private static final String DELETE_ORDER_BY_ORDER_ID = "DELETE FROM store_order WHERE id = ?";
+    private static final String UPDATE_ORDER_STATE_BY_ID = "UPDATE store_order SET state = ? WHERE id = ?";
 
     private static class OrderRowCallbackHandler implements RowCallbackHandler {
 
@@ -61,6 +64,7 @@ public class JdbcOrderDao implements OrderDao {
                     rs.getString("last_name"),
                     rs.getString("address"),
                     rs.getString("phone"),
+                    rs.getString("state"),
                     rs.getString("additional_info"),
                     rs.getDouble("subtotal"),
                     rs.getDouble("delivery_amount"),
@@ -106,6 +110,7 @@ public class JdbcOrderDao implements OrderDao {
             statement.setDouble(6, order.getDelivery());
             statement.setDouble(7, order.getTotal());
             statement.setString(8, order.getAdditionalInfo());
+            statement.setString(9, SUBMITTED);
             return statement;
         }, keyHolder);
 
@@ -157,6 +162,12 @@ public class JdbcOrderDao implements OrderDao {
         }
 
         return orders.get(0);
+    }
+
+    @Override
+    @Transactional
+    public void updateStateById(long orderId, String state) {
+        jdbcTemplate.update(UPDATE_ORDER_STATE_BY_ID, state, orderId);
     }
 
 }

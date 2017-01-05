@@ -10,6 +10,8 @@ public interface OrderDao {
 
     List<Order> findAll();
 
+    void updateStateById(long orderId, String state);
+
     Order findById(long orderId);
 
     void deleteById(long orderId);
