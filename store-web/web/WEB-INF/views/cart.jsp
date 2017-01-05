@@ -14,7 +14,7 @@
       <div class="col-xs-6 no-padding margin-bottom-20">
         <a class="btn btn-default" href="${pageContext.request.contextPath}/product-list">&#8592; Back to product list</a>
       </div>
-      <c:if test="${not empty order.commerceItems}">
+      <c:if test="${not empty cartView.items}">
         <form:form method="post" modelAttribute="updateCartForm">
           <button type="submit" name="checkout" value="true" class="btn btn-success pull-right">Order</button>
           <table class="table table-bordered table-striped">
@@ -29,14 +29,14 @@
               </tr>
             </thead>
             <tbody>
-              <c:forEach var="ci" items="${order.commerceItems}">
-                <c:set var="phone" value="${ci.phone}"/>
-                <c:set var="quantity" value="${ci.quantity}"/>
+              <c:forEach var="entry" items="${cartView.items}">
+                <c:set var="phone" value="${entry.key}"/>
+                <c:set var="quantity" value="${entry.value}"/>
                 <tr>
                   <td><a href="${pageContext.request.contextPath}/product-detail/${phone.id}">${phone.model}</a></td>
                   <td>${phone.color}</td>
                   <td>${phone.display}</td>
-                  <td><app:price price="${ci.price * quantity}"/></td>
+                  <td><app:price price="${phone.price * quantity}"/></td>
                   <td>
                     <form:input path="items[${phone.id}].quantity" class="form-control" cssErrorClass="form-control error-input" maxlength="9"/>
                     <form:errors path="items[${phone.id}].quantity" cssClass="error-text"/>

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.expertsoft.core.service.OrderService;
 import com.expertsoft.core.service.ShoppingCartService;
 import com.expertsoft.web.form.AddToCartForm;
 import com.expertsoft.web.form.UpdateCartForm;
@@ -26,17 +25,15 @@ import com.expertsoft.web.util.FormUtil;
 public class CartController {
 
     private ShoppingCartService cartService;
-    private OrderService orderService;
 
     @Autowired
-    public CartController(ShoppingCartService cartService, OrderService orderService) {
+    public CartController(ShoppingCartService cartService) {
         this.cartService = cartService;
-        this.orderService = orderService;
     }
 
     @GetMapping
     public String cart(Model model) {
-        model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
+        model.addAttribute("cartView", cartService.createShoppingCartView());
         model.addAttribute("updateCartForm", new UpdateCartForm(cartService.getShoppingCart()));
         return "cart";
     }
@@ -50,7 +47,7 @@ public class CartController {
     @PostMapping
     public String updateCart(@ModelAttribute @Valid UpdateCartForm form, Errors errors, @RequestParam(required = false) boolean checkout, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
+            model.addAttribute("cartView", cartService.createShoppingCartView());
             model.addAttribute("updateCartForm", form);
             return "cart";
         }
@@ -66,7 +63,7 @@ public class CartController {
             return "json/addToCartError";
         }
         cartService.addToCart(form.getProductId(), form.getQuantity());
-        model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
+        model.addAttribute("cartView", cartService.createShoppingCartView());
         return "json/addToCartSuccess";
     }
 }

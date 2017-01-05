@@ -31,7 +31,7 @@ public class OrderController {
 
     @GetMapping
     public String order(Model model) {
-        Order order = orderService.createOrder(cartService.getShoppingCart(), true);
+        Order order = orderService.createOrder(cartService.getShoppingCart());
         model.addAttribute("order", order);
         model.addAttribute("orderForm", new OrderForm());
         return "order";
@@ -40,11 +40,11 @@ public class OrderController {
     @PostMapping
     public String placeOrder(@ModelAttribute @Valid OrderForm form, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart(), true));
+            model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
             model.addAttribute("orderForm", form);
             return "order";
         }
-        Order order = orderService.createOrder(cartService.getShoppingCart(), true);
+        Order order = orderService.createOrder(cartService.getShoppingCart());
         orderService.populateOrder(order, form.getFirstName(), form.getLastName(), form.getAddress(), form.getPhoneNumber(), form.getAdditionalInfo());
         long orderId = orderService.saveOrder(order);
         cartService.clearCart();

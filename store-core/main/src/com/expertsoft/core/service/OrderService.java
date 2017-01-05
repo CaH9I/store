@@ -53,10 +53,6 @@ public class OrderService {
     }
 
     public Order createOrder(ShoppingCart cart) {
-        return createOrder(cart, false);
-    }
-
-    public Order createOrder(ShoppingCart cart, boolean addDelivery) {
         Order order = new Order();
         List<MobilePhone> phones = productDao.findByIds(cart.getItems().keySet());
         double subtotal = 0;
@@ -72,9 +68,7 @@ public class OrderService {
         }
 
         order.setSubtotal(subtotal);
-        if (addDelivery) {
-            order.setDelivery(deliveryDao.findFixedDeliveryAmount());
-        }
+        order.setDelivery(deliveryDao.findFixedDeliveryAmount());
         order.setTotal(subtotal + order.getDelivery());
 
         return order;

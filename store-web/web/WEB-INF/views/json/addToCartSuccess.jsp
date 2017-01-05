@@ -4,10 +4,10 @@
 
 <json:object>
   <json:property name="itemsText">
-    ${order.numberOfItems}
-    ${order.numberOfItems eq 1 ? 'item' : 'items'}
+    ${cartView.numberOfItems}
+    ${cartView.numberOfItems eq 1 ? 'item' : 'items'}
   </json:property>
   <json:property name="priceText">
-    <app:price price="${order.subtotal}"/>
+    <app:price price="${cartView.subtotal}"/>
   </json:property>
 </json:object>

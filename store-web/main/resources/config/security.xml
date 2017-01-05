@@ -17,7 +17,7 @@
     <form-login/>
     <logout logout-success-url="/"/>
   </http>
-  
+
   <authentication-manager>
     <authentication-provider>
       <jdbc-user-service data-source-ref="dataSource"/>
