@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class JdbcDeliveryDao implements DeliveryDao {
 
-    private static final String GET_DEFAULT_DELIVERY_AMOUNT = "SELECT amount FROM fixed_delivery_price LIMIT 1";
+    private static final String GET_DEFAULT_DELIVERY_AMOUNT = "SELECT amount FROM fixed_delivery_price";
 
     private JdbcTemplate jdbcTemplate;
 
