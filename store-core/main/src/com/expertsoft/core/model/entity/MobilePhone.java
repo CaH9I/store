@@ -12,6 +12,11 @@ public class MobilePhone {
 
     public MobilePhone() {}
 
+    public MobilePhone(long id, double price) {
+        this.id = id;
+        this.price = price;
+    }
+
     public MobilePhone(long id, String model, String display, String length, String width, String color, double price, String camera) {
         this.id = id;
         this.model = model;

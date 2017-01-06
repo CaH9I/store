@@ -54,7 +54,7 @@ public class OrderService {
         orderDao.deleteById(id);
     }
 
-    public Order getById(long id) {
+    public Order getOrderById(long id) {
         return orderDao.findById(id);
     }
 

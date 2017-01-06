@@ -43,7 +43,6 @@ public class ShoppingCartService {
 
     public void removeFromCart(long productId) {
         shoppingCart.getItems().entrySet().removeIf(e -> e.getKey().longValue() == productId);
-        return;
     }
 
     public void updateCart(Map<Long, Integer> items) {

@@ -23,7 +23,7 @@ import com.expertsoft.core.util.AnyEmptyMap;
 public class ShoppingCartServiceUnitTest {
 
     @InjectMocks
-    private ShoppingCartService cartService = new ShoppingCartService();
+    private ShoppingCartService cartService;
 
     @Mock
     private ShoppingCart shoppingCart;
