@@ -20,7 +20,9 @@ CREATE TABLE store_order
     subtotal double precision NOT NULL,
     delivery_amount double precision NOT NULL,
     total double precision NOT NULL,
-    additional_info character varying(255)
+    additional_info character varying(255),
+    state character varying(50) NOT NULL,
+    CONSTRAINT store_order_state_check CHECK (state IN ('SUBMITTED', 'DELIVERED'))
 );
 
 CREATE TABLE commerce_item
