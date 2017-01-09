@@ -18,10 +18,19 @@ public class ShoppingCartService {
     private ShoppingCart shoppingCart;
     private ProductDao productDao;
 
-    @Autowired
-    public void setShoppingCart(ShoppingCart shoppingCart, ProductDao productDao) {
-        this.shoppingCart = shoppingCart;
+    public ShoppingCartService(ProductDao productDao, ShoppingCart shoppingCart) {
         this.productDao = productDao;
+        this.shoppingCart = shoppingCart;
+    }
+
+    @Autowired
+    public ShoppingCartService(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    @Autowired
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
     public ShoppingCart getShoppingCart() {

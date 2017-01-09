@@ -7,7 +7,9 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -16,7 +18,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.expertsoft.core.model.ProductDao;
+import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.service.component.ShoppingCart;
+import com.expertsoft.core.service.component.ShoppingCartView;
 import com.expertsoft.core.util.AnyEmptyMap;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,6 +32,9 @@ public class ShoppingCartServiceUnitTest {
 
     @Mock
     private ShoppingCart shoppingCart;
+
+    @Mock
+    private ProductDao productDao;
 
     private Map<Long, Integer> items = new HashMap<>();
     {
@@ -82,6 +90,29 @@ public class ShoppingCartServiceUnitTest {
         assertThat(items, hasEntry(1L, 4));
         assertThat(items, hasEntry(2L, 5));
         assertThat(items, hasEntry(3L, 6));
+    }
+
+    @Test
+    public void createShoppingCartView() {
+        List<MobilePhone> phones = new ArrayList<>();
+        MobilePhone phone1 = new MobilePhone(1L, 100);
+        MobilePhone phone2 = new MobilePhone(2L, 200);
+        MobilePhone phone3 = new MobilePhone(3L, 300);
+        phones.add(phone1);
+        phones.add(phone2);
+        phones.add(phone3);
+
+        when(shoppingCart.getItems()).thenReturn(items);
+        when(productDao.findByIds(items.keySet())).thenReturn(phones);
+
+        ShoppingCartView cartView = cartService.createShoppingCartView();
+
+        assertEquals(6, cartView.getNumberOfItems());
+        assertEquals(1400, cartView.getSubtotal(), 0);
+        assertEquals(3, cartView.getItems().size());
+        assertThat(cartView.getItems(), hasEntry(phone1, 1));
+        assertThat(cartView.getItems(), hasEntry(phone2, 2));
+        assertThat(cartView.getItems(), hasEntry(phone3, 3));
     }
 
 }

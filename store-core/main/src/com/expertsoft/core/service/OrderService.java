@@ -3,7 +3,6 @@ package com.expertsoft.core.service;
 import static com.expertsoft.core.util.OrderStates.DELIVERED;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,11 +62,8 @@ public class OrderService {
         List<MobilePhone> phones = productDao.findByIds(cart.getItems().keySet());
         double subtotal = 0;
 
-        for (Map.Entry<Long, Integer> entry : cart.getItems().entrySet()) {
-            MobilePhone phone = phones.stream()
-                    .filter(ph -> ph.getId() == entry.getKey().longValue())
-                    .findFirst().get();
-            int quantity = entry.getValue();
+        for (MobilePhone phone : phones) {
+            Integer quantity = cart.getItems().get(phone.getId());
             CommerceItem ci = new CommerceItem(phone, quantity, phone.getPrice());
             order.getCommerceItems().add(ci);
             subtotal += ci.getPrice() * ci.getQuantity();

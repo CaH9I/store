@@ -118,8 +118,4 @@ public class Order {
     public void setState(String state) {
         this.state = state;
     }
-
-    public int getNumberOfItems() {
-        return commerceItems.stream().mapToInt(ci -> ci.getQuantity()).sum();
-    }
 }
