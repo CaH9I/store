@@ -23,6 +23,7 @@ import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 
 @Repository
+@Transactional
 public class JdbcOrderDao implements OrderDao {
 
     private static final String INSERT_ORDER = "INSERT INTO store_order(first_name,last_name,address,phone,subtotal,delivery_amount,total,additional_info,state) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -90,7 +91,6 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    @Transactional
     public long save(Order order) {
         long orderId = insertOrder(order);
         insertCommerceItems(orderId, order.getCommerceItems());
@@ -144,7 +144,6 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    @Transactional
     public void deleteById(long orderId) {
         jdbcTemplate.update(DELETE_COMMERCE_ITEMS_BY_ORDER_ID, orderId);
         jdbcTemplate.update(DELETE_ORDER_BY_ORDER_ID, orderId);
@@ -165,7 +164,6 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    @Transactional
     public void updateStateById(long orderId, String state) {
         jdbcTemplate.update(UPDATE_ORDER_STATE_BY_ID, state, orderId);
     }
