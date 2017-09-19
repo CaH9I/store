@@ -39,27 +39,19 @@ public class ShoppingCartService {
 
     public void addToCart(long productId, int quantity) {
         Map<Long, Integer> items = shoppingCart.getItems();
-        // check if the item is already in cart
-        for (Map.Entry<Long, Integer> entry : items.entrySet()) {
-            if (entry.getKey().longValue() == productId) {
-                entry.setValue(entry.getValue() + quantity);
-                return;
-            }
+        Integer oldQuantity = items.putIfAbsent(productId, quantity);
+        if (oldQuantity != null) {
+            items.put(productId, oldQuantity + quantity);
         }
-        // cart doesn't contain this item
-        items.put(productId, quantity);
     }
 
     public void removeFromCart(long productId) {
-        shoppingCart.getItems().entrySet().removeIf(e -> e.getKey().longValue() == productId);
+        shoppingCart.getItems().entrySet().removeIf(e -> e.getKey() == productId);
     }
 
     public void updateCart(Map<Long, Integer> items) {
         Map<Long, Integer> cartItems = shoppingCart.getItems();
-
-        items.entrySet().forEach(entry -> {
-            cartItems.replace(entry.getKey(), entry.getValue());
-        });
+        items.forEach(cartItems::replace);
     }
 
     public void clearCart() {
