@@ -18,6 +18,7 @@
   <import resource="security.xml"/>
 
   <context:component-scan base-package="com.expertsoft.web.controller"/>
+  <context:property-placeholder location="classpath:config/application.properties"/>
 
   <mvc:default-servlet-handler/>
   <mvc:annotation-driven validator="globalValidator"/>
