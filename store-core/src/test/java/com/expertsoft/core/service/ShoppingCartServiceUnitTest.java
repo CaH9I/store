@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,7 +23,6 @@ import com.expertsoft.core.model.ProductDao;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.service.component.ShoppingCart;
 import com.expertsoft.core.service.component.ShoppingCartView;
-import com.expertsoft.core.util.AnyEmptyMap;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ShoppingCartServiceUnitTest {
@@ -36,8 +36,11 @@ public class ShoppingCartServiceUnitTest {
     @Mock
     private ProductDao productDao;
 
-    private Map<Long, Integer> items = new HashMap<>();
-    {
+    private Map<Long, Integer> items;
+
+    @Before
+    public void init() {
+        items = new HashMap<>();
         items.put(1L, 1);
         items.put(2L, 2);
         items.put(3L, 3);
@@ -46,7 +49,7 @@ public class ShoppingCartServiceUnitTest {
     @Test
     public void clearCart() {
         cartService.clearCart();
-        verify(shoppingCart).setItems(argThat(new AnyEmptyMap<>()));
+        verify(shoppingCart).setItems(argThat(Map::isEmpty));
     }
 
     @Test
