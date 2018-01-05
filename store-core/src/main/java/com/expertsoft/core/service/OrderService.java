@@ -4,29 +4,30 @@ import static com.expertsoft.core.util.OrderStates.DELIVERED;
 
 import java.util.List;
 
+import com.expertsoft.core.model.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.expertsoft.core.model.DeliveryDao;
 import com.expertsoft.core.model.OrderDao;
-import com.expertsoft.core.model.ProductDao;
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.component.ShoppingCart;
 
 @Service
+// TODO @Transactional
 public class OrderService {
 
-    private OrderDao orderDao;
-    private DeliveryDao deliveryDao;
-    private ProductDao productDao;
+    private final OrderDao orderDao;
+    private final DeliveryDao deliveryDao;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public OrderService(OrderDao orderDao, DeliveryDao deliveryDao, ProductDao productDao) {
+    public OrderService(OrderDao orderDao, DeliveryDao deliveryDao, ProductRepository productRepository) {
         this.orderDao = orderDao;
         this.deliveryDao = deliveryDao;
-        this.productDao = productDao;
+        this.productRepository = productRepository;
     }
 
     public long saveOrder(Order order) {
@@ -59,7 +60,7 @@ public class OrderService {
 
     public Order createOrder(ShoppingCart cart) {
         Order order = new Order();
-        List<MobilePhone> phones = productDao.findByIds(cart.getItems().keySet());
+        List<MobilePhone> phones = productRepository.findByIdIn(cart.getItems().keySet());
         double subtotal = 0;
 
         for (MobilePhone phone : phones) {

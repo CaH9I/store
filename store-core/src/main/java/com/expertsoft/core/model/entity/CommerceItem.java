@@ -1,15 +1,27 @@
 package com.expertsoft.core.model.entity;
 
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+// TODO
+@Entity
+@Table(name = "commerce_item")
 public class CommerceItem {
+
+    @Id
+    @ManyToOne // TODO lazy
+    @JoinColumn(name = "product_id")
     private MobilePhone phone;
-    private double price;
-    private int quantity;
+
+    private Double price;
+    private Integer quantity;
 
     public CommerceItem() {}
 
-    public CommerceItem(MobilePhone phone, int quantity, double price) {
+    public CommerceItem(MobilePhone phone, Integer quantity, Double price) {
         this.phone = phone;
         this.quantity = quantity;
         this.price = price;
@@ -23,43 +35,20 @@ public class CommerceItem {
         this.phone = phone;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-        long temp = Double.doubleToLongBits(price);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + quantity;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if ((obj != null) && (getClass() == obj.getClass())) {
-            CommerceItem other = (CommerceItem) obj;
-            return Objects.equals(other.getPhone(), getPhone())
-                && Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price)
-                && quantity == other.quantity;
-        } else {
-            return false;
-        }
     }
 
 }

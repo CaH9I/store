@@ -1,23 +1,32 @@
 package com.expertsoft.core.model.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Objects;
+
+@Entity
+@Table(name = "mobile_phone")
 public class MobilePhone {
-    private long id;
+
+    @Id
+    private Long id;
     private String model;
     private String display;
     private String length;
     private String width;
     private String color;
-    private double price;
+    private Double price;
     private String camera;
 
     public MobilePhone() {}
 
-    public MobilePhone(long id, double price) {
+    public MobilePhone(Long id, Double price) {
         this.id = id;
         this.price = price;
     }
 
-    public MobilePhone(long id, String model, String display, String length, String width, String color, double price, String camera) {
+    public MobilePhone(Long id, String model, String display, String length, String width, String color, Double price, String camera) {
         this.id = id;
         this.model = model;
         this.display = display;
@@ -28,11 +37,11 @@ public class MobilePhone {
         this.camera = camera;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,11 +85,11 @@ public class MobilePhone {
         this.color = color;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -94,7 +103,7 @@ public class MobilePhone {
 
     @Override
     public int hashCode() {
-        return (int) id;
+        return Objects.hash(id);
     }
 
     @Override
@@ -103,7 +112,20 @@ public class MobilePhone {
             return false;
         }
         MobilePhone other = (MobilePhone) obj;
-        return id == other.id;
+        return Objects.equals(id, other.id);
     }
 
+    @Override
+    public String toString() {
+        return "MobilePhone{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", display='" + display + '\'' +
+                ", length='" + length + '\'' +
+                ", width='" + width + '\'' +
+                ", color='" + color + '\'' +
+                ", price=" + price +
+                ", camera='" + camera + '\'' +
+                '}';
+    }
 }

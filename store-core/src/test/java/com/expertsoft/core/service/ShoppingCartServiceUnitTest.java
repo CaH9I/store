@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.expertsoft.core.model.ProductRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.expertsoft.core.model.ProductDao;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.service.component.ShoppingCart;
 import com.expertsoft.core.service.component.ShoppingCartView;
@@ -34,7 +34,7 @@ public class ShoppingCartServiceUnitTest {
     private ShoppingCart shoppingCart;
 
     @Mock
-    private ProductDao productDao;
+    private ProductRepository productRepository;
 
     private Map<Long, Integer> items;
 
@@ -98,15 +98,15 @@ public class ShoppingCartServiceUnitTest {
     @Test
     public void createShoppingCartView() {
         List<MobilePhone> phones = new ArrayList<>();
-        MobilePhone phone1 = new MobilePhone(1L, 100);
-        MobilePhone phone2 = new MobilePhone(2L, 200);
-        MobilePhone phone3 = new MobilePhone(3L, 300);
+        MobilePhone phone1 = new MobilePhone(1L, 100.0);
+        MobilePhone phone2 = new MobilePhone(2L, 200.0);
+        MobilePhone phone3 = new MobilePhone(3L, 300.0);
         phones.add(phone1);
         phones.add(phone2);
         phones.add(phone3);
 
         when(shoppingCart.getItems()).thenReturn(items);
-        when(productDao.findByIds(items.keySet())).thenReturn(phones);
+        when(productRepository.findByIdIn(items.keySet())).thenReturn(phones);
 
         ShoppingCartView cartView = cartService.createShoppingCartView();
 

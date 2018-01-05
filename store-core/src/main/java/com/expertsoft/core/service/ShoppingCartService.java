@@ -4,28 +4,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.expertsoft.core.model.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.expertsoft.core.model.ProductDao;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.service.component.ShoppingCart;
 import com.expertsoft.core.service.component.ShoppingCartView;
 
 @Service
+// TODO @Transactional
 public class ShoppingCartService {
 
     private ShoppingCart shoppingCart;
-    private ProductDao productDao;
+    private final ProductRepository productRepository;
 
-    public ShoppingCartService(ProductDao productDao, ShoppingCart shoppingCart) {
-        this.productDao = productDao;
+    public ShoppingCartService(ProductRepository productRepository, ShoppingCart shoppingCart) {
+        this.productRepository = productRepository;
         this.shoppingCart = shoppingCart;
     }
 
     @Autowired
-    public ShoppingCartService(ProductDao productDao) {
-        this.productDao = productDao;
+    public ShoppingCartService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Autowired
@@ -60,7 +61,7 @@ public class ShoppingCartService {
 
     public ShoppingCartView createShoppingCartView() {
         Map<Long, Integer> cartItems = shoppingCart.getItems();
-        List<MobilePhone> phones = productDao.findByIds(cartItems.keySet());
+        List<MobilePhone> phones = productRepository.findByIdIn(cartItems.keySet());
 
         Map<MobilePhone, Integer> items = new HashMap<>();
         int numberOfItems = 0;
