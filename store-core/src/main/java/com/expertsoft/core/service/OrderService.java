@@ -5,37 +5,40 @@ import static com.expertsoft.core.util.OrderStates.DELIVERED;
 import java.util.List;
 
 import com.expertsoft.core.model.ProductRepository;
+import com.expertsoft.core.model.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.expertsoft.core.model.DeliveryDao;
-import com.expertsoft.core.model.OrderDao;
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.component.ShoppingCart;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-// TODO @Transactional
 public class OrderService {
 
-    private final OrderDao orderDao;
     private final DeliveryDao deliveryDao;
     private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderService(OrderDao orderDao, DeliveryDao deliveryDao, ProductRepository productRepository) {
-        this.orderDao = orderDao;
+    public OrderService(DeliveryDao deliveryDao, ProductRepository productRepository, OrderRepository orderRepository) {
         this.deliveryDao = deliveryDao;
         this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
     }
 
-    public long saveOrder(Order order) {
-        return orderDao.save(order);
+    @Transactional
+    public Long saveOrder(Order order) {
+        return orderRepository.save(order).getId();
     }
 
-    public void changeOrderToDelivered(long orderId) {
-        orderDao.updateStateById(orderId, DELIVERED);
+    @Transactional
+    public void changeOrderToDelivered(Long orderId) {
+        Order order = orderRepository.findOne(orderId);
+        order.setState(DELIVERED);
     }
 
     public void populateOrder(Order order, String firstName, String lastName, String address, String phoneNumber, String additionalInfo) {
@@ -46,16 +49,19 @@ public class OrderService {
         order.setAdditionalInfo(additionalInfo);
     }
 
+    @Transactional(readOnly = true)
     public List<Order> getAllOrders() {
-        return orderDao.findAll();
+        return orderRepository.findAll();
     }
 
-    public void deleteOrderById(long id) {
-        orderDao.deleteById(id);
+    @Transactional
+    public void deleteOrderById(Long id) {
+        orderRepository.delete(id);
     }
 
-    public Order getOrderById(long id) {
-        return orderDao.findById(id);
+    @Transactional(readOnly = true)
+    public Order getOrderById(Long id) {
+        return orderRepository.findOneWithItemsAndProducts(id);
     }
 
     public Order createOrder(ShoppingCart cart) {
@@ -66,6 +72,7 @@ public class OrderService {
         for (MobilePhone phone : phones) {
             Integer quantity = cart.getItems().get(phone.getId());
             CommerceItem ci = new CommerceItem(phone, quantity, phone.getPrice());
+            ci.setOrder(order); // TODO there is possible a better solution
             order.getCommerceItems().add(ci);
             subtotal += ci.getPrice() * ci.getQuantity();
         }

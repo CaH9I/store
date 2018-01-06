@@ -1,18 +1,25 @@
 package com.expertsoft.core.model.entity;
 
+import static javax.persistence.FetchType.LAZY;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Objects;
 
-// TODO
 @Entity
 @Table(name = "commerce_item")
-public class CommerceItem {
+public class CommerceItem implements Serializable {
 
     @Id
-    @ManyToOne // TODO lazy
+    @ManyToOne(fetch = LAZY)
+    private Order order;
+
+    @Id
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "product_id")
     private MobilePhone phone;
 
@@ -25,6 +32,14 @@ public class CommerceItem {
         this.phone = phone;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(final Order order) {
+        this.order = order;
     }
 
     public MobilePhone getPhone() {
@@ -51,4 +66,17 @@ public class CommerceItem {
         this.quantity = quantity;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final CommerceItem ci = (CommerceItem) o;
+        return Objects.equals(order, ci.order) &&
+                Objects.equals(phone, ci.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, phone);
+    }
 }

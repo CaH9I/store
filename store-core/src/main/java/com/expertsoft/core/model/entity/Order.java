@@ -1,13 +1,14 @@
 package com.expertsoft.core.model.entity;
 
-import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.SEQUENCE;
+
+import static com.expertsoft.core.util.OrderStates.SUBMITTED;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -15,18 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-// TODO
 @Entity
 @Table(name = "store_order")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_seq")
+    @GeneratedValue(strategy = SEQUENCE, generator = "order_id_seq")
     @SequenceGenerator(name = "order_id_seq", sequenceName = "order_id_seq")
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TODO lazy
-    @JoinColumn(name = "order_id")
+    @OneToMany(mappedBy = "order", cascade = ALL)
     private List<CommerceItem> commerceItems = new ArrayList<>();
 
     @Column(name = "first_name")
@@ -47,7 +46,7 @@ public class Order {
     private String address;
     private Double subtotal;
     private Double total;
-    private String state;
+    private String state = SUBMITTED;
 
     public Order() {}
 

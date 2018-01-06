@@ -7,7 +7,6 @@
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-  <import resource="core-context.xml"/>
   <import resource="security.xml"/>
 
   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" p:basename="messages"/>

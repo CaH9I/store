@@ -13,7 +13,6 @@ import com.expertsoft.core.service.component.ShoppingCart;
 import com.expertsoft.core.service.component.ShoppingCartView;
 
 @Service
-// TODO @Transactional
 public class ShoppingCartService {
 
     private ShoppingCart shoppingCart;
