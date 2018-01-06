@@ -2,37 +2,42 @@ package com.expertsoft.core.model.entity;
 
 import static javax.persistence.CascadeType.ALL;
 
-import static com.expertsoft.core.util.OrderStates.SUBMITTED;
+import static com.expertsoft.core.model.entity.Order.OrderState.SUBMITTED;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import com.expertsoft.core.model.entity.listener.OrderListener;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "store_order")
 @EntityListeners(OrderListener.class)
 public class Order {
 
-    // TODO
     public enum OrderState {
         SUBMITTED, DELIVERED
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_seq")
-    @SequenceGenerator(name="order_id_seq", sequenceName = "store_order_id_seq")
+    @GeneratedValue(generator = "order_id_seq")
+    @GenericGenerator(
+            name = "order_id_seq",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = @Parameter(name = "sequence_name", value = "store_order_id_seq")
+    )
     private Long id;
 
     @OneToMany(mappedBy = "order", cascade = ALL)
@@ -62,12 +67,13 @@ public class Order {
     @Basic(optional = false)
     private Double total;
 
+    @Enumerated(EnumType.STRING)
     @Basic(optional = false)
-    private String state = SUBMITTED;
+    private OrderState state = SUBMITTED;
 
     public Order() {}
 
-    public Order(Long id, String firstName, String lastName, String address, String phoneNumber, String state, String additionalInfo, Double subtotal, Double delivery, Double total) {
+    public Order(Long id, String firstName, String lastName, String address, String phoneNumber, OrderState state, String additionalInfo, Double subtotal, Double delivery, Double total) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -160,11 +166,11 @@ public class Order {
         this.total = total;
     }
 
-    public String getState() {
+    public OrderState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(OrderState state) {
         this.state = state;
     }
 

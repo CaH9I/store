@@ -1,6 +1,6 @@
 package com.expertsoft.core.service;
 
-import static com.expertsoft.core.util.OrderStates.DELIVERED;
+import static com.expertsoft.core.model.entity.Order.OrderState.DELIVERED;
 
 import java.util.List;
 
