@@ -1,22 +1,35 @@
 package com.expertsoft.core.model.entity;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mobile_phone")
 public class MobilePhone {
 
     @Id
     private Long id;
+
+    @Basic(optional = false)
     private String model;
+
+    @Basic(optional = false)
     private String display;
+
+    @Basic(optional = false)
     private String length;
+
+    @Basic(optional = false)
     private String width;
+
+    @Basic(optional = false)
     private String color;
+
+    @Basic(optional = false)
     private Double price;
+
+    @Basic(optional = false)
     private String camera;
 
     public MobilePhone() {}

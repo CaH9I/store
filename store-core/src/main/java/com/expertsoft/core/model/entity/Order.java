@@ -1,13 +1,15 @@
 package com.expertsoft.core.model.entity;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.SEQUENCE;
 
 import static com.expertsoft.core.util.OrderStates.SUBMITTED;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -16,36 +18,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.expertsoft.core.model.entity.listener.OrderListener;
+
 @Entity
 @Table(name = "store_order")
+@EntityListeners(OrderListener.class)
 public class Order {
 
+    // TODO
+    public enum OrderState {
+        SUBMITTED, DELIVERED
+    }
+
     @Id
-    @GeneratedValue(strategy = SEQUENCE, generator = "order_id_seq")
-    @SequenceGenerator(name = "order_id_seq", sequenceName = "order_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_seq")
+    @SequenceGenerator(name="order_id_seq", sequenceName = "store_order_id_seq")
     private Long id;
 
     @OneToMany(mappedBy = "order", cascade = ALL)
     private List<CommerceItem> commerceItems = new ArrayList<>();
 
-    @Column(name = "first_name")
+    @Basic(optional = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Basic(optional = false)
     private String lastName;
 
-    @Column(name = "phone")
+    @Basic(optional = false)
     private String phoneNumber;
 
-    @Column(name = "additional_info")
+    @Column(length = 2047)
     private String additionalInfo;
 
-    @Column(name = "delivery_amount")
+    @Basic(optional = false)
     private Double delivery;
 
+    @Basic(optional = false)
     private String address;
+
+    @Basic(optional = false)
     private Double subtotal;
+
+    @Basic(optional = false)
     private Double total;
+
+    @Basic(optional = false)
     private String state = SUBMITTED;
 
     public Order() {}

@@ -7,9 +7,9 @@ import java.util.List;
 import com.expertsoft.core.model.ProductRepository;
 import com.expertsoft.core.model.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.expertsoft.core.model.DeliveryDao;
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
@@ -19,13 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class OrderService {
 
-    private final DeliveryDao deliveryDao;
+    @Value("${delivery.amount}")
+    private double deliveryAmount;
+
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderService(DeliveryDao deliveryDao, ProductRepository productRepository, OrderRepository orderRepository) {
-        this.deliveryDao = deliveryDao;
+    public OrderService(ProductRepository productRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
     }
@@ -72,13 +73,12 @@ public class OrderService {
         for (MobilePhone phone : phones) {
             Integer quantity = cart.getItems().get(phone.getId());
             CommerceItem ci = new CommerceItem(phone, quantity, phone.getPrice());
-            ci.setOrder(order); // TODO there is possible a better solution
             order.getCommerceItems().add(ci);
             subtotal += ci.getPrice() * ci.getQuantity();
         }
 
         order.setSubtotal(subtotal);
-        order.setDelivery(deliveryDao.findFixedDeliveryAmount());
+        order.setDelivery(deliveryAmount);
         order.setTotal(subtotal + order.getDelivery());
 
         return order;

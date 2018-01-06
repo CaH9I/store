@@ -2,16 +2,14 @@ package com.expertsoft.core.model.entity;
 
 import static javax.persistence.FetchType.LAZY;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "commerce_item")
 public class CommerceItem implements Serializable {
 
     @Id
@@ -20,10 +18,12 @@ public class CommerceItem implements Serializable {
 
     @Id
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "product_id")
     private MobilePhone phone;
 
+    @Basic(optional = false)
     private Double price;
+
+    @Basic(optional = false)
     private Integer quantity;
 
     public CommerceItem() {}

@@ -6,6 +6,8 @@ spring:
   jpa:
     show-sql: true
     open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
   mvc:
     view:
       prefix: /WEB-INF/views/
