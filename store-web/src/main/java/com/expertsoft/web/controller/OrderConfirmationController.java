@@ -22,7 +22,7 @@ public class OrderConfirmationController {
 
     @GetMapping
     public String confirmOrder(@PathVariable long id, Model model) {
-        model.addAttribute("order", orderService.getOrderById(id));
+        model.addAttribute("order", orderService.getOrderByIdWithItemsAndProducts(id));
         return "orderConfirm";
     }
 }

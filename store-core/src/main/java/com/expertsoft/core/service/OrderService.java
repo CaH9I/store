@@ -61,7 +61,7 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public Order getOrderById(Long id) {
+    public Order getOrderByIdWithItemsAndProducts(Long id) {
         return orderRepository.findOneWithItemsAndProducts(id);
     }
 

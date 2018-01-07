@@ -15,9 +15,7 @@ public class UpdateCartForm {
     public UpdateCartForm() {}
 
     public UpdateCartForm(ShoppingCart cart) {
-        cart.getItems().entrySet().forEach(entry -> {
-            items.put(entry.getKey().toString(), new UpdateCartItem(entry.getValue()));
-        });
+        cart.getItems().forEach((key, value) -> items.put(key.toString(), new UpdateCartItem(value)));
     }
 
     public Map<String, UpdateCartItem> getItems() {
