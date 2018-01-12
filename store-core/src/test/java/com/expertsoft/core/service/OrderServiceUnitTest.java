@@ -112,9 +112,9 @@ public class OrderServiceUnitTest {
         cartItems.put(3L, 3);
 
         List<MobilePhone> phones = new ArrayList<>();
-        MobilePhone phone1 = new MobilePhone(1L, 100.0);
-        MobilePhone phone2 = new MobilePhone(2L, 200.0);
-        MobilePhone phone3 = new MobilePhone(3L, 300.0);
+        MobilePhone phone1 = new MobilePhone(1L, "LG", 100.0);
+        MobilePhone phone2 = new MobilePhone(2L, "Apple iPhone 5S", 200.0);
+        MobilePhone phone3 = new MobilePhone(3L, "Apple iPhone SE", 300.0);
         phones.add(phone1);
         phones.add(phone2);
         phones.add(phone3);

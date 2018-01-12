@@ -1,5 +1,7 @@
 package com.expertsoft.core.model.entity;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ public class MobilePhone {
     @Id
     private Long id;
 
-    @Basic(optional = false)
+    @NaturalId
     private String model;
 
     @Basic(optional = false)
@@ -34,8 +36,9 @@ public class MobilePhone {
 
     public MobilePhone() {}
 
-    public MobilePhone(Long id, Double price) {
+    public MobilePhone(Long id, String model, Double price) {
         this.id = id;
+        this.model = model;
         this.price = price;
     }
 
@@ -52,10 +55,6 @@ public class MobilePhone {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getModel() {
@@ -116,7 +115,7 @@ public class MobilePhone {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(model);
     }
 
     @Override
@@ -125,7 +124,7 @@ public class MobilePhone {
             return false;
         }
         MobilePhone other = (MobilePhone) obj;
-        return Objects.equals(id, other.id);
+        return Objects.equals(model, other.model);
     }
 
     @Override

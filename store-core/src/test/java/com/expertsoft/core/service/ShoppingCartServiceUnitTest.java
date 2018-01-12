@@ -104,8 +104,8 @@ public class ShoppingCartServiceUnitTest {
     public void createShoppingCartView() {
         // given
         List<MobilePhone> phones = new ArrayList<>();
-        MobilePhone phone1 = new MobilePhone(1L, 100.0);
-        MobilePhone phone2 = new MobilePhone(2L, 200.0);
+        MobilePhone phone1 = new MobilePhone(1L, "LG", 100.0);
+        MobilePhone phone2 = new MobilePhone(2L, "Apple", 200.0);
         phones.add(phone1);
         phones.add(phone2);
 
