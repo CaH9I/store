@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.expertsoft.core.model.entity.listener.OrderListener;
 import org.hibernate.annotations.GenericGenerator;
@@ -70,21 +69,6 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     private OrderState state = SUBMITTED;
-
-    public Order() {}
-
-    public Order(Long id, String firstName, String lastName, String address, String phoneNumber, OrderState state, String additionalInfo, Double subtotal, Double delivery, Double total) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.state = state;
-        this.additionalInfo = additionalInfo;
-        this.subtotal = subtotal;
-        this.delivery = delivery;
-        this.total = total;
-    }
 
     public Long getId() {
         return id;
