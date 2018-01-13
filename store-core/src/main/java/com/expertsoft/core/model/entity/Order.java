@@ -7,7 +7,6 @@ import static com.expertsoft.core.model.entity.Order.OrderState.SUBMITTED;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -16,14 +15,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import com.expertsoft.core.model.entity.listener.OrderListener;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "store_order")
-@EntityListeners(OrderListener.class)
 public class Order {
 
     public enum OrderState {
@@ -78,8 +76,9 @@ public class Order {
         return commerceItems;
     }
 
-    public void setCommerceItems(List<CommerceItem> commerceItems) {
-        this.commerceItems = commerceItems;
+    public void addCommerceItem(CommerceItem commerceItem) {
+        commerceItems.add(commerceItem);
+        commerceItem.setOrder(this);
     }
 
     public String getFirstName() {
@@ -152,6 +151,27 @@ public class Order {
 
     public void setState(OrderState state) {
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(firstName, order.firstName) &&
+                Objects.equals(lastName, order.lastName) &&
+                Objects.equals(phoneNumber, order.phoneNumber) &&
+                Objects.equals(additionalInfo, order.additionalInfo) &&
+                Objects.equals(delivery, order.delivery) &&
+                Objects.equals(address, order.address) &&
+                Objects.equals(subtotal, order.subtotal) &&
+                Objects.equals(total, order.total) &&
+                state == order.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, phoneNumber, additionalInfo, delivery, address, subtotal, total, state);
     }
 
     @Override

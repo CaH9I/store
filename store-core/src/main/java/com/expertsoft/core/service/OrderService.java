@@ -73,7 +73,7 @@ public class OrderService {
         for (MobilePhone phone : phones) {
             Integer quantity = cart.getItems().get(phone.getId());
             CommerceItem ci = new CommerceItem(phone, quantity, phone.getPrice());
-            order.getCommerceItems().add(ci);
+            order.addCommerceItem(ci);
             subtotal += ci.getPrice() * ci.getQuantity();
         }
 

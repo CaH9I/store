@@ -109,20 +109,19 @@ public class OrderServiceUnitTest {
         Map<Long, Integer> cartItems = cart.getItems();
         cartItems.put(1L, 1);
         cartItems.put(2L, 2);
-        cartItems.put(3L, 3);
 
         List<MobilePhone> phones = new ArrayList<>();
         MobilePhone phone1 = new MobilePhone(1L, "LG", 100.0);
         MobilePhone phone2 = new MobilePhone(2L, "Apple iPhone 5S", 200.0);
-        MobilePhone phone3 = new MobilePhone(3L, "Apple iPhone SE", 300.0);
         phones.add(phone1);
         phones.add(phone2);
-        phones.add(phone3);
 
-        List<CommerceItem> commerceItems = new ArrayList<>();
-        commerceItems.add(new CommerceItem(phone1, 1, 100.0));
-        commerceItems.add(new CommerceItem(phone2, 2, 200.0));
-        commerceItems.add(new CommerceItem(phone3, 3, 300.0));
+        Order order = new Order();
+        order.addCommerceItem(new CommerceItem(phone1, 1, 100.0));
+        order.addCommerceItem(new CommerceItem(phone2, 2, 200.0));
+        order.setSubtotal(500.0);
+        order.setDelivery(0.0);
+        order.setTotal(500.0);
 
         when(productRepository.findByIdIn(cartItems.keySet())).thenReturn(phones);
 
@@ -130,8 +129,7 @@ public class OrderServiceUnitTest {
         Order result = orderService.createOrder(cart);
 
         // then
-        assertEquals(1400, result.getSubtotal(), 0);
-        assertEquals(result.getSubtotal() + result.getDelivery(), result.getTotal(), 0);
-        assertEquals(commerceItems, result.getCommerceItems());
+        assertEquals(order, result);
+        assertEquals(order.getCommerceItems(), result.getCommerceItems());
     }
 }
