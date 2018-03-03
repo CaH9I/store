@@ -2,9 +2,9 @@ INSERT INTO mobile_phone(id, model, display, length, width, color, price, camera
 INSERT INTO mobile_phone(id, model, display, length, width, color, price, camera) VALUES (2, 'Samsung galaxy SIII', '5''''', '16mm', '60mm', 'black', 650, '13MP');
 INSERT INTO mobile_phone(id, model, display, length, width, color, price, camera) VALUES (3, 'Samsung galaxy S6', '5.5''''', '17mm', '62mm', 'black', 750, '16MP');
 
-INSERT INTO store_order(id, first_name, last_name, address, phone_number, subtotal, delivery, total, additional_info, state) VALUES (nextval('store_order_id_seq'), 'James', 'Smith', '135 Evergreen Ave. Wake Forest, NC 27587', '202-555-0118', 2850, 10, 2860, 'Do not delay delivery please', 'SUBMITTED');
-INSERT INTO store_order(id, first_name, last_name, address, phone_number, subtotal, delivery, total, additional_info, state) VALUES (nextval('store_order_id_seq'), 'John', 'Johnson', '7716 Wagon St. Kingsport, TN 37660', '202-555-0137', 3400, 15, 3415, 'I''d like you to deliver till December 24', 'SUBMITTED');
-INSERT INTO store_order(id, first_name, last_name, address, phone_number, subtotal, delivery, total, state) VALUES (nextval('store_order_id_seq'), 'Robert', 'Williams', '8668 East Snake Hill St. Yuba City, CA 95993', '+1-202-555-0106', 4000, 5, 4005, 'DELIVERED');
+INSERT INTO store_order(first_name, last_name, address, phone_number, subtotal, delivery, total, additional_info, state) VALUES ('James', 'Smith', '135 Evergreen Ave. Wake Forest, NC 27587', '202-555-0118', 2850, 10, 2860, 'Do not delay delivery please', 'SUBMITTED');
+INSERT INTO store_order(first_name, last_name, address, phone_number, subtotal, delivery, total, additional_info, state) VALUES ('John', 'Johnson', '7716 Wagon St. Kingsport, TN 37660', '202-555-0137', 3400, 15, 3415, 'I''d like you to deliver till December 24', 'SUBMITTED');
+INSERT INTO store_order(first_name, last_name, address, phone_number, subtotal, delivery, total, state) VALUES ('Robert', 'Williams', '8668 East Snake Hill St. Yuba City, CA 95993', '+1-202-555-0106', 4000, 5, 4005, 'DELIVERED');
 
 INSERT INTO commerce_item(order_id, phone_id, price, quantity) VALUES (1, 1, 400, 2);
 INSERT INTO commerce_item(order_id, phone_id, price, quantity) VALUES (1, 2, 500, 3);

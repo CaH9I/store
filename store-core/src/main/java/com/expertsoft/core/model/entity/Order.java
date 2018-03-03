@@ -1,24 +1,12 @@
 package com.expertsoft.core.model.entity;
 
-import static javax.persistence.CascadeType.ALL;
-
-import static com.expertsoft.core.model.entity.Order.OrderState.SUBMITTED;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
+import static com.expertsoft.core.model.entity.Order.OrderState.SUBMITTED;
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "store_order")
@@ -29,12 +17,7 @@ public class Order {
     }
 
     @Id
-    @GeneratedValue(generator = "order_id_seq")
-    @GenericGenerator(
-            name = "order_id_seq",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = @Parameter(name = "sequence_name", value = "store_order_id_seq")
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "order", cascade = ALL)
