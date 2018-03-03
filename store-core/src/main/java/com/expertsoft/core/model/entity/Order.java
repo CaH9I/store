@@ -1,12 +1,16 @@
 package com.expertsoft.core.model.entity;
 
+import org.hibernate.annotations.OnDelete;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static com.expertsoft.core.model.entity.Order.OrderState.SUBMITTED;
-import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.GenerationType.IDENTITY;
+import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Entity
 @Table(name = "store_order")
@@ -17,10 +21,11 @@ public class Order {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "order", cascade = ALL)
+    @OneToMany(mappedBy = "order", cascade = PERSIST)
+    @OnDelete(action = CASCADE)
     private List<CommerceItem> commerceItems = new ArrayList<>();
 
     @Basic(optional = false)

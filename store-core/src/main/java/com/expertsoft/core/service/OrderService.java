@@ -1,20 +1,19 @@
 package com.expertsoft.core.service;
 
-import static com.expertsoft.core.model.entity.Order.OrderState.DELIVERED;
-
-import java.util.List;
-
-import com.expertsoft.core.model.ProductRepository;
 import com.expertsoft.core.model.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
+import com.expertsoft.core.model.ProductRepository;
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.component.ShoppingCart;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+import static com.expertsoft.core.model.entity.Order.OrderState.DELIVERED;
 
 @Service
 public class OrderService {
@@ -38,7 +37,7 @@ public class OrderService {
 
     @Transactional
     public void changeOrderToDelivered(Long orderId) {
-        Order order = orderRepository.findOne(orderId);
+        Order order = orderRepository.getOne(orderId);
         order.setState(DELIVERED);
     }
 

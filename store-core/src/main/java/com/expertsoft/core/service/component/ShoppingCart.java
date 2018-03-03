@@ -1,16 +1,13 @@
 package com.expertsoft.core.service.component;
 
-import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
-import static org.springframework.web.context.WebApplicationContext.SCOPE_SESSION;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 @Component
-@Scope(value = SCOPE_SESSION, proxyMode = TARGET_CLASS)
+@SessionScope
 public class ShoppingCart {
 
     private Map<Long, Integer> items = new HashMap<>();
