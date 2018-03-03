@@ -1,27 +1,25 @@
 package com.expertsoft.core.service;
 
-import static java.util.Collections.singletonList;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.ProductRepository;
+import com.expertsoft.core.model.entity.CommerceItem;
+import com.expertsoft.core.model.entity.MobilePhone;
+import com.expertsoft.core.model.entity.Order;
+import com.expertsoft.core.service.component.ShoppingCart;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.expertsoft.core.model.entity.CommerceItem;
-import com.expertsoft.core.model.entity.MobilePhone;
-import com.expertsoft.core.model.entity.Order;
-import com.expertsoft.core.service.component.ShoppingCart;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Collections.singletonList;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceUnitTest {
@@ -77,7 +75,7 @@ public class OrderServiceUnitTest {
 
     @Test
     public void changeOrderToDelivered() {
-        when(orderRepository.findOne(orderId)).thenReturn(order);
+        when(orderRepository.getOne(orderId)).thenReturn(order);
 
         orderService.changeOrderToDelivered(orderId);
 
