@@ -66,11 +66,14 @@ public class OrderServiceUnitTest {
 
     @Test
     public void saveOrder() {
-        when(orderRepository.save(order)).thenReturn(order);
+        Order savedOrder = new Order();
+        savedOrder.setId(orderId);
+        when(orderRepository.save(order)).thenReturn(savedOrder);
 
-        orderService.saveOrder(order);
+        Long savedOrderId = orderService.saveOrder(order);
 
         verify(orderRepository).save(order);
+        assertEquals(orderId, savedOrderId);
     }
 
     @Test

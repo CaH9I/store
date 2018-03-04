@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.expertsoft.core.model.entity.Order.OrderState.DELIVERED;
+import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 @Service
+@Transactional
 public class OrderService {
 
     @Value("${delivery.amount}")
@@ -30,17 +32,16 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    @Transactional
     public Long saveOrder(Order order) {
         return orderRepository.save(order).getId();
     }
 
-    @Transactional
     public void changeOrderToDelivered(Long orderId) {
         Order order = orderRepository.getOne(orderId);
         order.setState(DELIVERED);
     }
 
+    @Transactional(propagation = SUPPORTS)
     public void populateOrder(Order order, String firstName, String lastName, String address, String phoneNumber, String additionalInfo) {
         order.setFirstName(firstName);
         order.setLastName(lastName);
@@ -54,7 +55,6 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    @Transactional
     public void deleteOrderById(Long id) {
         orderRepository.delete(id);
     }
@@ -64,6 +64,7 @@ public class OrderService {
         return orderRepository.findOneWithItemsAndProducts(id);
     }
 
+    @Transactional(propagation = SUPPORTS)
     public Order createOrder(ShoppingCart cart) {
         Order order = new Order();
         List<MobilePhone> phones = productRepository.findByIdIn(cart.getItems().keySet());
