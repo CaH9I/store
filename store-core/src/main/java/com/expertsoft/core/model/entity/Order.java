@@ -148,17 +148,17 @@ public class Order {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || !getClass().isAssignableFrom(o.getClass())) return false;
         Order order = (Order) o;
-        return Objects.equals(firstName, order.firstName) &&
-                Objects.equals(lastName, order.lastName) &&
-                Objects.equals(phoneNumber, order.phoneNumber) &&
-                Objects.equals(additionalInfo, order.additionalInfo) &&
-                Objects.equals(delivery, order.delivery) &&
-                Objects.equals(address, order.address) &&
-                Objects.equals(subtotal, order.subtotal) &&
-                Objects.equals(total, order.total) &&
-                state == order.state;
+        return Objects.equals(firstName, order.getFirstName()) &&
+                Objects.equals(lastName, order.getLastName()) &&
+                Objects.equals(phoneNumber, order.getPhoneNumber()) &&
+                Objects.equals(additionalInfo, order.getAdditionalInfo()) &&
+                Objects.equals(delivery, order.getDelivery()) &&
+                Objects.equals(address, order.getAddress()) &&
+                Objects.equals(subtotal, order.getSubtotal()) &&
+                Objects.equals(total, order.getTotal()) &&
+                state == order.getState();
     }
 
     @Override

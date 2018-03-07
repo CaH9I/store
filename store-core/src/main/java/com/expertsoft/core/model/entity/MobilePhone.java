@@ -119,12 +119,12 @@ public class MobilePhone {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if ((obj == null) || (getClass() != obj.getClass())) {
+    public boolean equals(Object o) {
+        if ((o == null) || !getClass().isAssignableFrom(o.getClass())) {
             return false;
         }
-        MobilePhone other = (MobilePhone) obj;
-        return Objects.equals(model, other.model);
+        MobilePhone other = (MobilePhone) o;
+        return Objects.equals(model, other.getModel());
     }
 
     @Override

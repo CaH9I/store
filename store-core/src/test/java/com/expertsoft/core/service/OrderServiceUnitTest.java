@@ -1,6 +1,5 @@
 package com.expertsoft.core.service;
 
-import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.ProductRepository;
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
@@ -16,74 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceUnitTest {
 
-    private static Long orderId = 1L;
-
     @InjectMocks
     private OrderService orderService;
 
     @Mock
-    private OrderRepository orderRepository;
-
-    @Mock
     private ProductRepository productRepository;
-
-    @Mock
-    private Order order;
-
-    @Test
-    public void getAllOrders() {
-        List<Order> orders = singletonList(order);
-        when(orderRepository.findAll()).thenReturn(orders);
-
-        List<Order> result = orderService.getAllOrders();
-
-        assertEquals(orders, result);
-    }
-
-    @Test
-    public void deleteOrderById() {
-        orderService.deleteOrderById(orderId);
-
-        verify(orderRepository).delete(orderId);
-    }
-
-    @Test
-    public void getOrderById() {
-        when(orderRepository.findOneWithItemsAndProducts(orderId)).thenReturn(order);
-
-        Order result = orderService.getOrderByIdWithItemsAndProducts(orderId);
-
-        assertEquals(order, result);
-    }
-
-    @Test
-    public void saveOrder() {
-        Order savedOrder = new Order();
-        savedOrder.setId(orderId);
-        when(orderRepository.save(order)).thenReturn(savedOrder);
-
-        Long savedOrderId = orderService.saveOrder(order);
-
-        verify(orderRepository).save(order);
-        assertEquals(orderId, savedOrderId);
-    }
-
-    @Test
-    public void changeOrderToDelivered() {
-        when(orderRepository.getOne(orderId)).thenReturn(order);
-
-        orderService.changeOrderToDelivered(orderId);
-
-        verify(order).setState(Order.OrderState.DELIVERED);
-    }
 
     @Test
     public void populateOrder() {
