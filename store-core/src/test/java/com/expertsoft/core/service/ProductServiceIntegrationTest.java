@@ -1,24 +1,17 @@
 package com.expertsoft.core.service;
 
-import com.expertsoft.core.CoreApplication;
 import com.expertsoft.core.model.entity.MobilePhone;
+import com.expertsoft.core.test.IntegrationTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.expertsoft.core.TestObjectFactory.getTestMobilePhone;
-import static com.expertsoft.core.TestObjectFactory.getTestMobilePhones;
+import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
+import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhones;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = CoreApplication.class)
-@Transactional
-public class ProductServiceIntegrationTest {
+public class ProductServiceIntegrationTest extends IntegrationTest {
 
     @Autowired
     private ProductService productService;

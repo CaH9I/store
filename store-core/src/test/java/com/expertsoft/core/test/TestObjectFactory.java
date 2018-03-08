@@ -1,4 +1,4 @@
-package com.expertsoft.core;
+package com.expertsoft.core.test;
 
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
