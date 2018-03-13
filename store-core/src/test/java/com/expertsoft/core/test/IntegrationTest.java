@@ -11,4 +11,4 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(classes = CoreApplication.class)
 @ActiveProfiles("test")
 @Transactional
-public abstract class IntegrationTest { }
+public abstract class IntegrationTest {}

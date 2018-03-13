@@ -13,8 +13,20 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:hsqldb:mem:shop
+    username: sa
+    password:
+    schema: classpath:sql/*-schema-test.sql
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
