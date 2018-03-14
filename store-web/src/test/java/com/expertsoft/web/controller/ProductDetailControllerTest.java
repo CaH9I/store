@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static org.hamcrest.Matchers.isA;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -36,12 +34,12 @@ public class ProductDetailControllerTest extends WebApplicationTest {
     @Test
     public void productDetailNotExists() throws Exception {
         mockMvc.perform(get("/product-detail/0"))
-                .andExpect(status().is(SC_NOT_FOUND));
+                .andExpect(status().isNotFound());
     }
 
     @Test
     public void productDetailIncorrectId() throws Exception {
         mockMvc.perform(get("/product-detail/not-valid-id"))
-                .andExpect(status().is(SC_BAD_REQUEST));
+                .andExpect(status().isBadRequest());
     }
 }

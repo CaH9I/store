@@ -9,14 +9,6 @@ public class AddToCartForm {
     @Min(value = 1, message = "{cart.quantity.notPositive}")
     private int quantity;
 
-    public AddToCartForm() {
-    }
-
-    public AddToCartForm(long productId, Integer quantity) {
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-
     public long getProductId() {
         return productId;
     }

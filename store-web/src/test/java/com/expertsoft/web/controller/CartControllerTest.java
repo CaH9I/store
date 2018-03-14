@@ -5,18 +5,19 @@ import com.expertsoft.core.service.ShoppingCartService;
 import com.expertsoft.core.service.component.ShoppingCartView;
 import com.expertsoft.web.form.UpdateCartForm;
 import com.expertsoft.web.test.WebApplicationTest;
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.validation.Errors;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.isA;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,6 +28,9 @@ public class CartControllerTest extends WebApplicationTest {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
+
+    @Autowired
+    private MockHttpSession session;
 
     @Before
     public void init() {
@@ -42,27 +46,47 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(status().isOk());
     }
 
-    @Ignore
     @Test
     public void removeFromCart() throws Exception {
-        MockHttpSession session = new MockHttpSession();
         MobilePhone testPhone = getTestMobilePhone();
         shoppingCartService.addToCart(testPhone.getId(), 10);
 
-        mockMvc.perform(delete("/cart/" + testPhone.getId()).session(session))
-                .andExpect(redirectedUrl("/cart"));
+        mockMvc.perform(post("/cart")
+                .param("productToRemoveId", testPhone.getId().toString())
+                .session(session))
+                .andExpect(redirectedUrl("/cart"))
+                .andExpect(status().is3xxRedirection());
 
-        mockMvc.perform(get("/cart").session(session))
-                .andExpect(model().attribute("cartView", new TypeSafeMatcher<ShoppingCartView>() {
-                    @Override
-                    public boolean matchesSafely(ShoppingCartView item) {
-                        return !item.getItems().containsKey(testPhone.getId());
-                    }
+        assertThat(shoppingCartService.getShoppingCart().getItems(), not(hasKey(testPhone.getId())));
+    }
 
-                    @Override
-                    public void describeTo(Description description) {}
-                }));
+    @Test
+    public void addToCart() throws Exception {
+        MobilePhone testPhone = getTestMobilePhone();
 
-        //assertThat(shoppingCartService.getShoppingCart().getItems(), not(hasKey(testPhone.getId())));
+        mockMvc.perform(post("/cart/add-to-cart")
+                .param("productId", testPhone.getId().toString())
+                .param("quantity", "10")
+                .session(session))
+                .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
+                .andExpect(view().name("json/addToCartSuccess"))
+                .andExpect(status().isOk());
+
+        assertThat(shoppingCartService.getShoppingCart().getItems(), hasKey(testPhone.getId()));
+    }
+
+    @Test
+    public void addToCartIncorrectQuantity() throws Exception {
+        MobilePhone testPhone = getTestMobilePhone();
+
+        mockMvc.perform(post("/cart/add-to-cart")
+                .param("productId", testPhone.getId().toString())
+                .param("quantity", "0")
+                .session(session))
+                .andExpect(model().attribute("errors", isA(Errors.class)))
+                .andExpect(view().name("json/addToCartError"))
+                .andExpect(status().isBadRequest());
+
+        assertThat(shoppingCartService.getShoppingCart().getItems(), not(hasKey(testPhone.getId())));
     }
 }
