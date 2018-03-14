@@ -11,15 +11,17 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
+import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhones;
 import static java.util.Arrays.asList;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(Parameterized.class)
 public class ProductListControllerTest extends WebApplicationTest {
@@ -37,7 +39,7 @@ public class ProductListControllerTest extends WebApplicationTest {
 
     @Before
     public void init() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        mockMvc = webAppContextSetup(context).build();
     }
 
     @Parameter
@@ -46,8 +48,9 @@ public class ProductListControllerTest extends WebApplicationTest {
     @Test
     public void productList() throws Exception {
         mockMvc.perform(get(url))
-                .andExpect(model().attributeExists("mobilePhones", "cartView"))
+                .andExpect(model().attribute("mobilePhones", getTestMobilePhones()))
+                .andExpect(model().attributeExists("cartView"))
                 .andExpect(view().name("productList"))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().is(SC_OK));
     }
 }

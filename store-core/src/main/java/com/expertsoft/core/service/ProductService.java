@@ -1,13 +1,13 @@
 package com.expertsoft.core.service;
 
-import java.util.List;
-
+import com.expertsoft.core.exception.EntityNotFoundException;
 import com.expertsoft.core.model.ProductRepository;
+import com.expertsoft.core.model.entity.MobilePhone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.expertsoft.core.model.entity.MobilePhone;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,6 +25,12 @@ public class ProductService {
     }
 
     public MobilePhone getById(Long id) {
-        return productRepository.findOne(id);
+        MobilePhone result = productRepository.findOne(id);
+
+        if (result != null) {
+            return result;
+        }
+
+        throw new EntityNotFoundException();
     }
 }
