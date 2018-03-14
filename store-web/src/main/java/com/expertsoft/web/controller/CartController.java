@@ -1,24 +1,25 @@
 package com.expertsoft.web.controller;
 
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.expertsoft.core.service.ShoppingCartService;
 import com.expertsoft.web.form.AddToCartForm;
 import com.expertsoft.web.form.UpdateCartForm;
 import com.expertsoft.web.util.FormUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 
 @Controller
 @RequestMapping("/cart")
@@ -38,9 +39,10 @@ public class CartController {
         return "cart";
     }
 
-    @PostMapping(params = "productToRemoveId")
-    public String removeFromCart(@RequestParam long productToRemoveId, Model model) {
-        cartService.removeFromCart(productToRemoveId);
+//    @PostMapping(params = "productToRemoveId")
+    @DeleteMapping("/{productId}")
+    public String removeFromCart(@PathVariable long productId) {
+        cartService.removeFromCart(productId);
         return "redirect:/cart";
     }
 

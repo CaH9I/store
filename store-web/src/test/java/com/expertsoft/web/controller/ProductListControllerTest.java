@@ -1,5 +1,6 @@
 package com.expertsoft.web.controller;
 
+import com.expertsoft.core.service.component.ShoppingCartView;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -16,7 +17,7 @@ import java.util.List;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhones;
 import static java.util.Arrays.asList;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
+import static org.hamcrest.Matchers.isA;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,8 +50,8 @@ public class ProductListControllerTest extends WebApplicationTest {
     public void productList() throws Exception {
         mockMvc.perform(get(url))
                 .andExpect(model().attribute("mobilePhones", getTestMobilePhones()))
-                .andExpect(model().attributeExists("cartView"))
+                .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
                 .andExpect(view().name("productList"))
-                .andExpect(status().is(SC_OK));
+                .andExpect(status().isOk());
     }
 }
