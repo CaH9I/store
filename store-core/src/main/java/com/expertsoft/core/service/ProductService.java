@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,12 +26,7 @@ public class ProductService {
     }
 
     public MobilePhone getById(Long id) {
-        MobilePhone result = productRepository.findOne(id);
-
-        if (result != null) {
-            return result;
-        }
-
-        throw new EntityNotFoundException();
+        return Optional.ofNullable(productRepository.findOne(id))
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
