@@ -12,6 +12,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.validation.Errors;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
+import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.not;
@@ -88,5 +89,50 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(status().isBadRequest());
 
         assertThat(shoppingCartService.getShoppingCart().getItems(), not(hasKey(testPhone.getId())));
+    }
+
+    @Test
+    public void updateCart() throws Exception {
+        MobilePhone testPhone = getTestMobilePhone();
+        shoppingCartService.addToCart(testPhone.getId(), 10);
+
+        mockMvc.perform(post("/cart")
+                .param("items[" + testPhone.getId() + "].quantity", "5")
+                .session(session))
+                .andExpect(redirectedUrl("/cart"))
+                .andExpect(status().is3xxRedirection());
+
+        assertThat(shoppingCartService.getShoppingCart().getItems(), hasEntry(testPhone.getId(), 5));
+    }
+
+    @Test
+    public void updateCartProceedCheckout() throws Exception {
+        MobilePhone testPhone = getTestMobilePhone();
+        shoppingCartService.addToCart(testPhone.getId(), 10);
+
+        mockMvc.perform(post("/cart")
+                .param("items[" + testPhone.getId() + "].quantity", "5")
+                .param("checkout", "true")
+                .session(session))
+                .andExpect(redirectedUrl("/order"))
+                .andExpect(status().is3xxRedirection());
+
+        assertThat(shoppingCartService.getShoppingCart().getItems(), hasEntry(testPhone.getId(), 5));
+    }
+
+    @Test
+    public void updateCartIncorrectQuantity() throws Exception {
+        MobilePhone testPhone = getTestMobilePhone();
+        shoppingCartService.addToCart(testPhone.getId(), 10);
+
+        mockMvc.perform(post("/cart")
+                .param("items[" + testPhone.getId() + "].quantity", "0")
+                .session(session))
+                .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
+                .andExpect(model().attribute("updateCartForm", isA(UpdateCartForm.class)))
+                .andExpect(view().name("cart"))
+                .andExpect(status().isOk());
+
+        assertThat(shoppingCartService.getShoppingCart().getItems(), hasEntry(testPhone.getId(), 10));
     }
 }

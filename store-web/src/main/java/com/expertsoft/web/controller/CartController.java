@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,10 +43,9 @@ public class CartController {
     }
 
     @PostMapping
-    public String updateCart(@ModelAttribute @Valid UpdateCartForm form, Errors errors, @RequestParam(required = false) boolean checkout, Model model) {
+    public String updateCart(@Valid UpdateCartForm form, Errors errors, @RequestParam(required = false) boolean checkout, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("cartView", cartService.createShoppingCartView());
-            model.addAttribute("updateCartForm", form);
             return "cart";
         }
         cartService.updateCart(FormUtil.buildItemsMap(form));
