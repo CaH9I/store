@@ -1,6 +1,6 @@
 package com.expertsoft.core.service;
 
-import com.expertsoft.core.exception.EntityNotFoundException;
+import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.test.IntegrationTest;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class ProductServiceIntegrationTest extends IntegrationTest {
         assertEquals(testPhone, phone);
     }
 
-    @Test(expected = EntityNotFoundException.class)
+    @Test(expected = RecordNotFoundException.class)
     public void getByIdNotExists() {
         productService.getById(0L);
     }

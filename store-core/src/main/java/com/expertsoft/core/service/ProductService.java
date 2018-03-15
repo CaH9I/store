@@ -1,6 +1,6 @@
 package com.expertsoft.core.service;
 
-import com.expertsoft.core.exception.EntityNotFoundException;
+import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.ProductRepository;
 import com.expertsoft.core.model.entity.MobilePhone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,6 @@ public class ProductService {
 
     public MobilePhone getById(Long id) {
         return Optional.ofNullable(productRepository.findOne(id))
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(RecordNotFoundException::new);
     }
 }

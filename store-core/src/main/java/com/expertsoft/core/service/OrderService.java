@@ -1,5 +1,6 @@
 package com.expertsoft.core.service;
 
+import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.ProductRepository;
 import com.expertsoft.core.model.entity.CommerceItem;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.expertsoft.core.model.entity.Order.OrderState.DELIVERED;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
@@ -61,7 +63,8 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public Order getOrderByIdWithItemsAndProducts(Long id) {
-        return orderRepository.findOneWithItemsAndProducts(id);
+        return Optional.ofNullable(orderRepository.findOneWithItemsAndProducts(id))
+                .orElseThrow(RecordNotFoundException::new);
     }
 
     @Transactional(propagation = SUPPORTS)

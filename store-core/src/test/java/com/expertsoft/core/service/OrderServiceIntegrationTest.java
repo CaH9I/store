@@ -1,5 +1,6 @@
 package com.expertsoft.core.service;
 
+import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.test.IntegrationTest;
@@ -68,6 +69,11 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
         assertEquals(testOrder, order);
         assertEquals(testOrder.getCommerceItems(), order.getCommerceItems());
+    }
+
+    @Test(expected = RecordNotFoundException.class)
+    public void getOrderByIdWithItemsAndProductsNotExists() {
+        orderService.getOrderByIdWithItemsAndProducts(0L);
     }
 
     @Test
