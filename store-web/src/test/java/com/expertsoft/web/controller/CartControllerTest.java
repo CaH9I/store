@@ -84,6 +84,7 @@ public class CartControllerTest extends WebApplicationTest {
                 .param("productId", testPhone.getId().toString())
                 .param("quantity", "0")
                 .session(session))
+                .andExpect(model().attributeHasErrors("addToCartForm"))
                 .andExpect(model().attribute("errors", isA(Errors.class)))
                 .andExpect(view().name("json/addToCartError"))
                 .andExpect(status().isBadRequest());
@@ -128,6 +129,7 @@ public class CartControllerTest extends WebApplicationTest {
         mockMvc.perform(post("/cart")
                 .param("items[" + testPhone.getId() + "].quantity", "0")
                 .session(session))
+                .andExpect(model().attributeHasErrors("updateCartForm"))
                 .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
                 .andExpect(model().attribute("updateCartForm", isA(UpdateCartForm.class)))
                 .andExpect(view().name("cart"))

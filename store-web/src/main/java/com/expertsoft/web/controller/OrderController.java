@@ -1,20 +1,18 @@
 package com.expertsoft.web.controller;
 
-import javax.validation.Valid;
-
+import com.expertsoft.core.model.entity.Order;
+import com.expertsoft.core.service.OrderService;
+import com.expertsoft.core.service.ShoppingCartService;
+import com.expertsoft.web.form.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.expertsoft.core.model.entity.Order;
-import com.expertsoft.core.service.OrderService;
-import com.expertsoft.core.service.ShoppingCartService;
-import com.expertsoft.web.form.OrderForm;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/order")
@@ -38,10 +36,9 @@ public class OrderController {
     }
 
     @PostMapping
-    public String placeOrder(@ModelAttribute @Valid OrderForm form, Errors errors, Model model) {
+    public String placeOrder(@Valid OrderForm form, Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("order", orderService.createOrder(cartService.getShoppingCart()));
-            model.addAttribute("orderForm", form);
             return "order";
         }
         Order order = orderService.createOrder(cartService.getShoppingCart());
