@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.expertsoft.core.model.entity.Order.OrderState.SUBMITTED;
+import static com.expertsoft.core.model.entity.OrderState.SUBMITTED;
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.GenerationType.IDENTITY;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
@@ -15,10 +15,6 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 @Entity
 @Table(name = "store_order")
 public class Order {
-
-    public enum OrderState {
-        SUBMITTED, DELIVERED
-    }
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

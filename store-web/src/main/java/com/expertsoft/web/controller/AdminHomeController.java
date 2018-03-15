@@ -1,14 +1,15 @@
 package com.expertsoft.web.controller;
 
+import com.expertsoft.core.model.entity.OrderState;
+import com.expertsoft.core.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.expertsoft.core.service.OrderService;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,20 +23,20 @@ public class AdminHomeController {
     }
 
     @GetMapping
-    public String admin(Model model) {
+    public String adminHome(Model model) {
         model.addAttribute("orders", orderService.getAllOrders());
         return "admin/home";
     }
 
-    @PostMapping(params = "orderToRemoveId")
-    public String deleteOrder(@RequestParam long orderToRemoveId) {
-        orderService.deleteOrderById(orderToRemoveId);
+    @DeleteMapping("delete-order/{orderId}")
+    public String deleteOrder(@PathVariable long orderId) {
+        orderService.deleteOrderById(orderId);
         return "redirect:/admin";
     }
 
-    @PostMapping(params = "orderToDeliverId")
-    public String changeOrderToDelivered(@RequestParam long orderToDeliverId) {
-        orderService.changeOrderToDelivered(orderToDeliverId);
+    @PutMapping("update-state/{orderId}/{state}")
+    public String changeOrderState(@PathVariable long orderId, @PathVariable OrderState state) {
+        orderService.changeOrderState(orderId, state);
         return "redirect:/admin";
     }
 }

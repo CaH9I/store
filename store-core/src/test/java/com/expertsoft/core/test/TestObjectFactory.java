@@ -6,8 +6,8 @@ import com.expertsoft.core.model.entity.Order;
 
 import java.util.List;
 
-import static com.expertsoft.core.model.entity.Order.OrderState.DELIVERED;
-import static com.expertsoft.core.model.entity.Order.OrderState.SUBMITTED;
+import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
+import static com.expertsoft.core.model.entity.OrderState.SUBMITTED;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 

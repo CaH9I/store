@@ -6,21 +6,25 @@ import com.expertsoft.core.model.ProductRepository;
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
+import com.expertsoft.core.model.entity.OrderState;
 import com.expertsoft.core.service.component.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.expertsoft.core.model.entity.Order.OrderState.DELIVERED;
+import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 @Service
 @Transactional
 public class OrderService {
+
+    private static final Sort ORDER_SORT = new Sort(DESC, "id");
 
     @Value("${delivery.amount}")
     private double deliveryAmount;
@@ -38,9 +42,9 @@ public class OrderService {
         return orderRepository.save(order).getId();
     }
 
-    public void changeOrderToDelivered(Long orderId) {
+    public void changeOrderState(Long orderId, OrderState state) {
         Order order = orderRepository.getOne(orderId);
-        order.setState(DELIVERED);
+        order.setState(state);
     }
 
     @Transactional(propagation = SUPPORTS)
@@ -54,7 +58,7 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        return orderRepository.findAll(ORDER_SORT);
     }
 
     public void deleteOrderById(Long id) {

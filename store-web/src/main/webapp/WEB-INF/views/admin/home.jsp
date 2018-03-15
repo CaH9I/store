@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="app"%>
 
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
       <c:if test="${not empty orders}">
         <h3>Orders</h3>
         <div class="col-xs-6 no-padding margin-bottom-20">
-          <a class="btn btn-default" href="${pageContext.request.contextPath}/product-list">&#8592; Back to store</a>
+          <a class="btn btn-default" href="${s:mvcUrl('PLC#productList').build()}">&#8592; Back to store</a>
         </div>
         <table class="table table-bordered table-striped table">
           <thead>
@@ -30,7 +31,7 @@
           <tbody>
             <c:forEach var="order" items="${orders}">
               <tr>
-                <td><a href="${pageContext.request.contextPath}/admin/${order.id}">#${order.id}</a></td>
+                <td><a href="${s:mvcUrl('AODC#orderDetail').arg(0, order.id).build()}">#${order.id}</a></td>
                 <td>${order.firstName}</td>
                 <td>${order.lastName}</td>
                 <td>${order.address}</td>
@@ -39,11 +40,16 @@
                 <td>${order.additionalInfo}</td>
                 <td><app:price price="${order.total}"/></td>
                 <td>
-                  <form:form method="POST">
-                    <c:if test="${order.state ne 'DELIVERED'}">
-                      <button type="submit" name="orderToDeliverId" value="${order.id}" class="btn btn-primary col-xs-12 margin-bottom-15">Change to Delivered</button>
-                    </c:if>
-                    <button type="submit" name="orderToRemoveId" value="${order.id}" class="btn btn-danger col-xs-12">Delete</button>
+                  <s:eval var="delivered" expression="T(com.expertsoft.core.model.entity.OrderState).DELIVERED"/>
+                  <c:if test="${order.state ne delivered}">
+                    <form:form method="post" action="${s:mvcUrl('AHC#changeOrderState').arg(0, order.id).arg(1, delivered).build()}">
+                      <input type="hidden" name="_method" value="PUT"/>
+                      <input type="submit" value="Change to Delivered" class="btn btn-primary col-xs-12 margin-bottom-15"/>
+                    </form:form>
+                  </c:if>
+                  <form:form method="post" action="${s:mvcUrl('AHC#deleteOrder').arg(0, order.id).build()}">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <input type="submit" value="Delete" class="btn btn-danger col-xs-12">
                   </form:form>
                 </td>
               </tr>

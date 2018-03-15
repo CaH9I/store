@@ -11,13 +11,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-import static com.expertsoft.core.model.entity.Order.OrderState.DELIVERED;
-import static com.expertsoft.core.model.entity.Order.OrderState.SUBMITTED;
+import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
 import static com.expertsoft.core.test.TestObjectFactory.createTestOrder;
 import static com.expertsoft.core.test.TestObjectFactory.getTestOrder;
 import static com.expertsoft.core.test.TestObjectFactory.getTestOrders;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 public class OrderServiceIntegrationTest extends IntegrationTest {
 
@@ -49,14 +50,14 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    public void changeOrderToDelivered() {
+    public void changeOrderState() {
         TypedQuery<Order> query = entityManager.createQuery(
-                "select o from Order o where o.state = :state", Order.class);
-        query.setParameter("state", SUBMITTED);
+                "select o from Order o where o.state <> :state", Order.class);
+        query.setParameter("state", DELIVERED);
         query.setMaxResults(1);
         Order order = query.getSingleResult();
 
-        orderService.changeOrderToDelivered(order.getId());
+        orderService.changeOrderState(order.getId(), DELIVERED);
 
         assertEquals(DELIVERED, order.getState());
     }
@@ -80,6 +81,6 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     public void getAllOrders() {
         List<Order> orders = orderService.getAllOrders();
 
-        assertEquals(getTestOrders(), orders);
+        assertThat(orders, containsInAnyOrder(getTestOrders().toArray()));
     }
 }
