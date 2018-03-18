@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping({"/", "/product-list"})
+@RequestMapping("/")
 public class ProductListController {
 
     private ProductService productService;
@@ -23,7 +23,7 @@ public class ProductListController {
 
     @GetMapping
     public String productList(Model model) {
-        model.addAttribute("mobilePhones", productService.getAll());
+        model.addAttribute("mobilePhones", productService.findAll());
         model.addAttribute("cartView", cartService.createShoppingCartView());
         return "productList";
     }

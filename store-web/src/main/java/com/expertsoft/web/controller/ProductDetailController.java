@@ -25,7 +25,7 @@ public class ProductDetailController {
 
     @GetMapping
     public String productDetail(@PathVariable long id, Model model) {
-        model.addAttribute("mobilePhone", productService.getById(id));
+        model.addAttribute("mobilePhone", productService.findById(id));
         model.addAttribute("cartView", cartService.createShoppingCartView());
         return "productDetail";
     }

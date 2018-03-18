@@ -24,13 +24,13 @@ public class AdminHomeController {
 
     @GetMapping
     public String adminHome(Model model) {
-        model.addAttribute("orders", orderService.getAllOrders());
+        model.addAttribute("orders", orderService.findAll());
         return "admin/home";
     }
 
     @DeleteMapping("delete-order/{orderId}")
     public String deleteOrder(@PathVariable long orderId) {
-        orderService.deleteOrderById(orderId);
+        orderService.deleteById(orderId);
         return "redirect:/admin";
     }
 

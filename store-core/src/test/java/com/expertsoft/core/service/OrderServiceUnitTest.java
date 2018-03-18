@@ -1,6 +1,5 @@
 package com.expertsoft.core.service;
 
-import com.expertsoft.core.model.ProductRepository;
 import com.expertsoft.core.model.entity.CommerceItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
@@ -25,7 +24,7 @@ public class OrderServiceUnitTest {
     private OrderService orderService;
 
     @Mock
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @Test
     public void populateOrder() {
@@ -66,7 +65,7 @@ public class OrderServiceUnitTest {
         order.setDelivery(0.0);
         order.setTotal(500.0);
 
-        when(productRepository.findByIdIn(cartItems.keySet())).thenReturn(phones);
+        when(productService.findAllById(cartItems.keySet())).thenReturn(phones);
 
         // when
         Order result = orderService.createOrder(cart);

@@ -13,15 +13,20 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        cache:
+          region:
+            factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
 server:
-  jsp-servlet:
-    init-parameters:
-      development: true
-
+  servlet:
+    jsp:
+      init-parameters:
+        development: true
 ---
 
 spring:
@@ -31,6 +36,3 @@ spring:
     username: sa
     password:
     schema: classpath:sql/*-schema-test.sql
-  jpa:
-    hibernate:
-      ddl-auto: create-drop

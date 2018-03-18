@@ -43,7 +43,7 @@ public class OrderController {
         }
         Order order = orderService.createOrder(cartService.getShoppingCart());
         orderService.populateOrder(order, form.getFirstName(), form.getLastName(), form.getAddress(), form.getPhoneNumber(), form.getAdditionalInfo());
-        long orderId = orderService.saveOrder(order);
+        long orderId = orderService.save(order);
         cartService.clearCart();
         return "redirect:/order/" + orderId;
     }

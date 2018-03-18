@@ -36,10 +36,4 @@ public class ProductDetailControllerTest extends WebApplicationTest {
         mockMvc.perform(get("/product-detail/0"))
                 .andExpect(status().isNotFound());
     }
-
-    @Test
-    public void productDetailIncorrectId() throws Exception {
-        mockMvc.perform(get("/product-detail/not-valid-id"))
-                .andExpect(status().isBadRequest());
-    }
 }

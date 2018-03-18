@@ -17,7 +17,7 @@ import static com.expertsoft.core.test.TestObjectFactory.getTestOrder;
 import static com.expertsoft.core.test.TestObjectFactory.getTestOrders;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class OrderServiceIntegrationTest extends IntegrationTest {
@@ -32,21 +32,21 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     private EntityManager entityManager;
 
     @Test
-    public void deleteOrderById() {
+    public void deleteById() {
         Order testOrder = getTestOrder();
 
-        orderService.deleteOrderById(testOrder.getId());
+        orderService.deleteById(testOrder.getId());
 
-        assertNull(orderRepository.findOne(testOrder.getId()));
+        assertFalse(orderRepository.findById(testOrder.getId()).isPresent());
     }
 
     @Test
-    public void saveOrder() {
+    public void save() {
         Order order = createTestOrder();
 
-        Long savedOrderId = orderService.saveOrder(order);
+        Long savedOrderId = orderService.save(order);
 
-        assertEquals(order, orderRepository.findOne(savedOrderId));
+        assertEquals(order, orderRepository.getOne(savedOrderId));
     }
 
     @Test
@@ -78,8 +78,8 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    public void getAllOrders() {
-        List<Order> orders = orderService.getAllOrders();
+    public void findAll() {
+        List<Order> orders = orderService.findAll();
 
         assertThat(orders, containsInAnyOrder(getTestOrders().toArray()));
     }

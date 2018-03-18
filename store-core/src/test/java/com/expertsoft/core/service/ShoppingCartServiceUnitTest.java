@@ -1,18 +1,8 @@
 package com.expertsoft.core.service;
 
-import static org.hamcrest.collection.IsMapContaining.hasEntry;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.expertsoft.core.model.ProductRepository;
+import com.expertsoft.core.model.entity.MobilePhone;
+import com.expertsoft.core.service.component.ShoppingCart;
+import com.expertsoft.core.service.component.ShoppingCartView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +10,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.expertsoft.core.model.entity.MobilePhone;
-import com.expertsoft.core.service.component.ShoppingCart;
-import com.expertsoft.core.service.component.ShoppingCartView;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.hamcrest.collection.IsMapContaining.hasEntry;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ShoppingCartServiceUnitTest {
@@ -34,7 +32,7 @@ public class ShoppingCartServiceUnitTest {
     private ShoppingCart shoppingCart;
 
     @Mock
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     private Map<Long, Integer> items;
 
@@ -110,7 +108,7 @@ public class ShoppingCartServiceUnitTest {
         phones.add(phone2);
 
         when(shoppingCart.getItems()).thenReturn(items);
-        when(productRepository.findByIdIn(items.keySet())).thenReturn(phones);
+        when(productService.findAllById(items.keySet())).thenReturn(phones);
 
         // when
         ShoppingCartView cartView = cartService.createShoppingCartView();

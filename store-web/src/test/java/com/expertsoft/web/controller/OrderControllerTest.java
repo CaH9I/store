@@ -75,7 +75,7 @@ public class OrderControllerTest extends WebApplicationTest {
         assertTrue(location.matches("/order/[1-9]+\\d*"));
 
         Long orderId = Long.valueOf(location.replaceAll(".*/", ""));
-        assertTrue(orderRepository.exists(orderId));
+        assertTrue(orderRepository.existsById(orderId));
     }
 
     @Test

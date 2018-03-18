@@ -1,6 +1,6 @@
 package com.expertsoft.web.form;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public class OrderForm {
 

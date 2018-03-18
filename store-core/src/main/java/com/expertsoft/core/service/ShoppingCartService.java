@@ -1,35 +1,22 @@
 package com.expertsoft.core.service;
 
+import com.expertsoft.core.model.entity.MobilePhone;
+import com.expertsoft.core.service.component.ShoppingCart;
+import com.expertsoft.core.service.component.ShoppingCartView;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.expertsoft.core.model.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.expertsoft.core.model.entity.MobilePhone;
-import com.expertsoft.core.service.component.ShoppingCart;
-import com.expertsoft.core.service.component.ShoppingCartView;
-
 @Service
 public class ShoppingCartService {
 
-    private ShoppingCart shoppingCart;
-    private final ProductRepository productRepository;
+    private final ShoppingCart shoppingCart;
+    private final ProductService productService;
 
-    public ShoppingCartService(ProductRepository productRepository, ShoppingCart shoppingCart) {
-        this.productRepository = productRepository;
-        this.shoppingCart = shoppingCart;
-    }
-
-    @Autowired
-    public ShoppingCartService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-    @Autowired
-    public void setShoppingCart(ShoppingCart shoppingCart) {
+    public ShoppingCartService(ShoppingCart shoppingCart, ProductService productService) {
+        this.productService = productService;
         this.shoppingCart = shoppingCart;
     }
 
@@ -60,7 +47,7 @@ public class ShoppingCartService {
 
     public ShoppingCartView createShoppingCartView() {
         Map<Long, Integer> cartItems = shoppingCart.getItems();
-        List<MobilePhone> phones = productRepository.findByIdIn(cartItems.keySet());
+        List<MobilePhone> phones = productService.findAllById(cartItems.keySet());
 
         Map<MobilePhone, Integer> items = new HashMap<>();
         int numberOfItems = 0;

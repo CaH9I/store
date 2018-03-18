@@ -1,13 +1,21 @@
 package com.expertsoft.core.model.entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
 
+import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_ONLY;
+
 @Entity
+@Immutable
+@Cacheable
+@Cache(usage = READ_ONLY, region = "products")
 public class MobilePhone {
 
     @Id

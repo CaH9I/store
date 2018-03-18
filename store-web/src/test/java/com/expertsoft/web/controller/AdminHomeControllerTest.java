@@ -69,7 +69,7 @@ public class AdminHomeControllerTest extends WebApplicationTest {
                 .andExpect(redirectedUrl("/admin"))
                 .andExpect(status().is3xxRedirection());
 
-        assertFalse(orderRepository.exists(testOrder.getId()));
+        assertFalse(orderRepository.existsById(testOrder.getId()));
     }
 
     @Test
