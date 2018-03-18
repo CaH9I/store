@@ -1,19 +1,11 @@
-DROP TABLE IF EXISTS group_authorities;
-DROP TABLE IF EXISTS group_members;
-DROP TABLE IF EXISTS groups;
-DROP TABLE IF EXISTS authorities;
-DROP TABLE IF EXISTS users;
-DROP SEQUENCE IF EXISTS groups_id_seq;
-DROP SEQUENCE IF EXISTS user_id_seq;
-
-CREATE SEQUENCE user_id_seq
+CREATE SEQUENCE IF NOT EXISTS user_id_seq
     INCREMENT 1
     START 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
 
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
     id bigint NOT NULL DEFAULT nextval('user_id_seq'),
     username character varying(50) NOT NULL,
@@ -23,7 +15,7 @@ CREATE TABLE users
     CONSTRAINT user_username_key UNIQUE (username)
 );
 
-CREATE TABLE authorities
+CREATE TABLE IF NOT EXISTS authorities
 (
     username character varying(50) NOT NULL,
     authority character varying(50) NOT NULL,
@@ -31,21 +23,21 @@ CREATE TABLE authorities
     CONSTRAINT authorities_username_fkey FOREIGN KEY (username) REFERENCES users (username)
 );
 
-CREATE SEQUENCE groups_id_seq
+CREATE SEQUENCE IF NOT EXISTS groups_id_seq
     INCREMENT 1
     START 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
 
-CREATE TABLE groups
+CREATE TABLE IF NOT EXISTS groups
 (
     id bigint NOT NULL DEFAULT nextval('groups_id_seq'),
     group_name character varying(50) NOT NULL,
     CONSTRAINT groups_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE group_members
+CREATE TABLE IF NOT EXISTS group_members
 (
     group_id bigint NOT NULL,
     username character varying(50) NOT NULL,
@@ -54,7 +46,7 @@ CREATE TABLE group_members
     CONSTRAINT group_members_username_fkey FOREIGN KEY (username) REFERENCES users (username)
 );
 
-CREATE TABLE group_authorities
+CREATE TABLE IF NOT EXISTS group_authorities
 (
     group_id bigint NOT NULL,
     authority character varying(50) NOT NULL,

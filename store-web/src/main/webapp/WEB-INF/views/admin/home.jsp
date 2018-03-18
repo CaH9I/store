@@ -5,11 +5,11 @@
 
 <app:template>
     <jsp:include page="/WEB-INF/views/include/header.jsp"/>
+    <h3>Orders</h3>
+    <div class="col-xs-6 no-padding margin-bottom-20">
+        <a class="btn btn-default" href="${s:mvcUrl('PLC#productList').build()}">&#8592; Back to store</a>
+    </div>
     <c:if test="${not empty orders}">
-        <h3>Orders</h3>
-        <div class="col-xs-6 no-padding margin-bottom-20">
-            <a class="btn btn-default" href="${s:mvcUrl('PLC#productList').build()}">&#8592; Back to store</a>
-        </div>
         <table class="table table-bordered table-striped table">
             <thead>
             <tr class="bg-primary">
