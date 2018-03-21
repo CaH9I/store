@@ -1,6 +1,6 @@
 package com.expertsoft.core.service;
 
-import com.expertsoft.core.model.entity.CommerceItem;
+import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.service.component.ShoppingCart;
@@ -59,8 +59,8 @@ public class OrderServiceUnitTest {
         phones.add(phone2);
 
         Order order = new Order();
-        order.addCommerceItem(new CommerceItem(phone1, 1, 100.0));
-        order.addCommerceItem(new CommerceItem(phone2, 2, 200.0));
+        order.addOrderItem(new OrderItem(phone1, 1, 100.0));
+        order.addOrderItem(new OrderItem(phone2, 2, 200.0));
         order.setSubtotal(500.0);
         order.setDelivery(0.0);
         order.setTotal(500.0);
@@ -72,6 +72,6 @@ public class OrderServiceUnitTest {
 
         // then
         assertEquals(order, result);
-        assertEquals(order.getCommerceItems(), result.getCommerceItems());
+        assertEquals(order.getOrderItems(), result.getOrderItems());
     }
 }

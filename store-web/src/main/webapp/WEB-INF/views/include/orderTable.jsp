@@ -13,7 +13,7 @@
      </tr>
   </thead>
   <tbody>
-    <c:forEach var="ci" items="${order.commerceItems}">
+    <c:forEach var="ci" items="${order.orderItems}">
       <c:set var="phone" value="${ci.phone}"/>
       <c:set var="quantity" value="${ci.quantity}"/>
       <tr>

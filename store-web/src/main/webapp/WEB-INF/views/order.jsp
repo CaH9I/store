@@ -9,7 +9,7 @@
     <div class="col-xs-6 no-padding margin-bottom-20">
         <a class="btn btn-default" href="${s:mvcUrl('CC#cart').build()}">&#8592; Back to cart</a>
     </div>
-    <c:if test="${not empty order.commerceItems}">
+    <c:if test="${not empty order.orderItems}">
         <jsp:include page="include/orderTable.jsp"/>
         <form:form modelAttribute="orderForm" method="post" class="form-horizontal col-lg-4 col-md-5 col-sm-6 col-xs-8">
             <div class="form-group">

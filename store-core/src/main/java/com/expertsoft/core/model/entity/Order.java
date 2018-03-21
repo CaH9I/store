@@ -22,7 +22,7 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = PERSIST)
     @OnDelete(action = CASCADE)
-    private List<CommerceItem> commerceItems = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @Basic(optional = false)
     private String firstName;
@@ -60,13 +60,13 @@ public class Order {
         this.id = id;
     }
 
-    public List<CommerceItem> getCommerceItems() {
-        return commerceItems;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void addCommerceItem(CommerceItem commerceItem) {
-        commerceItems.add(commerceItem);
-        commerceItem.setOrder(this);
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 
     public String getFirstName() {

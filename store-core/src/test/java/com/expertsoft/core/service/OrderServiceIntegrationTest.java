@@ -69,7 +69,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
         Order order = orderService.getOrderByIdWithItemsAndProducts(testOrder.getId());
 
         assertEquals(testOrder, order);
-        assertEquals(testOrder.getCommerceItems(), order.getCommerceItems());
+        assertEquals(testOrder.getOrderItems(), order.getOrderItems());
     }
 
     @Test(expected = RecordNotFoundException.class)

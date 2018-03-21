@@ -1,7 +1,5 @@
 package com.expertsoft.core.model.entity;
 
-import static javax.persistence.FetchType.LAZY;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,8 +7,10 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
-public class CommerceItem implements Serializable {
+public class OrderItem implements Serializable {
 
     @Id
     @ManyToOne(fetch = LAZY)
@@ -26,9 +26,9 @@ public class CommerceItem implements Serializable {
     @Basic(optional = false)
     private Integer quantity;
 
-    public CommerceItem() {}
+    public OrderItem() {}
 
-    public CommerceItem(MobilePhone phone, Integer quantity, Double price) {
+    public OrderItem(MobilePhone phone, Integer quantity, Double price) {
         this.phone = phone;
         this.quantity = quantity;
         this.price = price;
@@ -70,7 +70,7 @@ public class CommerceItem implements Serializable {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        final CommerceItem ci = (CommerceItem) o;
+        final OrderItem ci = (OrderItem) o;
         return Objects.equals(order, ci.order) &&
                 Objects.equals(phone, ci.phone);
     }

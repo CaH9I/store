@@ -1,6 +1,6 @@
 package com.expertsoft.core.test;
 
-import com.expertsoft.core.model.entity.CommerceItem;
+import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 
@@ -21,17 +21,17 @@ public class TestObjectFactory {
     private static final List<Order> orders;
 
     static {
-        CommerceItem ci11 = new CommerceItem();
+        OrderItem ci11 = new OrderItem();
         ci11.setPhone(getMobilePhone(1L));
         ci11.setPrice(400.0);
         ci11.setQuantity(2);
 
-        CommerceItem ci12 = new CommerceItem();
+        OrderItem ci12 = new OrderItem();
         ci12.setPhone(getMobilePhone(2L));
         ci12.setPrice(500.0);
         ci12.setQuantity(3);
 
-        CommerceItem ci13 = new CommerceItem();
+        OrderItem ci13 = new OrderItem();
         ci13.setPhone(getMobilePhone(3L));
         ci13.setPrice(550.0);
         ci13.setQuantity(1);
@@ -48,16 +48,16 @@ public class TestObjectFactory {
         order1.setAdditionalInfo("Do not delay delivery please");
         order1.setState(SUBMITTED);
 
-        order1.addCommerceItem(ci11);
-        order1.addCommerceItem(ci12);
-        order1.addCommerceItem(ci13);
+        order1.addOrderItem(ci11);
+        order1.addOrderItem(ci12);
+        order1.addOrderItem(ci13);
 
-        CommerceItem ci21 = new CommerceItem();
+        OrderItem ci21 = new OrderItem();
         ci21.setPhone(getMobilePhone(2L));
         ci21.setPrice(550.0);
         ci21.setQuantity(4);
 
-        CommerceItem ci22 = new CommerceItem();
+        OrderItem ci22 = new OrderItem();
         ci22.setPhone(getMobilePhone(3L));
         ci22.setPrice(600.0);
         ci22.setQuantity(2);
@@ -74,10 +74,10 @@ public class TestObjectFactory {
         order2.setAdditionalInfo("I'd like you to deliver till December 24");
         order2.setState(SUBMITTED);
 
-        order2.addCommerceItem(ci21);
-        order2.addCommerceItem(ci22);
+        order2.addOrderItem(ci21);
+        order2.addOrderItem(ci22);
 
-        CommerceItem ci31 = new CommerceItem();
+        OrderItem ci31 = new OrderItem();
         ci31.setPhone(getMobilePhone(3L));
         ci31.setPrice(500.0);
         ci31.setQuantity(8);
@@ -93,7 +93,7 @@ public class TestObjectFactory {
         order3.setTotal(4005.0);
         order3.setState(DELIVERED);
 
-        order3.addCommerceItem(ci31);
+        order3.addOrderItem(ci31);
 
         orders = unmodifiableList(asList(order1, order2, order3));
     }

@@ -6,9 +6,9 @@ INSERT INTO store_order(first_name, last_name, address, phone_number, subtotal, 
 INSERT INTO store_order(first_name, last_name, address, phone_number, subtotal, delivery, total, additional_info, state) VALUES ('John', 'Johnson', '7716 Wagon St. Kingsport, TN 37660', '202-555-0137', 3400, 15, 3415, 'I''d like you to deliver till December 24', 'SUBMITTED');
 INSERT INTO store_order(first_name, last_name, address, phone_number, subtotal, delivery, total, state) VALUES ('Robert', 'Williams', '8668 East Snake Hill St. Yuba City, CA 95993', '+1-202-555-0106', 4000, 5, 4005, 'DELIVERED');
 
-INSERT INTO commerce_item(order_id, phone_id, price, quantity) VALUES (1, 1, 400, 2);
-INSERT INTO commerce_item(order_id, phone_id, price, quantity) VALUES (1, 2, 500, 3);
-INSERT INTO commerce_item(order_id, phone_id, price, quantity) VALUES (1, 3, 550, 1);
-INSERT INTO commerce_item(order_id, phone_id, price, quantity) VALUES (2, 2, 550, 4);
-INSERT INTO commerce_item(order_id, phone_id, price, quantity) VALUES (2, 3, 600, 2);
-INSERT INTO commerce_item(order_id, phone_id, price, quantity) VALUES (3, 3, 500, 8);
+INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (1, 1, 400, 2);
+INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (1, 2, 500, 3);
+INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (1, 3, 550, 1);
+INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (2, 2, 550, 4);
+INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (2, 3, 600, 2);
+INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (3, 3, 500, 8);

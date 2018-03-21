@@ -2,7 +2,7 @@ package com.expertsoft.core.service;
 
 import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.OrderRepository;
-import com.expertsoft.core.model.entity.CommerceItem;
+import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.model.entity.OrderState;
@@ -73,8 +73,8 @@ public class OrderService extends RepositoryService<Order, Long, OrderRepository
 
         for (MobilePhone phone : phones) {
             Integer quantity = cart.getItems().get(phone.getId());
-            CommerceItem ci = new CommerceItem(phone, quantity, phone.getPrice());
-            order.addCommerceItem(ci);
+            OrderItem ci = new OrderItem(phone, quantity, phone.getPrice());
+            order.addOrderItem(ci);
             subtotal += ci.getPrice() * ci.getQuantity();
         }
 
