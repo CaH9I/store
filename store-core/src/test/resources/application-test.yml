@@ -4,6 +4,8 @@ spring:
     username: sa
     password:
   jpa:
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
         dialect: com.expertsoft.core.dialect.HSQLDialect
