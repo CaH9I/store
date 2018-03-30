@@ -12,3 +12,13 @@ INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (1, 3, 550, 1
 INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (2, 2, 550, 4);
 INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (2, 3, 600, 2);
 INSERT INTO order_item(order_id, phone_id, price, quantity) VALUES (3, 3, 500, 8);
+
+INSERT INTO account(id, email, password) VALUES (1, 'admin', '$2a$04$TeWT/i9Iuht8jAgxMOaKTuHpdaHvrKpVwv9npt13g0BR0H7DPCweW');
+INSERT INTO account(id, email, password) VALUES (2, 'user', '$2a$04$QP5sIhM6txQCD6B5Ujem1.oub.LaMiS9hu18hFmNYEx1zNebvmmZy');
+
+INSERT INTO role(id, name) VALUES (1, 'ADMIN');
+INSERT INTO role(id, name) VALUES (2, 'USER');
+
+INSERT INTO account_roles(accounts_id, roles_id) VALUES (1, 1);
+INSERT INTO account_roles(accounts_id, roles_id) VALUES (1, 2);
+INSERT INTO account_roles(accounts_id, roles_id) VALUES (2, 2);

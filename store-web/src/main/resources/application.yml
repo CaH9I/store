@@ -3,9 +3,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/shop
     username: postgres
     password: admin
-    schema: classpath:sql/*-schema.sql
-    data: classpath:sql/*-data.sql
-    initialization-mode: always
   jpa:
     show-sql: true
     open-in-view: false
@@ -28,10 +25,3 @@ server:
     jsp:
       init-parameters:
         development: true
-
----
-
-spring:
-  profiles: test
-  datasource:
-    schema: classpath:sql/*-schema-test.sql

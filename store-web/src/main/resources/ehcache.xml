@@ -17,4 +17,11 @@
             overflowToDisk="false"
             timeToLiveSeconds="3600"
             memoryStoreEvictionPolicy="LFU"/>
+
+    <cache
+            name="standard"
+            maxEntriesLocalHeap="10000"
+            overflowToDisk="false"
+            timeToLiveSeconds="3600"
+            memoryStoreEvictionPolicy="LFU"/>
 </ehcache>
