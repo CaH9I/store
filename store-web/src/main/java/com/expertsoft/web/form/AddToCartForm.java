@@ -6,7 +6,7 @@ public class AddToCartForm {
 
     private long productId;
 
-    @Min(value = 1, message = "{cart.quantity.notPositive}")
+    @Min(value = 1)
     private int quantity;
 
     public long getProductId() {

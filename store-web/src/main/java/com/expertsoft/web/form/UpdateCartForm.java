@@ -1,29 +1,26 @@
 package com.expertsoft.web.form;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.expertsoft.core.service.component.ShoppingCart;
 
 import javax.validation.Valid;
-
-import com.expertsoft.core.service.component.ShoppingCart;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UpdateCartForm {
 
     @Valid
-    private Map<String, UpdateCartItem> items = new HashMap<>();
+    private final Map<String, UpdateCartItem> items = new HashMap<>();
 
-    public UpdateCartForm() {}
+    public static UpdateCartForm of(ShoppingCart cart) {
+        UpdateCartForm result = new UpdateCartForm();
 
-    public UpdateCartForm(ShoppingCart cart) {
-        cart.getItems().forEach((key, value) -> items.put(key.toString(), new UpdateCartItem(value)));
+        cart.getItems().forEach((key, value) ->
+                result.items.put(key.toString(), UpdateCartItem.of(value)));
+
+        return result;
     }
 
     public Map<String, UpdateCartItem> getItems() {
         return items;
     }
-
-    public void setItems(Map<String, UpdateCartItem> items) {
-        this.items = items;
-    }
-
 }

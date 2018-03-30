@@ -4,16 +4,16 @@ import javax.validation.constraints.NotBlank;
 
 public class OrderForm {
 
-    @NotBlank(message = "{form.emptyField}")
+    @NotBlank
     private String firstName;
 
-    @NotBlank(message = "{form.emptyField}")
+    @NotBlank
     private String lastName;
 
-    @NotBlank(message = "{form.emptyField}")
+    @NotBlank
     private String address;
 
-    @NotBlank(message = "{form.emptyField}")
+    @NotBlank
     private String phoneNumber;
 
     private String additionalInfo;

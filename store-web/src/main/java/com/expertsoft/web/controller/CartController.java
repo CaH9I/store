@@ -32,7 +32,7 @@ public class CartController {
     @GetMapping
     public String cart(Model model) {
         model.addAttribute("cartView", cartService.createShoppingCartView());
-        model.addAttribute("updateCartForm", new UpdateCartForm(cartService.getShoppingCart()));
+        model.addAttribute("updateCartForm", UpdateCartForm.of(cartService.getShoppingCart()));
         return "cart";
     }
 

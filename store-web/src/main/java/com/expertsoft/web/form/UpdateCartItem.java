@@ -4,13 +4,13 @@ import javax.validation.constraints.Min;
 
 public class UpdateCartItem {
 
-    @Min(value = 1, message = "{cart.quantity.notPositive}")
+    @Min(value = 1)
     private int quantity;
 
-    public UpdateCartItem() {}
-
-    public UpdateCartItem(int quantity) {
-        this.quantity = quantity;
+    public static UpdateCartItem of(int quantity) {
+        UpdateCartItem cartItem = new UpdateCartItem();
+        cartItem.quantity = quantity;
+        return cartItem;
     }
 
     public int getQuantity() {
@@ -20,5 +20,4 @@ public class UpdateCartItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
 }
