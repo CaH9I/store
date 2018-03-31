@@ -17,7 +17,7 @@
             timeToLiveSeconds="120"/>
 
     <cache
-            name="standard"
+            name="accounts"
             maxEntriesLocalHeap="1000"
             overflowToDisk="false"
             timeToLiveSeconds="120"

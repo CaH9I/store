@@ -1,6 +1,7 @@
 package com.expertsoft.core.service;
 
 import com.expertsoft.core.exception.RecordNotFoundException;
+import org.hibernate.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 public abstract class RepositoryService<T, ID, R extends JpaRepository<T, ID>> {
 
@@ -18,7 +22,7 @@ public abstract class RepositoryService<T, ID, R extends JpaRepository<T, ID>> {
     private final Class<T> clazz;
     protected final R repository;
 
-    public RepositoryService(final R repository, final Class<T> clazz) {
+    protected RepositoryService(final R repository, final Class<T> clazz) {
         this.repository = repository;
         this.clazz = clazz;
     }
@@ -46,9 +50,9 @@ public abstract class RepositoryService<T, ID, R extends JpaRepository<T, ID>> {
     }
 
     @Transactional(readOnly = true)
-    public T findById(ID id) {
-        return repository.findById(id)
-                .orElseThrow(RecordNotFoundException::new);
+    public Optional<T> findBySimpleNaturalId(Object naturalId) {
+        Session session = entityManager.unwrap(Session.class);
+        return ofNullable(session.bySimpleNaturalId(clazz).load(naturalId));
     }
 
     @Transactional(readOnly = true)

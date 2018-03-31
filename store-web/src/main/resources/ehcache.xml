@@ -19,7 +19,7 @@
             memoryStoreEvictionPolicy="LFU"/>
 
     <cache
-            name="standard"
+            name="accounts"
             maxEntriesLocalHeap="10000"
             overflowToDisk="false"
             timeToLiveSeconds="3600"

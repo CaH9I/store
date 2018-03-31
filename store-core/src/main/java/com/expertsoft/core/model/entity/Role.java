@@ -6,15 +6,13 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import java.util.Objects;
-import java.util.Set;
 
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_ONLY;
 
 @Entity
 @Immutable
-@Cache(usage = READ_ONLY, region = "standard")
+@Cache(usage = READ_ONLY, region = "accounts")
 public class Role {
 
     @Id
@@ -22,9 +20,6 @@ public class Role {
 
     @NaturalId
     private String name;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<Account> accounts;
 
     public Long getId() {
         return id;
@@ -42,12 +37,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
+    public static Role of(Long id, String name) {
+        Role role = new Role();
+        role.setId(id);
+        role.setName(name);
+        return role;
     }
 
     @Override
@@ -65,9 +59,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

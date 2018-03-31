@@ -2,10 +2,13 @@ package com.expertsoft.core.model.entity;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +16,8 @@ import java.util.Set;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
 
 @Entity
-@Cache(usage = NONSTRICT_READ_WRITE, region = "standard")
+@Cache(usage = NONSTRICT_READ_WRITE, region = "accounts")
+@NaturalIdCache(region = "accounts")
 public class Account {
 
     @Id
@@ -26,6 +30,10 @@ public class Account {
     private String password;
 
     @ManyToMany
+    @JoinTable(name = "account_role",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Cache(usage = NONSTRICT_READ_WRITE, region = "accounts")
     private Set<Role> roles;
 
     public Long getId() {

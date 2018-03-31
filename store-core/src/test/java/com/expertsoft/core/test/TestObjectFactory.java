@@ -1,17 +1,24 @@
 package com.expertsoft.core.test;
 
-import com.expertsoft.core.model.entity.OrderItem;
+import com.expertsoft.core.model.entity.Account;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
+import com.expertsoft.core.model.entity.OrderItem;
+import com.expertsoft.core.model.entity.Role;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
 import static com.expertsoft.core.model.entity.OrderState.SUBMITTED;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 import static java.util.Collections.unmodifiableList;
 
 public class TestObjectFactory {
+
+    private static final String ADMIN_ROLE = "ADMIN";
+    private static final String USER_ROLE = "USER";
 
     private static final List<MobilePhone> phones = unmodifiableList(asList(
             new MobilePhone(1L, "Samsung galaxy SII", 600.0),
@@ -98,6 +105,28 @@ public class TestObjectFactory {
         orders = unmodifiableList(asList(order1, order2, order3));
     }
 
+    private static final List<Role> roles = unmodifiableList(asList(
+            Role.of(1L, ADMIN_ROLE),
+            Role.of(2L, USER_ROLE)));
+
+    private static final List<Account> accounts;
+
+    static {
+        Account admin = new Account();
+        admin.setId(1L);
+        admin.setEmail("admin");
+        admin.setPassword("$2a$04$TeWT/i9Iuht8jAgxMOaKTuHpdaHvrKpVwv9npt13g0BR0H7DPCweW");
+        admin.setRoles(new HashSet<>(asList(getAdminRole(), getUserRole())));
+
+        Account user = new Account();
+        user.setId(2L);
+        user.setEmail("user");
+        user.setPassword("$2a$04$QP5sIhM6txQCD6B5Ujem1.oub.LaMiS9hu18hFmNYEx1zNebvmmZy");
+        user.setRoles(singleton(getUserRole()));
+
+        accounts = unmodifiableList(asList(admin, user));
+    }
+
     public static MobilePhone getTestMobilePhone() {
         return phones.stream()
                 .findAny()
@@ -135,5 +164,26 @@ public class TestObjectFactory {
         order.setTotal(1010.0);
         order.setAddress("Minsk");
         return order;
+    }
+
+    private static Role getAdminRole() {
+        return roleByName(ADMIN_ROLE);
+    }
+
+    private static Role getUserRole() {
+        return roleByName(USER_ROLE);
+    }
+
+    private static Role roleByName(String name) {
+        return roles.stream()
+                .filter(role -> name.equals(role.getName()))
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("No test data available"));
+    }
+
+    public static Account getTestAccount() {
+        return accounts.stream()
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("No test data available"));
     }
 }

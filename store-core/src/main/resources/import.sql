@@ -19,6 +19,6 @@ INSERT INTO account(id, email, password) VALUES (2, 'user', '$2a$04$QP5sIhM6txQC
 INSERT INTO role(id, name) VALUES (1, 'ADMIN');
 INSERT INTO role(id, name) VALUES (2, 'USER');
 
-INSERT INTO account_roles(accounts_id, roles_id) VALUES (1, 1);
-INSERT INTO account_roles(accounts_id, roles_id) VALUES (1, 2);
-INSERT INTO account_roles(accounts_id, roles_id) VALUES (2, 2);
+INSERT INTO account_role(account_id, role_id) VALUES (1, 1);
+INSERT INTO account_role(account_id, role_id) VALUES (1, 2);
+INSERT INTO account_role(account_id, role_id) VALUES (2, 2);
