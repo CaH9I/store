@@ -27,21 +27,23 @@
             </div>
         </c:if>
     </div>
-    <security:authorize access="isAuthenticated()">
-        <div class="flex-center flex-end padding-aside-15">
-            <security:authorize access="hasRole(T(com.expertsoft.web.security.SecurityConstants).ROLE_ADMIN)">
-                <a class="admin-link" href="${s:mvcUrl('AHC#adminHome').build()}">Administration</a>
-            </security:authorize>
-            <span class="padding-aside-15">Hi,&nbsp;<security:authentication property="principal.username"/></span>
-            <s:url var="logout" value="/logout"/>
-            <form:form method="post" action="${logout}">
-                <input type="submit" value="Logout" class="btn btn-primary"/>
-            </form:form>
-        </div>
-    </security:authorize>
-    <security:authorize access="isAnonymous()">
-        <div class="flex-center flex-end padding-aside-15">
-            <a href="<s:url value='/login'/>">Login</a>
-        </div>
-    </security:authorize>
+    <c:if test="${not param.hideLogin}">
+        <security:authorize access="isAuthenticated()">
+            <div class="flex-center flex-end padding-aside-15">
+                <security:authorize access="hasRole(T(com.expertsoft.web.security.SecurityConstants).ROLE_ADMIN)">
+                    <a class="admin-link" href="${s:mvcUrl('AHC#adminHome').build()}">Administration</a>
+                </security:authorize>
+                <span class="padding-aside-15">Hi,&nbsp;<security:authentication property="principal.username"/></span>
+                <s:url var="logout" value="/logout"/>
+                <form:form method="post" action="${logout}">
+                    <input type="submit" value="Logout" class="btn btn-primary"/>
+                </form:form>
+            </div>
+        </security:authorize>
+        <security:authorize access="isAnonymous()">
+            <div class="flex-center flex-end padding-aside-15">
+                <a href="<s:url value='/login'/>">Login</a>
+            </div>
+        </security:authorize>
+    </c:if>
 </div>

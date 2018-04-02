@@ -1,23 +1,33 @@
 package com.expertsoft.core.model.entity;
 
+import org.hibernate.annotations.Cache;
+
 import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.io.Serializable;
 import java.util.Objects;
 
 import static javax.persistence.FetchType.LAZY;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
 
 @Entity
-public class OrderItem implements Serializable {
+@Cache(usage = NONSTRICT_READ_WRITE, region = "orders")
+public class OrderItem {
 
-    @Id
+    @EmbeddedId
+    private OrderItemId id = new OrderItemId();
+
     @ManyToOne(fetch = LAZY)
+    @MapsId("orderId")
     private Order order;
 
-    @Id
     @ManyToOne(fetch = LAZY)
+    @MapsId("phoneId")
     private MobilePhone phone;
 
     @Basic(optional = false)
@@ -40,6 +50,7 @@ public class OrderItem implements Serializable {
 
     public void setOrder(final Order order) {
         this.order = order;
+        id.setOrderId(order.getId());
     }
 
     public MobilePhone getPhone() {
@@ -48,6 +59,7 @@ public class OrderItem implements Serializable {
 
     public void setPhone(MobilePhone phone) {
         this.phone = phone;
+        id.setPhoneId(phone.getId());
     }
 
     public Double getPrice() {
@@ -78,5 +90,39 @@ public class OrderItem implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(order, phone);
+    }
+}
+
+@Embeddable
+class OrderItemId implements Serializable {
+
+    @Column
+    private Long orderId;
+
+    @Column
+    private Long phoneId;
+
+    void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    void setPhoneId(Long phoneId) {
+        this.phoneId = phoneId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrderItemId that = (OrderItemId) o;
+
+        return Objects.equals(orderId, that.orderId) &&
+                Objects.equals(phoneId, that.phoneId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId, phoneId);
     }
 }

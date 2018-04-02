@@ -1,8 +1,17 @@
 package com.expertsoft.core.model.entity;
 
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.OnDelete;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,10 +19,12 @@ import java.util.Objects;
 import static com.expertsoft.core.model.entity.OrderState.SUBMITTED;
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.GenerationType.IDENTITY;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Entity
 @Table(name = "store_order")
+@Cache(usage = NONSTRICT_READ_WRITE, region = "orders")
 public class Order {
 
     @Id
@@ -22,6 +33,7 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = PERSIST)
     @OnDelete(action = CASCADE)
+    @Cache(usage = NONSTRICT_READ_WRITE, region = "orders")
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Basic(optional = false)

@@ -18,7 +18,14 @@
 
     <cache
             name="accounts"
-            maxEntriesLocalHeap="1000"
+            maxEntriesLocalHeap="100"
+            overflowToDisk="false"
+            timeToLiveSeconds="120"
+            memoryStoreEvictionPolicy="LFU"/>
+
+    <cache
+            name="orders"
+            maxEntriesLocalHeap="100"
             overflowToDisk="false"
             timeToLiveSeconds="120"
             memoryStoreEvictionPolicy="LFU"/>

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static com.expertsoft.web.controller.LoginPageController.LOGIN_URL;
 import static com.expertsoft.web.security.SecurityConstants.ROLE_ADMIN;
 
 @Configuration
@@ -28,8 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/admin/**").hasRole(ROLE_ADMIN)
+                .antMatchers(LOGIN_URL).anonymous()
             .and()
                 .formLogin()
+                .loginPage(LOGIN_URL)
             .and()
                 .logout().logoutSuccessUrl("/");
     }

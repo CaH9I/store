@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Test
@@ -42,7 +43,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
     @Test
     public void save() {
-        Order order = createTestOrder();
+        Order order = createTestOrder(entityManager);
 
         Long savedOrderId = orderService.save(order);
 
@@ -66,7 +67,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     public void getOrderByIdWithItemsAndProducts() {
         Order testOrder = getTestOrder();
 
-        Order order = orderService.getOrderByIdWithItemsAndProducts(testOrder.getId());
+        Order order = orderService.findById(testOrder.getId());
 
         assertEquals(testOrder, order);
         assertEquals(testOrder.getOrderItems(), order.getOrderItems());
@@ -74,7 +75,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
     @Test(expected = RecordNotFoundException.class)
     public void getOrderByIdWithItemsAndProductsNotExists() {
-        orderService.getOrderByIdWithItemsAndProducts(0L);
+        orderService.findById(0L);
     }
 
     @Test

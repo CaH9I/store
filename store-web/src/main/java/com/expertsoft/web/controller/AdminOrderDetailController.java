@@ -23,7 +23,7 @@ public class AdminOrderDetailController {
 
     @GetMapping
     public String orderDetail(@PathVariable long id, Model model) {
-        model.addAttribute("order", orderService.getOrderByIdWithItemsAndProducts(id));
+        model.addAttribute("order", orderService.findById(id));
         return "admin/orderDetail";
     }
 

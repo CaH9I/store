@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @WithAdmin
 public class AdminHomeControllerTest extends WebApplicationTest {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired

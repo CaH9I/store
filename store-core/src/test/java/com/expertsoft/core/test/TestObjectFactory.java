@@ -6,6 +6,7 @@ import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.model.entity.Role;
 
+import javax.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.List;
 
@@ -154,7 +155,12 @@ public class TestObjectFactory {
         return orders;
     }
 
-    public static Order createTestOrder() {
+    public static Order createTestOrder(final EntityManager entityManager) {
+        OrderItem item = new OrderItem();
+        item.setPhone(entityManager.merge(getTestMobilePhone()));
+        item.setPrice(500.0);
+        item.setQuantity(2);
+
         Order order = new Order();
         order.setFirstName("John");
         order.setLastName("Smith");
@@ -163,6 +169,7 @@ public class TestObjectFactory {
         order.setSubtotal(1000.0);
         order.setTotal(1010.0);
         order.setAddress("Minsk");
+        order.addOrderItem(item);
         return order;
     }
 

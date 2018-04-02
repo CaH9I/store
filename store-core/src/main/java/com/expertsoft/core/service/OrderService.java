@@ -2,9 +2,9 @@ package com.expertsoft.core.service;
 
 import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.OrderRepository;
-import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
+import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.model.entity.OrderState;
 import com.expertsoft.core.service.component.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
@@ -60,8 +59,8 @@ public class OrderService extends RepositoryService<Order, Long, OrderRepository
     }
 
     @Transactional(readOnly = true)
-    public Order getOrderByIdWithItemsAndProducts(Long id) {
-        return Optional.ofNullable(repository.findOneWithItemsAndProducts(id))
+    public Order findById(Long id) {
+        return repository.findById(id)
                 .orElseThrow(RecordNotFoundException::new);
     }
 
