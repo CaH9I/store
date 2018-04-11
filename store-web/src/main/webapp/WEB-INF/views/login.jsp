@@ -27,6 +27,12 @@
             </div>
         </div>
 
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="remember-me"/>&nbsp;Remember me
+            </label>
+        </div>
+
         <c:if test="${param.error != null}">
             <p class="text-danger">Invalid credentials</p>
         </c:if>

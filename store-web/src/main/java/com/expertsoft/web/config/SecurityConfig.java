@@ -2,6 +2,7 @@ package com.expertsoft.web.config;
 
 import com.expertsoft.web.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +17,9 @@ import static com.expertsoft.web.security.SecurityConstants.ROLE_ADMIN;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${remember.me.key}")
+    private String rememberMeKey;
 
     private final UserDetailsService userDetailsService;
 
@@ -34,7 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage(LOGIN_URL)
             .and()
-                .logout().logoutSuccessUrl("/");
+                .logout().logoutSuccessUrl("/")
+            .and()
+                .rememberMe()
+                .key(rememberMeKey);
     }
 
     @Bean
