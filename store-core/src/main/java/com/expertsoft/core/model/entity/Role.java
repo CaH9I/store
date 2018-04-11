@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.NaturalId;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class Role {
     private Long id;
 
     @NaturalId
+    @Basic(optional = false)
     private String name;
 
     public Long getId() {

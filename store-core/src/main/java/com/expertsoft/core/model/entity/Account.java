@@ -24,6 +24,7 @@ public class Account {
     private Long id;
 
     @NaturalId
+    @Basic(optional = false)
     private String email;
 
     @Basic(optional = false)

@@ -20,6 +20,7 @@ public class MobilePhone {
     private Long id;
 
     @NaturalId
+    @Basic(optional = false)
     private String model;
 
     @Basic(optional = false)
