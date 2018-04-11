@@ -28,11 +28,13 @@ public class OrderService extends RepositoryService<Order, Long, OrderRepository
     private double deliveryAmount;
 
     private final ProductService productService;
+    private final AccountService accountService;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, ProductService productService) {
+    public OrderService(OrderRepository orderRepository, ProductService productService, AccountService accountService) {
         super(orderRepository, Order.class);
         this.productService = productService;
+        this.accountService = accountService;
     }
 
     public Long save(Order order) {
@@ -81,6 +83,14 @@ public class OrderService extends RepositoryService<Order, Long, OrderRepository
         order.setDelivery(deliveryAmount);
         order.setTotal(subtotal + order.getDelivery());
 
+        return order;
+    }
+
+    @Transactional(propagation = SUPPORTS)
+    public Order createOrder(ShoppingCart cart, String username) {
+        Order order = createOrder(cart);
+        order.setAccount(accountService.findByEmail(username)
+                .orElseThrow(RecordNotFoundException::new));
         return order;
     }
 }

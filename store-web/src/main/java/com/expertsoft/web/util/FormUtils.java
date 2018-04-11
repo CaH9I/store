@@ -6,9 +6,9 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
 
-public final class FormUtil {
+public final class FormUtils {
 
-    private FormUtil() {}
+    private FormUtils() {}
 
     public static Map<Long, Integer> buildItemsMap(UpdateCartForm form) {
         return form.getItems().entrySet()

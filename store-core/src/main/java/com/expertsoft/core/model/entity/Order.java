@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 import static com.expertsoft.core.model.entity.OrderState.SUBMITTED;
 import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
@@ -63,6 +65,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     private OrderState state = SUBMITTED;
+
+    @ManyToOne(fetch = LAZY, optional = false)
+    private Account account;
 
     public Long getId() {
         return id;
@@ -151,6 +156,14 @@ public class Order {
 
     public void setState(OrderState state) {
         this.state = state;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override

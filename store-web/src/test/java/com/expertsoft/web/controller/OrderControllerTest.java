@@ -10,13 +10,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
+import static com.expertsoft.web.controller.LoginPageController.LOGIN_URL;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -25,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
+@WithMockUser
 public class OrderControllerTest extends WebApplicationTest {
 
     @Autowired
@@ -38,7 +44,7 @@ public class OrderControllerTest extends WebApplicationTest {
 
     @Before
     public void init() {
-        mockMvc = webAppContextSetup(context).build();
+        mockMvc = webAppContextSetup(context).apply(springSecurity()).build();
     }
 
     @Test
@@ -51,20 +57,26 @@ public class OrderControllerTest extends WebApplicationTest {
     }
 
     @Test
+    @WithAnonymousUser
+    public void orderAnonymousUser() throws Exception {
+        mockMvc.perform(get("/order"))
+                .andExpect(redirectedUrlPattern("**" + LOGIN_URL));
+    }
+
+    @Test
     public void placeOrder() throws Exception {
         // given
         MobilePhone testPhone = getTestMobilePhone();
         shoppingCartService.addToCart(testPhone.getId(), 10);
 
         // when
-        MvcResult result = mockMvc.perform(post("/order")
+        MvcResult result = mockMvc.perform(post("/order").with(csrf())
                 .param("firstName", "John")
                 .param("lastName", "Smith")
                 .param("address", "Minsk")
                 .param("phoneNumber", "+375 29 000-00-00")
                 .session(session))
                 .andExpect(redirectedUrlPattern("/order/{spring:[1-9]+\\d*}"))
-                .andExpect(status().is3xxRedirection())
                 .andReturn();
 
         //then
@@ -80,11 +92,18 @@ public class OrderControllerTest extends WebApplicationTest {
 
     @Test
     public void placeOrderError() throws Exception {
-        mockMvc.perform(post("/order"))
+        mockMvc.perform(post("/order").with(csrf()))
                 .andExpect(model().attributeHasErrors("orderForm"))
                 .andExpect(model().attribute("order", isA(Order.class)))
                 .andExpect(model().attribute("orderForm", isA(OrderForm.class)))
                 .andExpect(view().name("order"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithAnonymousUser
+    public void placeOrderAnonymousUser() throws Exception {
+        mockMvc.perform(post("/order").with(csrf()))
+                .andExpect(redirectedUrlPattern("**" + LOGIN_URL));
     }
 }

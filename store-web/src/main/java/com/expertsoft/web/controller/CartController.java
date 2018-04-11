@@ -3,7 +3,7 @@ package com.expertsoft.web.controller;
 import com.expertsoft.core.service.ShoppingCartService;
 import com.expertsoft.web.form.AddToCartForm;
 import com.expertsoft.web.form.UpdateCartForm;
-import com.expertsoft.web.util.FormUtil;
+import com.expertsoft.web.util.FormUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +48,7 @@ public class CartController {
             model.addAttribute("cartView", cartService.createShoppingCartView());
             return "cart";
         }
-        cartService.updateCart(FormUtil.buildItemsMap(form));
+        cartService.updateCart(FormUtils.buildItemsMap(form));
         return checkout ? "redirect:/order" : "redirect:/cart";
     }
 

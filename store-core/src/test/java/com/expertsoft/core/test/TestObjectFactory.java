@@ -170,6 +170,7 @@ public class TestObjectFactory {
         order.setTotal(1010.0);
         order.setAddress("Minsk");
         order.addOrderItem(item);
+        order.setAccount(getTestAccount());
         return order;
     }
 
