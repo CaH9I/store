@@ -1,8 +1,10 @@
 package com.expertsoft.web.security;
 
-public final class SecurityConstants {
+public interface SecurityConstants {
 
-    public static final String ROLE_ADMIN = "ADMIN";
-
-    private SecurityConstants() {}
+    String ROLE_PREFIX = "ROLE_";
+    String ADMIN = "ADMIN";
+    String ROLE_ADMIN = ROLE_PREFIX + ADMIN;
+    String USER = "USER";
+    String ROLE_USER = ROLE_PREFIX + USER;
 }

@@ -5,7 +5,6 @@ INSERT INTO role(id, name) VALUES (1, 'ADMIN');
 INSERT INTO role(id, name) VALUES (2, 'USER');
 
 INSERT INTO account_role(account_id, role_id) VALUES (1, 1);
-INSERT INTO account_role(account_id, role_id) VALUES (1, 2);
 INSERT INTO account_role(account_id, role_id) VALUES (2, 2);
 
 INSERT INTO mobile_phone(id, model, display, length, width, color, price, camera) VALUES (1, 'Samsung galaxy SII', '4''''', '14mm', '56mm', 'black', 600, '12MP');

@@ -30,7 +30,7 @@
     <c:if test="${not param.hideLogin}">
         <security:authorize access="isAuthenticated()">
             <div class="flex-center flex-end padding-aside-15">
-                <security:authorize access="hasRole(T(com.expertsoft.web.security.SecurityConstants).ROLE_ADMIN)">
+                <security:authorize access="hasRole(T(com.expertsoft.web.security.SecurityConstants).ADMIN)">
                     <a class="admin-link" href="${s:mvcUrl('AHC#adminHome').build()}">Administration</a>
                 </security:authorize>
                 <span class="padding-aside-15">Hi,&nbsp;<security:authentication property="principal.username"/></span>
