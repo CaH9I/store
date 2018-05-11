@@ -7,3 +7,4 @@ store-web/target/
 **/maven-eclipse.xml
 *.iml
 .idea/
+**/.DS_Store

@@ -8,5 +8,5 @@ import static com.expertsoft.web.security.SecurityConstants.ADMIN;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
-@WithMockUser(roles = ADMIN)
+@WithMockUser(username = "admin", roles = ADMIN)
 public @interface WithAdmin {}

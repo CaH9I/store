@@ -82,9 +82,9 @@ public class OrderItem {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        final OrderItem ci = (OrderItem) o;
-        return Objects.equals(order, ci.order) &&
-                Objects.equals(phone, ci.phone);
+        final OrderItem oi = (OrderItem) o;
+        return Objects.equals(order, oi.order) &&
+                Objects.equals(phone, oi.phone);
     }
 
     @Override

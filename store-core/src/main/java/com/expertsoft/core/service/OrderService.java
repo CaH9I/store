@@ -2,13 +2,9 @@ package com.expertsoft.core.service;
 
 import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.OrderRepository;
-import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
-import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.model.entity.OrderState;
-import com.expertsoft.core.service.component.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
-import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 @Service
 @Transactional
@@ -24,35 +19,18 @@ public class OrderService extends RepositoryService<Order, Long, OrderRepository
 
     private static final Sort ORDER_SORT = new Sort(DESC, "id");
 
-    @Value("${delivery.amount}")
-    private double deliveryAmount;
-
-    private final ProductService productService;
-    private final AccountService accountService;
-
     @Autowired
-    public OrderService(OrderRepository orderRepository, ProductService productService, AccountService accountService) {
+    public OrderService(OrderRepository orderRepository) {
         super(orderRepository, Order.class);
-        this.productService = productService;
-        this.accountService = accountService;
     }
 
-    public Long save(Order order) {
-        return repository.save(order).getId();
+    public Order save(Order order) {
+        return repository.save(order);
     }
 
     public void changeOrderState(Long orderId, OrderState state) {
         Order order = repository.getOne(orderId);
         order.setState(state);
-    }
-
-    @Transactional(propagation = SUPPORTS)
-    public void populateOrder(Order order, String firstName, String lastName, String address, String phoneNumber, String additionalInfo) {
-        order.setFirstName(firstName);
-        order.setLastName(lastName);
-        order.setAddress(address);
-        order.setPhoneNumber(phoneNumber);
-        order.setAdditionalInfo(additionalInfo);
     }
 
     @Transactional(readOnly = true)
@@ -64,33 +42,5 @@ public class OrderService extends RepositoryService<Order, Long, OrderRepository
     public Order findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(RecordNotFoundException::new);
-    }
-
-    @Transactional(propagation = SUPPORTS)
-    public Order createOrder(ShoppingCart cart) {
-        Order order = new Order();
-        List<MobilePhone> phones = productService.findAllById(cart.getItems().keySet());
-        double subtotal = 0;
-
-        for (MobilePhone phone : phones) {
-            Integer quantity = cart.getItems().get(phone.getId());
-            OrderItem ci = new OrderItem(phone, quantity, phone.getPrice());
-            order.addOrderItem(ci);
-            subtotal += ci.getPrice() * ci.getQuantity();
-        }
-
-        order.setSubtotal(subtotal);
-        order.setDelivery(deliveryAmount);
-        order.setTotal(subtotal + order.getDelivery());
-
-        return order;
-    }
-
-    @Transactional(propagation = SUPPORTS)
-    public Order createOrder(ShoppingCart cart, String username) {
-        Order order = createOrder(cart);
-        order.setAccount(accountService.findByEmail(username)
-                .orElseThrow(RecordNotFoundException::new));
-        return order;
     }
 }

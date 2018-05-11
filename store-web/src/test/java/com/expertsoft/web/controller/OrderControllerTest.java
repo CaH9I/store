@@ -9,13 +9,16 @@ import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
+import org.springframework.security.acls.model.Acl;
+import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
 import static com.expertsoft.web.controller.LoginPageController.LOGIN_URL;
+import static com.expertsoft.web.test.TestUtils.checkDefaultPermission;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,7 +43,7 @@ public class OrderControllerTest extends WebApplicationTest {
     private ShoppingCartService shoppingCartService;
 
     @Autowired
-    private MockHttpSession session;
+    private MutableAclService aclService;
 
     @Before
     public void init() {
@@ -88,6 +91,9 @@ public class OrderControllerTest extends WebApplicationTest {
 
         Long orderId = Long.valueOf(location.replaceAll(".*/", ""));
         assertTrue(orderRepository.existsById(orderId));
+
+        Acl acl = aclService.readAclById(new ObjectIdentityImpl(Order.class, orderId));
+        checkDefaultPermission(acl, "user");
     }
 
     @Test

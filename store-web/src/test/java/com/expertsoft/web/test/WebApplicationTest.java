@@ -4,6 +4,7 @@ import com.expertsoft.web.WebApplication;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -18,8 +19,11 @@ import org.springframework.web.context.WebApplicationContext;
 @Transactional
 public abstract class WebApplicationTest {
 
+    protected MockMvc mockMvc;
+
     @Autowired
     protected WebApplicationContext context;
 
-    protected MockMvc mockMvc;
+    @Autowired
+    protected MockHttpSession session;
 }

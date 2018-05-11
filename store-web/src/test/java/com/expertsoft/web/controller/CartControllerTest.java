@@ -8,7 +8,6 @@ import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.validation.Errors;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
@@ -29,9 +28,6 @@ public class CartControllerTest extends WebApplicationTest {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
-
-    @Autowired
-    private MockHttpSession session;
 
     @Before
     public void init() {

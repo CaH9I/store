@@ -21,6 +21,28 @@ public class TestObjectFactory {
     private static final String ADMIN_ROLE = "ADMIN";
     private static final String USER_ROLE = "USER";
 
+    private static final List<Role> roles = unmodifiableList(asList(
+            Role.of(1L, ADMIN_ROLE),
+            Role.of(2L, USER_ROLE)));
+
+    private static final List<Account> accounts;
+
+    static {
+        Account admin = new Account();
+        admin.setId(1L);
+        admin.setEmail("admin");
+        admin.setPassword("$2a$04$TeWT/i9Iuht8jAgxMOaKTuHpdaHvrKpVwv9npt13g0BR0H7DPCweW");
+        admin.setRoles(new HashSet<>(asList(getAdminRole(), getUserRole())));
+
+        Account user = new Account();
+        user.setId(2L);
+        user.setEmail("user");
+        user.setPassword("$2a$04$QP5sIhM6txQCD6B5Ujem1.oub.LaMiS9hu18hFmNYEx1zNebvmmZy");
+        user.setRoles(singleton(getUserRole()));
+
+        accounts = unmodifiableList(asList(admin, user));
+    }
+
     private static final List<MobilePhone> phones = unmodifiableList(asList(
             new MobilePhone(1L, "Samsung galaxy SII", 600.0),
             new MobilePhone(2L, "Samsung galaxy SIII", 650.0),
@@ -55,6 +77,7 @@ public class TestObjectFactory {
         order1.setTotal(2860.0);
         order1.setAdditionalInfo("Do not delay delivery please");
         order1.setState(SUBMITTED);
+        order1.setAccount(getUserAccount());
 
         order1.addOrderItem(ci11);
         order1.addOrderItem(ci12);
@@ -81,6 +104,7 @@ public class TestObjectFactory {
         order2.setTotal(3415.0);
         order2.setAdditionalInfo("I'd like you to deliver till December 24");
         order2.setState(SUBMITTED);
+        order2.setAccount(getAdminAccount());
 
         order2.addOrderItem(ci21);
         order2.addOrderItem(ci22);
@@ -100,32 +124,11 @@ public class TestObjectFactory {
         order3.setDelivery(5.0);
         order3.setTotal(4005.0);
         order3.setState(DELIVERED);
+        order3.setAccount(getUserAccount());
 
         order3.addOrderItem(ci31);
 
         orders = unmodifiableList(asList(order1, order2, order3));
-    }
-
-    private static final List<Role> roles = unmodifiableList(asList(
-            Role.of(1L, ADMIN_ROLE),
-            Role.of(2L, USER_ROLE)));
-
-    private static final List<Account> accounts;
-
-    static {
-        Account admin = new Account();
-        admin.setId(1L);
-        admin.setEmail("admin");
-        admin.setPassword("$2a$04$TeWT/i9Iuht8jAgxMOaKTuHpdaHvrKpVwv9npt13g0BR0H7DPCweW");
-        admin.setRoles(new HashSet<>(asList(getAdminRole(), getUserRole())));
-
-        Account user = new Account();
-        user.setId(2L);
-        user.setEmail("user");
-        user.setPassword("$2a$04$QP5sIhM6txQCD6B5Ujem1.oub.LaMiS9hu18hFmNYEx1zNebvmmZy");
-        user.setRoles(singleton(getUserRole()));
-
-        accounts = unmodifiableList(asList(admin, user));
     }
 
     public static MobilePhone getTestMobilePhone() {
@@ -153,6 +156,21 @@ public class TestObjectFactory {
 
     public static List<Order> getTestOrders() {
         return orders;
+    }
+
+    private static Order getOrder(String username) {
+        return orders.stream()
+                .filter(order -> order.getAccount().getEmail().equals(username))
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("No test data available"));
+    }
+
+    public static Order getAdminOrder() {
+        return getOrder("admin");
+    }
+
+    public static Order getUserOrder() {
+        return getOrder("user");
     }
 
     public static Order createTestOrder(final EntityManager entityManager) {
@@ -193,5 +211,20 @@ public class TestObjectFactory {
         return accounts.stream()
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("No test data available"));
+    }
+
+    private static Account getAccount(String username) {
+        return accounts.stream()
+                .filter(account -> username.equals(account.getEmail()))
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("No test data available"));
+    }
+
+    public static Account getUserAccount() {
+        return getAccount("user");
+    }
+
+    private static Account getAdminAccount() {
+        return getAccount("admin");
     }
 }

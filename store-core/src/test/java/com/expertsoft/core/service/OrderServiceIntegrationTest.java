@@ -45,9 +45,9 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     public void save() {
         Order order = createTestOrder(entityManager);
 
-        Long savedOrderId = orderService.save(order);
+        Order savedOrder = orderService.save(order);
 
-        assertEquals(order, orderRepository.getOne(savedOrderId));
+        assertEquals(order, savedOrder);
     }
 
     @Test
