@@ -36,7 +36,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
-import javax.validation.Valid;
 
 import static com.expertsoft.web.controller.LoginPageController.LOGIN_URL;
 import static com.expertsoft.web.security.SecurityConstants.ADMIN;
