@@ -1,8 +1,8 @@
 package com.expertsoft.web.controller;
 
 import com.expertsoft.core.model.entity.MobilePhone;
-import com.expertsoft.core.service.ShoppingCartService;
-import com.expertsoft.core.service.component.ShoppingCartView;
+import com.expertsoft.core.commerce.ShoppingCart;
+import com.expertsoft.core.commerce.ShoppingCartView;
 import com.expertsoft.web.form.UpdateCartForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 public class CartControllerTest extends WebApplicationTest {
 
     @Autowired
-    private ShoppingCartService shoppingCartService;
+    private ShoppingCart cart;
 
     @Before
     public void init() {
@@ -46,7 +46,7 @@ public class CartControllerTest extends WebApplicationTest {
     @Test
     public void removeFromCart() throws Exception {
         MobilePhone testPhone = getTestMobilePhone();
-        shoppingCartService.addToCart(testPhone.getId(), 10);
+        cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
                 .param("productToRemoveId", testPhone.getId().toString())
@@ -54,7 +54,7 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(redirectedUrl("/cart"))
                 .andExpect(status().is3xxRedirection());
 
-        assertThat(shoppingCartService.getShoppingCart().getItems(), not(hasKey(testPhone.getId())));
+        assertThat(cart.getItems(), not(hasKey(testPhone.getId())));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(view().name("json/addToCartSuccess"))
                 .andExpect(status().isOk());
 
-        assertThat(shoppingCartService.getShoppingCart().getItems(), hasKey(testPhone.getId()));
+        assertThat(cart.getItems(), hasKey(testPhone.getId()));
     }
 
     @Test
@@ -85,13 +85,13 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(view().name("json/addToCartError"))
                 .andExpect(status().isBadRequest());
 
-        assertThat(shoppingCartService.getShoppingCart().getItems(), not(hasKey(testPhone.getId())));
+        assertThat(cart.getItems(), not(hasKey(testPhone.getId())));
     }
 
     @Test
     public void updateCart() throws Exception {
         MobilePhone testPhone = getTestMobilePhone();
-        shoppingCartService.addToCart(testPhone.getId(), 10);
+        cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
                 .param("items[" + testPhone.getId() + "].quantity", "5")
@@ -99,13 +99,13 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(redirectedUrl("/cart"))
                 .andExpect(status().is3xxRedirection());
 
-        assertThat(shoppingCartService.getShoppingCart().getItems(), hasEntry(testPhone.getId(), 5));
+        assertThat(cart.getItems(), hasEntry(testPhone.getId(), 5));
     }
 
     @Test
     public void updateCartProceedCheckout() throws Exception {
         MobilePhone testPhone = getTestMobilePhone();
-        shoppingCartService.addToCart(testPhone.getId(), 10);
+        cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
                 .param("items[" + testPhone.getId() + "].quantity", "5")
@@ -114,13 +114,13 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(redirectedUrl("/order"))
                 .andExpect(status().is3xxRedirection());
 
-        assertThat(shoppingCartService.getShoppingCart().getItems(), hasEntry(testPhone.getId(), 5));
+        assertThat(cart.getItems(), hasEntry(testPhone.getId(), 5));
     }
 
     @Test
     public void updateCartIncorrectQuantity() throws Exception {
         MobilePhone testPhone = getTestMobilePhone();
-        shoppingCartService.addToCart(testPhone.getId(), 10);
+        cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
                 .param("items[" + testPhone.getId() + "].quantity", "0")
@@ -131,6 +131,6 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(view().name("cart"))
                 .andExpect(status().isOk());
 
-        assertThat(shoppingCartService.getShoppingCart().getItems(), hasEntry(testPhone.getId(), 10));
+        assertThat(cart.getItems(), hasEntry(testPhone.getId(), 10));
     }
 }

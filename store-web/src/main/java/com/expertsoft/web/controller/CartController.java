@@ -1,6 +1,6 @@
 package com.expertsoft.web.controller;
 
-import com.expertsoft.core.service.ShoppingCartService;
+import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.web.form.AddToCartForm;
 import com.expertsoft.web.form.UpdateCartForm;
 import com.expertsoft.web.util.FormUtils;
@@ -22,33 +22,33 @@ import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 @RequestMapping("/cart")
 public class CartController {
 
-    private ShoppingCartService cartService;
+    private final ShoppingCart cart;
 
     @Autowired
-    public CartController(ShoppingCartService cartService) {
-        this.cartService = cartService;
+    public CartController(ShoppingCart cart) {
+        this.cart = cart;
     }
 
     @GetMapping
     public String cart(Model model) {
-        model.addAttribute("cartView", cartService.createShoppingCartView());
-        model.addAttribute("updateCartForm", UpdateCartForm.of(cartService.getShoppingCart()));
+        model.addAttribute("cartView", cart.getView());
+        model.addAttribute("updateCartForm", UpdateCartForm.of(cart));
         return "cart";
     }
 
     @PostMapping(params = "productToRemoveId")
     public String removeFromCart(@RequestParam long productToRemoveId) {
-        cartService.removeFromCart(productToRemoveId);
+        cart.remove(productToRemoveId);
         return "redirect:/cart";
     }
 
     @PostMapping
     public String updateCart(@Valid UpdateCartForm form, Errors errors, @RequestParam(required = false) boolean checkout, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("cartView", cartService.createShoppingCartView());
+            model.addAttribute("cartView", cart.getView());
             return "cart";
         }
-        cartService.updateCart(FormUtils.buildItemsMap(form));
+        cart.update(FormUtils.buildItemsMap(form));
         return checkout ? "redirect:/order" : "redirect:/cart";
     }
 
@@ -59,8 +59,8 @@ public class CartController {
             response.setStatus(SC_BAD_REQUEST);
             return "json/addToCartError";
         }
-        cartService.addToCart(form.getProductId(), form.getQuantity());
-        model.addAttribute("cartView", cartService.createShoppingCartView());
+        cart.add(form.getProductId(), form.getQuantity());
+        model.addAttribute("cartView", cart.getView());
         return "json/addToCartSuccess";
     }
 }

@@ -1,6 +1,6 @@
 package com.expertsoft.web.form;
 
-import com.expertsoft.core.service.component.ShoppingCart;
+import com.expertsoft.core.commerce.ShoppingCart;
 
 import javax.validation.Valid;
 import java.util.HashMap;

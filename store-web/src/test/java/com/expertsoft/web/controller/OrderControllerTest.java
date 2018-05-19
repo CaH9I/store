@@ -3,7 +3,7 @@ package com.expertsoft.web.controller;
 import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
-import com.expertsoft.core.service.ShoppingCartService;
+import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.web.form.OrderForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
@@ -40,7 +40,7 @@ public class OrderControllerTest extends WebApplicationTest {
     private OrderRepository orderRepository;
 
     @Autowired
-    private ShoppingCartService shoppingCartService;
+    private ShoppingCart cart;
 
     @Autowired
     private MutableAclService aclService;
@@ -70,7 +70,7 @@ public class OrderControllerTest extends WebApplicationTest {
     public void placeOrder() throws Exception {
         // given
         MobilePhone testPhone = getTestMobilePhone();
-        shoppingCartService.addToCart(testPhone.getId(), 10);
+        cart.add(testPhone.getId(), 10);
 
         // when
         MvcResult result = mockMvc.perform(post("/order").with(csrf())
@@ -83,7 +83,7 @@ public class OrderControllerTest extends WebApplicationTest {
                 .andReturn();
 
         //then
-        assertEquals(0, shoppingCartService.getShoppingCart().getItems().size());
+        assertEquals(0, cart.getItems().size());
 
         String location = result.getResponse().getHeader("Location");
         assertNotNull(location);

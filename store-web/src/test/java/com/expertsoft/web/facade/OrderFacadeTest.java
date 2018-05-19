@@ -4,7 +4,7 @@ import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.service.OrderService;
-import com.expertsoft.core.service.ShoppingCartService;
+import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.web.form.OrderForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class OrderFacadeTest extends WebApplicationTest {
     private OrderFacade orderFacade;
 
     @Autowired
-    private ShoppingCartService cartService;
+    private ShoppingCart cart;
 
     @Autowired
     private OrderService orderService;
@@ -42,7 +42,7 @@ public class OrderFacadeTest extends WebApplicationTest {
     @Test
     public void placeOrder() {
         // given
-        cartService.addToCart(PHONE.getId(), QTY);
+        cart.add(PHONE.getId(), QTY);
         Order order = orderFacade.createOrderFromCart();
         populateOrder(order);
 
@@ -60,7 +60,7 @@ public class OrderFacadeTest extends WebApplicationTest {
 
     @Test
     public void createOrderFromCart() {
-        cartService.addToCart(PHONE.getId(), QTY);
+        cart.add(PHONE.getId(), QTY);
         Order order = orderFacade.createOrderFromCart();
 
         assertEquals(PHONE.getPrice(), order.getSubtotal());

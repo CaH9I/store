@@ -1,6 +1,6 @@
 package com.expertsoft.web.controller;
 
-import com.expertsoft.core.service.component.ShoppingCartView;
+import com.expertsoft.core.commerce.ShoppingCartView;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;

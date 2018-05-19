@@ -7,8 +7,7 @@ import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.service.AccountService;
 import com.expertsoft.core.service.OrderService;
 import com.expertsoft.core.service.ProductService;
-import com.expertsoft.core.service.ShoppingCartService;
-import com.expertsoft.core.service.component.ShoppingCart;
+import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.web.form.OrderForm;
 import com.expertsoft.web.security.AclManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +26,19 @@ public class OrderFacade {
     private double deliveryAmount;
 
     private final OrderService orderService;
-    private final ShoppingCartService cartService;
+    private final ShoppingCart cart;
     private final AccountService accountService;
     private final ProductService productService;
     private final AclManager aclManager;
 
     @Autowired
     public OrderFacade(final OrderService orderService,
-                       final ShoppingCartService cartService,
+                       final ShoppingCart cart,
                        final AccountService accountService,
                        final ProductService productService,
                        final AclManager aclManager) {
         this.orderService = orderService;
-        this.cartService = cartService;
+        this.cart = cart;
         this.accountService = accountService;
         this.productService = productService;
         this.aclManager = aclManager;
@@ -56,14 +55,13 @@ public class OrderFacade {
         Order newOrder = orderService.save(order);
         aclManager.addDefaultPermissions(Order.class, newOrder.getId(), newOrder.getAccount().getEmail());
 
-        cartService.clearCart();
+        cart.clear();
 
         return newOrder.getId();
     }
 
     public Order createOrderFromCart() {
         Order order = new Order();
-        ShoppingCart cart = cartService.getShoppingCart();
         List<MobilePhone> phones = productService.findAllById(cart.getItems().keySet());
         double subtotal = 0;
 
