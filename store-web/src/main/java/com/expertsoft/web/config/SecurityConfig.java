@@ -47,7 +47,7 @@ import static java.lang.String.format;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${remember.me.key}")
+    @Value("${rememberMe.key}")
     private String rememberMeKey;
 
     @Value("${acl.classIdentityQuery}")

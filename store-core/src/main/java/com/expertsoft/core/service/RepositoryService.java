@@ -2,6 +2,8 @@ package com.expertsoft.core.service;
 
 import com.expertsoft.core.exception.RecordNotFoundException;
 import org.hibernate.Session;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +60,11 @@ public abstract class RepositoryService<T, ID, R extends JpaRepository<T, ID>> {
     @Transactional(readOnly = true)
     public List<T> findAll() {
         return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<T> findAll(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     @Transactional

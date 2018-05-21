@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="phone" items="${mobilePhones}">
+            <c:forEach var="phone" items="${mobilePhones.content}">
                 <form:form method="post" class="add-to-cart" action="${s:mvcUrl('CC#addToCart').build()}">
                     <input type="hidden" name="productId" value="${phone.id}"/>
                     <tr>
@@ -35,5 +35,6 @@
             </c:forEach>
         </tbody>
     </table>
+    <app:pagination page="${mobilePhones}" mappingName="PLC#productListForPage"/>
     <div id="errors-section"></div>
 </app:template>
