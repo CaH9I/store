@@ -1,4 +1,4 @@
-package com.expertsoft.web.form;
+package com.expertsoft.web.dto.form;
 
 import javax.validation.constraints.NotBlank;
 

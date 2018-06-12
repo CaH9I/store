@@ -1,8 +1,7 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.cart;
 
 import com.expertsoft.core.commerce.ShoppingCart;
-import com.expertsoft.web.form.AddToCartForm;
-import com.expertsoft.web.form.UpdateCartForm;
+import com.expertsoft.web.dto.form.UpdateCartForm;
 import com.expertsoft.web.util.FormUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 
 @Controller
 @RequestMapping("/cart")
@@ -50,17 +46,5 @@ public class CartController {
         }
         cart.update(FormUtils.buildItemsMap(form));
         return checkout ? "redirect:/order" : "redirect:/cart";
-    }
-
-    @PostMapping("/add-to-cart")
-    public String addToCart(@Valid AddToCartForm form, Errors errors, Model model, HttpServletResponse response) {
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            response.setStatus(SC_BAD_REQUEST);
-            return "json/addToCartError";
-        }
-        cart.add(form.getProductId(), form.getQuantity());
-        model.addAttribute("cartView", cart.getView());
-        return "json/addToCartSuccess";
     }
 }

@@ -1,4 +1,4 @@
-<%@attribute name="price" required="true"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@attribute name="price" type="java.lang.Double" required="true"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
-<fmt:formatNumber value="${price}" pattern="$#,###.##" maxFractionDigits="2" minFractionDigits="2"/>
+<s:eval expression="@priceFormatter.format(price)"/>

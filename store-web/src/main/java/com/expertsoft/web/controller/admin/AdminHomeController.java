@@ -1,4 +1,4 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.admin;
 
 import com.expertsoft.core.model.entity.OrderState;
 import com.expertsoft.core.service.OrderService;

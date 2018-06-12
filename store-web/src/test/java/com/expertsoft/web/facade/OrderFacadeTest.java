@@ -5,7 +5,7 @@ import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.service.OrderService;
 import com.expertsoft.core.commerce.ShoppingCart;
-import com.expertsoft.web.form.OrderForm;
+import com.expertsoft.web.dto.form.OrderForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

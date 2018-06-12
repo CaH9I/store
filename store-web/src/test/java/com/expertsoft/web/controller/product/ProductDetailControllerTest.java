@@ -1,4 +1,4 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.product;
 
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.commerce.ShoppingCartView;

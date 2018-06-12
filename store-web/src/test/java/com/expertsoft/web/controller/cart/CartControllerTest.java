@@ -1,14 +1,13 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.cart;
 
-import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.core.commerce.ShoppingCartView;
-import com.expertsoft.web.form.UpdateCartForm;
+import com.expertsoft.core.model.entity.MobilePhone;
+import com.expertsoft.web.dto.form.UpdateCartForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.Errors;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
 import static org.hamcrest.Matchers.hasEntry;
@@ -53,37 +52,6 @@ public class CartControllerTest extends WebApplicationTest {
                 .session(session))
                 .andExpect(redirectedUrl("/cart"))
                 .andExpect(status().is3xxRedirection());
-
-        assertThat(cart.getItems(), not(hasKey(testPhone.getId())));
-    }
-
-    @Test
-    public void addToCart() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
-
-        mockMvc.perform(post("/cart/add-to-cart")
-                .param("productId", testPhone.getId().toString())
-                .param("quantity", "10")
-                .session(session))
-                .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
-                .andExpect(view().name("json/addToCartSuccess"))
-                .andExpect(status().isOk());
-
-        assertThat(cart.getItems(), hasKey(testPhone.getId()));
-    }
-
-    @Test
-    public void addToCartIncorrectQuantity() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
-
-        mockMvc.perform(post("/cart/add-to-cart")
-                .param("productId", testPhone.getId().toString())
-                .param("quantity", "0")
-                .session(session))
-                .andExpect(model().attributeHasErrors("addToCartForm"))
-                .andExpect(model().attribute("errors", isA(Errors.class)))
-                .andExpect(view().name("json/addToCartError"))
-                .andExpect(status().isBadRequest());
 
         assertThat(cart.getItems(), not(hasKey(testPhone.getId())));
     }

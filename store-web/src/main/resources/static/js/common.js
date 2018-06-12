@@ -8,13 +8,16 @@ function addToCart(e) {
     
     var url = $(this).attr('action');
     var data = $(this).serialize();
-    
-    $.post(url, data)
-        .done(function(data) {
-            $('#cart-item .item-number').html(data.itemsText);
-            $('#cart-item .item-price').html(data.priceText);
-        })
-        .fail(function(data) {
+
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        data: data,
+        success: function(data) {
+            $('#cart-item .item-number').text(data.numberOfItems + (data.numberOfItems === 1 ? ' item' : ' items'));
+            $('#cart-item .item-price').text(data.subtotal);
+        },
+        error: function(data) {
             data.responseJSON.errors.forEach(function(msg) {
                 $('#errors-section').append(
                     $('<div>').addClass('alert alert-danger alert-dismissable').text(msg).append(
@@ -22,5 +25,6 @@ function addToCart(e) {
                     )
                 );
             });
-        });
+        }
+    });
 }

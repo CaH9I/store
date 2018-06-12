@@ -1,7 +1,7 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.order;
 
 import com.expertsoft.web.facade.OrderFacade;
-import com.expertsoft.web.form.OrderForm;
+import com.expertsoft.web.dto.form.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

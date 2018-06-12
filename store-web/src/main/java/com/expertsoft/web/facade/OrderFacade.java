@@ -8,7 +8,7 @@ import com.expertsoft.core.service.AccountService;
 import com.expertsoft.core.service.OrderService;
 import com.expertsoft.core.service.ProductService;
 import com.expertsoft.core.commerce.ShoppingCart;
-import com.expertsoft.web.form.OrderForm;
+import com.expertsoft.web.dto.form.OrderForm;
 import com.expertsoft.web.security.AclManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

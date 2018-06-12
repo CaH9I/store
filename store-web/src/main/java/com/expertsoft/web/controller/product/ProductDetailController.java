@@ -1,4 +1,4 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.product;
 
 import com.expertsoft.core.commerce.ShoppingCartView;
 import com.expertsoft.core.service.ProductService;
@@ -10,27 +10,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
-public class ProductListController {
+@RequestMapping("/product-detail/{id}")
+public class ProductDetailController {
 
     private ProductService productService;
     private ShoppingCartView cartView;
 
     @Autowired
-    public ProductListController(ProductService productService, ShoppingCartView cartView) {
+    public ProductDetailController(ProductService productService, ShoppingCartView cartView) {
         this.productService = productService;
         this.cartView = cartView;
     }
 
     @GetMapping
-    public String productList(Model model) {
-        return productListForPage(1, model);
-    }
-
-    @GetMapping("/{page}")
-    public String productListForPage(@PathVariable int page, Model model) {
-        model.addAttribute("mobilePhones", productService.findAll(page - 1));
+    public String productDetail(@PathVariable long id, Model model) {
+        model.addAttribute("mobilePhone", productService.findById(id));
         model.addAttribute("cartView", cartView);
-        return "productList";
+        return "productDetail";
     }
 }

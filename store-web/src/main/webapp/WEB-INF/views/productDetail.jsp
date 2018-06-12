@@ -35,7 +35,7 @@
                 <td>${mobilePhone.camera}</td>
             </tr>
         </table>
-        <form:form method="post" class="form-inline add-to-cart margin-bottom-20" action="${s:mvcUrl('CC#addToCart').build()}">
+        <form:form method="post" class="form-inline add-to-cart margin-bottom-20" action="${s:mvcUrl('RCC#addToCart').build()}">
             <input type="hidden" name="productId" value="${mobilePhone.id}"/>
             <div class="form-group">
                 <input name="quantity" class="form-control" value="1" maxlength="4"/>

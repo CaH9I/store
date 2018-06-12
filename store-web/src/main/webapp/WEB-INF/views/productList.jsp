@@ -21,7 +21,7 @@
         </thead>
         <tbody>
             <c:forEach var="phone" items="${mobilePhones.content}">
-                <form:form method="post" class="add-to-cart" action="${s:mvcUrl('CC#addToCart').build()}">
+                <form:form method="post" class="add-to-cart" action="${s:mvcUrl('RCC#addToCart').build()}">
                     <input type="hidden" name="productId" value="${phone.id}"/>
                     <tr>
                         <td><a href="${s:mvcUrl('PDC#productDetail').arg(0, phone.id).build()}">${phone.model}</a></td>

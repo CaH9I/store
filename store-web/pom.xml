@@ -13,13 +13,6 @@
     <version>1.1</version>
     <packaging>jar</packaging>
 
-    <repositories>
-        <repository>
-            <id>public</id>
-            <url>http://maven.nuxeo.org/nexus/content/repositories/public/</url>
-        </repository>
-    </repositories>
-
     <build>
         <plugins>
             <plugin>
@@ -53,15 +46,10 @@
             <artifactId>jstl</artifactId>
         </dependency>
 
-        <!-- Other -->
+        <!-- JDBC -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>atg.taglib.json</groupId>
-            <artifactId>json-taglib</artifactId>
-            <version>0.4.1</version>
         </dependency>
 
         <!-- Core module -->

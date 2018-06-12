@@ -1,6 +1,6 @@
 package com.expertsoft.web.util;
 
-import com.expertsoft.web.form.UpdateCartForm;
+import com.expertsoft.web.dto.form.UpdateCartForm;
 
 import java.util.Map;
 

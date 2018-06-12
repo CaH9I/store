@@ -1,20 +1,16 @@
-package com.expertsoft.web.form;
+package com.expertsoft.web.dto.form;
 
 import javax.validation.constraints.Min;
 
-public class AddToCartForm {
-
-    private long productId;
+public class UpdateCartItem {
 
     @Min(value = 1)
     private int quantity;
 
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
+    public static UpdateCartItem of(int quantity) {
+        UpdateCartItem cartItem = new UpdateCartItem();
+        cartItem.quantity = quantity;
+        return cartItem;
     }
 
     public int getQuantity() {

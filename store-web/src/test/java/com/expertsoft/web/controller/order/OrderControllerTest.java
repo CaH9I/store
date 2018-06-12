@@ -1,10 +1,10 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.order;
 
 import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.commerce.ShoppingCart;
-import com.expertsoft.web.form.OrderForm;
+import com.expertsoft.web.dto.form.OrderForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;

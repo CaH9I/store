@@ -27,9 +27,9 @@
             </li>
 
             <c:if test="${index eq page.totalPages}">
-                <c:set var="nexPageIndex">${page.number + 2}</c:set>
+                <c:set var="nextPageIndex">${page.number + 2}</c:set>
                 <li ${page.last ? 'class="disabled"' : ''}>
-                    <a href="${page.last ? '#' : s:mvcUrl(mappingName).arg(0, nexPageIndex).build()}">
+                    <a href="${page.last ? '#' : s:mvcUrl(mappingName).arg(0, nextPageIndex).build()}">
                         <span>&raquo;</span>
                     </a>
                 </li>

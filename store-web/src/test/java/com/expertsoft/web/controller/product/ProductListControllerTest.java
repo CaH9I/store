@@ -1,4 +1,4 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.product;
 
 import com.expertsoft.core.commerce.ShoppingCartView;
 import com.expertsoft.core.service.ProductService;

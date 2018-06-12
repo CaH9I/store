@@ -1,4 +1,4 @@
-package com.expertsoft.web.controller;
+package com.expertsoft.web.controller.order;
 
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.web.test.WebApplicationTest;
