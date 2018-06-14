@@ -1,6 +1,7 @@
 package com.expertsoft.web.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Collections.emptyList;
 
@@ -33,6 +34,21 @@ public class AddToCartResponse {
 
     public List<String> getErrors() {
         return errors;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddToCartResponse response = (AddToCartResponse) o;
+        return Objects.equals(numberOfItems, response.numberOfItems) &&
+                Objects.equals(subtotal, response.subtotal) &&
+                Objects.equals(errors, response.errors);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numberOfItems, subtotal, errors);
     }
 
     @Override
