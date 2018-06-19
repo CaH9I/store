@@ -32,13 +32,13 @@ public class UserDetailsServiceImplUnitTest {
     public void loadUserByUsername() {
         // given
         Account testAccount = getTestAccount();
-        when(accountService.findByEmail(testAccount.getEmail())).thenReturn(Optional.of(testAccount));
+        when(accountService.findByUsername(testAccount.getUsername())).thenReturn(Optional.of(testAccount));
 
         // when
-        UserDetails user = userDetailsService.loadUserByUsername(testAccount.getEmail());
+        UserDetails user = userDetailsService.loadUserByUsername(testAccount.getUsername());
 
         // then
-        assertEquals(testAccount.getEmail(), user.getUsername());
+        assertEquals(testAccount.getUsername(), user.getUsername());
         assertEquals(testAccount.getPassword(), user.getPassword());
 
         Collection<String> expectedRoles = testAccount.getRoles()
@@ -57,7 +57,7 @@ public class UserDetailsServiceImplUnitTest {
     @Test(expected = UsernameNotFoundException.class)
     public void loadUserByUsernameNotExists() {
         String unknownUser = "user not exists";
-        when(accountService.findByEmail(unknownUser)).thenReturn(Optional.empty());
+        when(accountService.findByUsername(unknownUser)).thenReturn(Optional.empty());
 
         userDetailsService.loadUserByUsername(unknownUser);
     }

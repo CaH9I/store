@@ -1,6 +1,5 @@
 package com.expertsoft.web.controller.product;
 
-import com.expertsoft.core.commerce.ShoppingCartView;
 import com.expertsoft.core.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductListController {
 
     private ProductService productService;
-    private ShoppingCartView cartView;
 
     @Autowired
-    public ProductListController(ProductService productService, ShoppingCartView cartView) {
+    public ProductListController(ProductService productService) {
         this.productService = productService;
-        this.cartView = cartView;
     }
 
     @GetMapping
@@ -30,7 +27,6 @@ public class ProductListController {
     @GetMapping("/{page}")
     public String productListForPage(@PathVariable int page, Model model) {
         model.addAttribute("mobilePhones", productService.findAll(page - 1));
-        model.addAttribute("cartView", cartView);
-        return "productList";
+        return "product/productList";
     }
 }

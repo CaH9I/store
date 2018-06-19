@@ -14,7 +14,7 @@ function addToCart(e) {
         type: 'PUT',
         data: data,
         success: function(data) {
-            $('#cart-item .item-number').text(data.numberOfItems + (data.numberOfItems === 1 ? ' item' : ' items'));
+            $('#cart-item .item-number').text(data.numberOfItems);
             $('#cart-item .item-price').text(data.subtotal);
         },
         error: function(data) {

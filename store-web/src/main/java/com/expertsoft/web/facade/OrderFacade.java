@@ -48,12 +48,12 @@ public class OrderFacade {
     public long placeOrder(OrderForm form) {
         Order order = createOrderFromCart();
 
-        order.setAccount(accountService.findByEmail(username())
+        order.setAccount(accountService.findByUsername(username())
                 .orElseThrow(RecordNotFoundException::new));
         populateOrder(order, form);
 
         Order newOrder = orderService.save(order);
-        aclManager.addDefaultPermissions(Order.class, newOrder.getId(), newOrder.getAccount().getEmail());
+        aclManager.addDefaultPermissions(Order.class, newOrder.getId(), newOrder.getAccount().getUsername());
 
         cart.clear();
 

@@ -27,7 +27,7 @@ public class ProductDetailControllerTest extends WebApplicationTest {
         mockMvc.perform(get("/product-detail/" + testPhone.getId()))
                 .andExpect(model().attribute("mobilePhone", testPhone))
                 .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
-                .andExpect(view().name("productDetail"))
+                .andExpect(view().name("product/productDetail"))
                 .andExpect(status().isOk());
     }
 

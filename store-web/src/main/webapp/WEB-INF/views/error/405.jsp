@@ -1,4 +1,5 @@
-<jsp:include page="error.jsp">
-    <jsp:param name="code" value="405"/>
-    <jsp:param name="message" value="Method Not Allowed"/>
-</jsp:include>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://store.expertsoft.com/tags" prefix="app"%>
+
+<s:message code="error.405" var="message"/>
+<app:error errorCode="405" message="${message}"/>

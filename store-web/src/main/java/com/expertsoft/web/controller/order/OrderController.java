@@ -29,14 +29,14 @@ public class OrderController {
     public String order(Model model) {
         model.addAttribute("order", orderFacade.createOrderFromCart());
         model.addAttribute("orderForm", new OrderForm());
-        return "order";
+        return "order/order";
     }
 
     @PostMapping
     public String placeOrder(@Valid OrderForm form, Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("order", orderFacade.createOrderFromCart());
-            return "order";
+            return "order/order";
         }
         return "redirect:/order/" + orderFacade.placeOrder(form);
     }

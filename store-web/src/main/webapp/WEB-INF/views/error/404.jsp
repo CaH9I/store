@@ -1,4 +1,5 @@
-<jsp:include page="error.jsp">
-  <jsp:param name="code" value="404"/>
-  <jsp:param name="message" value="The requested resource is not available"/>
-</jsp:include>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://store.expertsoft.com/tags" prefix="app"%>
+
+<s:message code="error.404" var="message"/>
+<app:error errorCode="404" message="${message}"/>

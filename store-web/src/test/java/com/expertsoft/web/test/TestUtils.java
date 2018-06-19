@@ -5,7 +5,7 @@ import org.springframework.security.acls.domain.PrincipalSid;
 import org.springframework.security.acls.model.Acl;
 import org.springframework.security.acls.model.Sid;
 
-import static com.expertsoft.web.security.SecurityConstants.ROLE_ADMIN;
+import static com.expertsoft.web.util.Constants.ROLE_ADMIN;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasProperty;

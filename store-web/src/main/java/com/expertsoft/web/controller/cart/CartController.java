@@ -27,9 +27,8 @@ public class CartController {
 
     @GetMapping
     public String cart(Model model) {
-        model.addAttribute("cartView", cart.getView());
         model.addAttribute("updateCartForm", UpdateCartForm.of(cart));
-        return "cart";
+        return "cart/cart";
     }
 
     @PostMapping(params = "productToRemoveId")
@@ -39,10 +38,9 @@ public class CartController {
     }
 
     @PostMapping
-    public String updateCart(@Valid UpdateCartForm form, Errors errors, @RequestParam(required = false) boolean checkout, Model model) {
+    public String updateCart(@Valid UpdateCartForm form, Errors errors, @RequestParam(required = false) boolean checkout) {
         if (errors.hasErrors()) {
-            model.addAttribute("cartView", cart.getView());
-            return "cart";
+            return "cart/cart";
         }
         cart.update(FormUtils.buildItemsMap(form));
         return checkout ? "redirect:/order" : "redirect:/cart";

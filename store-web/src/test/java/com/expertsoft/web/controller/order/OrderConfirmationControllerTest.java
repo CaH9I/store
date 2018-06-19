@@ -29,7 +29,7 @@ public class OrderConfirmationControllerTest extends WebApplicationTest {
 
         mockMvc.perform(get("/order/" + testOrder.getId()))
                 .andExpect(model().attribute("order", testOrder))
-                .andExpect(view().name("orderConfirm"))
+                .andExpect(view().name("order/orderConfirm"))
                 .andExpect(status().isOk());
     }
 

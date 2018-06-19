@@ -25,7 +25,7 @@ public class Account {
 
     @NaturalId
     @Basic(optional = false)
-    private String email;
+    private String username;
 
     @Basic(optional = false)
     private String password;
@@ -45,12 +45,12 @@ public class Account {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     public String getPassword() {
@@ -74,19 +74,19 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return Objects.equals(email, account.email);
+        return Objects.equals(username, account.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email);
+        return Objects.hash(username);
     }
 
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

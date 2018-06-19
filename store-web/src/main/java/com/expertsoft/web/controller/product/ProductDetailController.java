@@ -1,6 +1,5 @@
 package com.expertsoft.web.controller.product;
 
-import com.expertsoft.core.commerce.ShoppingCartView;
 import com.expertsoft.core.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,18 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductDetailController {
 
     private ProductService productService;
-    private ShoppingCartView cartView;
 
     @Autowired
-    public ProductDetailController(ProductService productService, ShoppingCartView cartView) {
+    public ProductDetailController(ProductService productService) {
         this.productService = productService;
-        this.cartView = cartView;
     }
 
     @GetMapping
     public String productDetail(@PathVariable long id, Model model) {
         model.addAttribute("mobilePhone", productService.findById(id));
-        model.addAttribute("cartView", cartView);
-        return "productDetail";
+        return "product/productDetail";
     }
 }

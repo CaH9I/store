@@ -18,18 +18,18 @@ public class AccountServiceIntegrationTest extends IntegrationTest {
     private AccountService accountService;
 
     @Test
-    public void findByEmail() {
+    public void findByUsername() {
         Account testAccount = getTestAccount();
 
-        Account account = accountService.findByEmail(testAccount.getEmail())
+        Account account = accountService.findByUsername(testAccount.getUsername())
                 .orElseThrow(RecordNotFoundException::new);
 
         assertEquals(testAccount, account);
     }
 
     @Test
-    public void findByEmailNotExists() {
-        Optional<Account> account = accountService.findByEmail("fake email");
+    public void findByUsernameNotExists() {
+        Optional<Account> account = accountService.findByUsername("fake email");
 
         assertFalse(account.isPresent());
     }

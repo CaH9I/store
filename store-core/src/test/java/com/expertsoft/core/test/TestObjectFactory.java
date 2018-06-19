@@ -30,13 +30,13 @@ public class TestObjectFactory {
     static {
         Account admin = new Account();
         admin.setId(1L);
-        admin.setEmail("admin");
+        admin.setUsername("admin");
         admin.setPassword("$2a$04$TeWT/i9Iuht8jAgxMOaKTuHpdaHvrKpVwv9npt13g0BR0H7DPCweW");
         admin.setRoles(new HashSet<>(asList(getAdminRole(), getUserRole())));
 
         Account user = new Account();
         user.setId(2L);
-        user.setEmail("user");
+        user.setUsername("user");
         user.setPassword("$2a$04$QP5sIhM6txQCD6B5Ujem1.oub.LaMiS9hu18hFmNYEx1zNebvmmZy");
         user.setRoles(singleton(getUserRole()));
 
@@ -160,7 +160,7 @@ public class TestObjectFactory {
 
     private static Order getOrder(String username) {
         return orders.stream()
-                .filter(order -> order.getAccount().getEmail().equals(username))
+                .filter(order -> order.getAccount().getUsername().equals(username))
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("No test data available"));
     }
@@ -215,7 +215,7 @@ public class TestObjectFactory {
 
     private static Account getAccount(String username) {
         return accounts.stream()
-                .filter(account -> username.equals(account.getEmail()))
+                .filter(account -> username.equals(account.getUsername()))
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("No test data available"));
     }

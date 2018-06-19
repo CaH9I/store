@@ -1,4 +1,5 @@
-<jsp:include page="error.jsp">
-  <jsp:param name="code" value="403"/>
-  <jsp:param name="message" value="Access to the specified resource has been forbidden"/>
-</jsp:include>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://store.expertsoft.com/tags" prefix="app"%>
+
+<s:message code="error.403" var="message"/>
+<app:error errorCode="403" message="${message}"/>

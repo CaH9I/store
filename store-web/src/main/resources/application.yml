@@ -19,6 +19,9 @@ spring:
         cache:
           region:
             factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+  http:
+    encoding:
+      force-response: true
   mvc:
     view:
       prefix: /WEB-INF/views/

@@ -38,9 +38,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 import static com.expertsoft.web.controller.LoginPageController.LOGIN_URL;
-import static com.expertsoft.web.security.SecurityConstants.ADMIN;
-import static com.expertsoft.web.security.SecurityConstants.ROLE_ADMIN;
-import static com.expertsoft.web.security.SecurityConstants.ROLE_USER;
+import static com.expertsoft.web.util.Constants.ADMIN;
+import static com.expertsoft.web.util.Constants.ROLE_ADMIN;
+import static com.expertsoft.web.util.Constants.ROLE_USER;
 import static java.lang.String.format;
 
 @Configuration

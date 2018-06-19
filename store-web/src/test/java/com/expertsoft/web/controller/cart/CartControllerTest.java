@@ -38,7 +38,7 @@ public class CartControllerTest extends WebApplicationTest {
         mockMvc.perform(get("/cart"))
                 .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
                 .andExpect(model().attribute("updateCartForm", isA(UpdateCartForm.class)))
-                .andExpect(view().name("cart"))
+                .andExpect(view().name("cart/cart"))
                 .andExpect(status().isOk());
     }
 
@@ -96,7 +96,7 @@ public class CartControllerTest extends WebApplicationTest {
                 .andExpect(model().attributeHasErrors("updateCartForm"))
                 .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
                 .andExpect(model().attribute("updateCartForm", isA(UpdateCartForm.class)))
-                .andExpect(view().name("cart"))
+                .andExpect(view().name("cart/cart"))
                 .andExpect(status().isOk());
 
         assertThat(cart.getItems(), hasEntry(testPhone.getId(), 10));

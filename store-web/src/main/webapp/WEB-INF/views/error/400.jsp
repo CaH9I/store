@@ -1,4 +1,5 @@
-<jsp:include page="error.jsp">
-  <jsp:param name="code" value="400"/>
-  <jsp:param name="message" value="The request you sent was syntactically incorrect"/>
-</jsp:include>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://store.expertsoft.com/tags" prefix="app"%>
+
+<s:message code="error.400" var="message"/>
+<app:error errorCode="400" message="${message}"/>

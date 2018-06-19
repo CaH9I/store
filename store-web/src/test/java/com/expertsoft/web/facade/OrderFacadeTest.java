@@ -55,7 +55,7 @@ public class OrderFacadeTest extends WebApplicationTest {
         assertEquals(placedOrder.getAccount(), getUserAccount());
 
         Acl acl = aclService.readAclById(new ObjectIdentityImpl(Order.class, orderId));
-        checkDefaultPermission(acl, placedOrder.getAccount().getEmail());
+        checkDefaultPermission(acl, placedOrder.getAccount().getUsername());
     }
 
     @Test

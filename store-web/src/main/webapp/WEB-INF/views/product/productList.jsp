@@ -1,22 +1,19 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib tagdir="/WEB-INF/tags" prefix="app"%>
+<%@taglib uri="http://store.expertsoft.com/tags" prefix="app"%>
 
 <app:template>
-    <jsp:include page="include/header.jsp">
-        <jsp:param name="includeCartFragment" value="true"/>
-    </jsp:include>
-    <h3>Phones</h3>
+    <h3><s:message code="product.title"/></h3>
     <table class="table table-bordered table-striped">
         <thead>
             <tr class="bg-primary">
-                <th>Model</th>
-                <th>Color</th>
-                <th>Display size</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Action</th>
+                <th><s:message code="product.model"/></th>
+                <th><s:message code="product.color"/></th>
+                <th><s:message code="product.display"/></th>
+                <th><s:message code="product.price"/></th>
+                <th><s:message code="product.quantity"/></th>
+                <th><s:message code="general.action"/></th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +26,7 @@
                         <td>${phone.display}</td>
                         <td><app:price price="${phone.price}"/></td>
                         <td><input name="quantity" value="1" class="form-control" maxlength="4"/></td>
-                        <td><input type="submit" value="Add to cart" class="btn btn-success"/></td>
+                        <td><input type="submit" value="<s:message code='general.button.addToCart'/>" class="btn btn-success"/></td>
                     </tr>
                 </form:form>
             </c:forEach>

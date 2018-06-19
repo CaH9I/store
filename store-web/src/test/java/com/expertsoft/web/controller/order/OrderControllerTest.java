@@ -55,7 +55,7 @@ public class OrderControllerTest extends WebApplicationTest {
         mockMvc.perform(get("/order"))
                 .andExpect(model().attribute("order", isA(Order.class)))
                 .andExpect(model().attribute("orderForm", isA(OrderForm.class)))
-                .andExpect(view().name("order"))
+                .andExpect(view().name("order/order"))
                 .andExpect(status().isOk());
     }
 
@@ -102,7 +102,7 @@ public class OrderControllerTest extends WebApplicationTest {
                 .andExpect(model().attributeHasErrors("orderForm"))
                 .andExpect(model().attribute("order", isA(Order.class)))
                 .andExpect(model().attribute("orderForm", isA(OrderForm.class)))
-                .andExpect(view().name("order"))
+                .andExpect(view().name("order/order"))
                 .andExpect(status().isOk());
     }
 

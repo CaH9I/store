@@ -17,7 +17,7 @@ public class AccountService extends RepositoryService<Account, Long, AccountRepo
     }
 
     @Transactional(readOnly = true)
-    public Optional<Account> findByEmail(final String email) {
-        return findBySimpleNaturalId(email);
+    public Optional<Account> findByUsername(final String username) {
+        return findBySimpleNaturalId(username);
     }
 }

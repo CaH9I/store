@@ -1,7 +1,8 @@
-<%@attribute name="page" type="org.springframework.data.domain.Page" required="true"%>
-<%@attribute name="mappingName" type="java.lang.String" required="true"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+
+<%@attribute name="page" type="org.springframework.data.domain.Page" required="true"%>
+<%@attribute name="mappingName" type="java.lang.String" required="true"%>
 
 <c:if test="${page.totalPages gt 1}">
     <ul class="pager">

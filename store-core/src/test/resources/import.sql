@@ -1,5 +1,5 @@
-INSERT INTO account(id, email, password) VALUES (1, 'admin', '$2a$04$TeWT/i9Iuht8jAgxMOaKTuHpdaHvrKpVwv9npt13g0BR0H7DPCweW');
-INSERT INTO account(id, email, password) VALUES (2, 'user', '$2a$04$QP5sIhM6txQCD6B5Ujem1.oub.LaMiS9hu18hFmNYEx1zNebvmmZy');
+INSERT INTO account(id, username, password) VALUES (1, 'admin', '$2a$04$TeWT/i9Iuht8jAgxMOaKTuHpdaHvrKpVwv9npt13g0BR0H7DPCweW');
+INSERT INTO account(id, username, password) VALUES (2, 'user', '$2a$04$QP5sIhM6txQCD6B5Ujem1.oub.LaMiS9hu18hFmNYEx1zNebvmmZy');
 
 INSERT INTO role(id, name) VALUES (1, 'ADMIN');
 INSERT INTO role(id, name) VALUES (2, 'USER');

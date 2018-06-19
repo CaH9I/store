@@ -1,37 +1,34 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib tagdir="/WEB-INF/tags" prefix="app"%>
+<%@taglib uri="http://store.expertsoft.com/tags" prefix="app"%>
 
 <app:template>
-    <jsp:include page="include/header.jsp">
-        <jsp:param name="includeCartFragment" value="true"/>
-    </jsp:include>
-    <a class="btn btn-default" href="${s:mvcUrl('PLC#productList').build()}">&#8592; Back to product list</a>
+    <a class="btn btn-default" href="${s:mvcUrl('PLC#productList').build()}">&#8592;&nbsp;<s:message code="navigation.productList"/></a>
     <h2>${mobilePhone.model}</h2>
     <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 no-padding">
         <table class="table table-bordered table-striped">
             <tr>
-                <td>Display</td>
+                <td><s:message code="product.display"/></td>
                 <td>${mobilePhone.display}</td>
             </tr>
             <tr>
-                <td>Length</td>
+                <td><s:message code="product.length"/></td>
                 <td>${mobilePhone.length}</td>
             </tr>
             <tr>
-                <td>Width</td>
+                <td><s:message code="product.width"/></td>
                 <td>${mobilePhone.width}</td>
             </tr>
             <tr>
-                <td>Color</td>
+                <td><s:message code="product.color"/></td>
                 <td>${mobilePhone.color}</td>
             </tr>
             <tr>
-                <td>Price</td>
+                <td><s:message code="product.price"/></td>
                 <td><app:price price="${mobilePhone.price}"/></td>
             </tr>
             <tr>
-                <td>Camera</td>
+                <td><s:message code="product.camera"/></td>
                 <td>${mobilePhone.camera}</td>
             </tr>
         </table>
@@ -41,7 +38,7 @@
                 <input name="quantity" class="form-control" value="1" maxlength="4"/>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add to cart" class="btn btn-success"/>
+                <input type="submit" value="<s:message code='general.button.addToCart'/>" class="btn btn-success"/>
             </div>
         </form:form>
         <div id="errors-section"></div>

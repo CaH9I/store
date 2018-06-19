@@ -67,8 +67,25 @@
     padding-right: 15px;
 }
 
+.languages .lang-element:not(:last-child) {
+    margin-right: .75em;
+}
+
 .width-50 {
     width: 75px;
+}
+
+.link {
+    background: none;
+    border: none;
+    padding: 0 !important;
+    color: #337ab7;
+}
+
+.link:hover,
+.link:focus {
+    color: #23527c;
+    text-decoration: underline;
 }
 
 .admin-link {

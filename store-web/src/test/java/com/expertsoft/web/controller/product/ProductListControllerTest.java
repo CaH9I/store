@@ -31,7 +31,7 @@ public class ProductListControllerTest extends WebApplicationTest {
         mockMvc.perform(get("/"))
                 .andExpect(model().attribute("mobilePhones", productService.findAll(0)))
                 .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
-                .andExpect(view().name("productList"))
+                .andExpect(view().name("product/productList"))
                 .andExpect(status().isOk());
     }
 
@@ -40,7 +40,7 @@ public class ProductListControllerTest extends WebApplicationTest {
         mockMvc.perform(get("/" + PAGE_NUMBER))
                 .andExpect(model().attribute("mobilePhones", productService.findAll(PAGE_NUMBER - 1)))
                 .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
-                .andExpect(view().name("productList"))
+                .andExpect(view().name("product/productList"))
                 .andExpect(status().isOk());
     }
 

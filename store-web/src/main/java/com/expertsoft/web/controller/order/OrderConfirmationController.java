@@ -24,6 +24,6 @@ public class OrderConfirmationController {
     @PreAuthorize("hasPermission(#id, 'com.expertsoft.core.model.entity.Order', T(org.springframework.security.acls.domain.BasePermission).READ)")
     public String confirmOrder(@PathVariable long id, Model model) {
         model.addAttribute("order", orderService.findById(id));
-        return "orderConfirm";
+        return "order/orderConfirm";
     }
 }

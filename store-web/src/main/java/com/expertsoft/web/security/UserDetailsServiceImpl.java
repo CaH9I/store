@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) {
-        Account account = accountService.findByEmail(username)
+        Account account = accountService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Account not found: " + username));
 
         return User.withUsername(username)

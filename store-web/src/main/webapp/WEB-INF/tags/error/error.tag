@@ -1,9 +1,12 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
+<%@attribute name="errorCode" type="java.lang.Integer" required="true"%>
+<%@attribute name="message" type="java.lang.String" required="true"%>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Mobile shop</title>
+        <title><s:message code="header.title"/></title>
         <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet" type="text/css">
         <style type="text/css">
             body {
@@ -56,10 +59,10 @@
     <body>
         <div class="wrap">
             <div class="logo">
-                <h1>${param.code}</h1>
-                <p>${param.message}</p>
+                <h1>${errorCode}</h1>
+                <p>${message}</p>
                 <div class="sub">
-                    <p><a href="${s:mvcUrl('PLC#productList').build()}">Back home</a></p>
+                    <p><a href="${s:mvcUrl('PLC#productList').build()}"><s:message code="navigation.home"/></a></p>
                 </div>
             </div>
         </div>
