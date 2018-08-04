@@ -125,7 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AclCache aclCache(CacheManager cacheManager) {
-        var cache = cacheManager.getCache("aclCache");
+        var cache = cacheManager.getCache("acl");
         return new EhCacheBasedAclCache(cache, permissionGrantingStrategy(), aclAuthorizationStrategy());
     }
 

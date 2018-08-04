@@ -1,6 +1,7 @@
 package com.expertsoft.web.config;
 
 import com.expertsoft.core.CoreApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
 @Configuration
+@EnableCaching
 @Import(CoreApplication.class)
 public class WebApplicationConfig {
 

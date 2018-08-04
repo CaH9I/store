@@ -6,12 +6,19 @@ spring:
     schema: classpath:sql/schema/*.sql
     data: classpath:sql/data/*.sql
     initialization-mode: always
+  cache:
+    ehcache:
+      config: classpath:cache/ehcache-store.xml
   jpa:
     show-sql: true
     open-in-view: true
     hibernate:
       ddl-auto: create
     properties:
+      net:
+        sf:
+          ehcache:
+            configurationResourceName: cache/ehcache-hibernate.xml
       hibernate:
         format_sql: true
         temp:
