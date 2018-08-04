@@ -29,7 +29,7 @@ public class OrderService extends RepositoryService<Order, Long, OrderRepository
     }
 
     public void changeOrderState(Long orderId, OrderState state) {
-        Order order = repository.getOne(orderId);
+        var order = repository.getOne(orderId);
         order.setState(state);
     }
 

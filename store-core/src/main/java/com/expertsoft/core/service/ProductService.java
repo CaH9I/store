@@ -31,7 +31,7 @@ public class ProductService extends RepositoryService<MobilePhone, Long, Product
             throw new RecordNotFoundException();
         }
 
-        Page<MobilePhone> result = findAll(page, pageSize);
+        var result = findAll(page, pageSize);
 
         if ((page > 0) && (!result.hasContent())) {
             throw new RecordNotFoundException();

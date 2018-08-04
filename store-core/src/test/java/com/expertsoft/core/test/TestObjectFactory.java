@@ -7,66 +7,63 @@ import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.model.entity.Role;
 
 import javax.persistence.EntityManager;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
 import static com.expertsoft.core.model.entity.OrderState.SUBMITTED;
-import static java.util.Arrays.asList;
-import static java.util.Collections.singleton;
-import static java.util.Collections.unmodifiableList;
 
 public class TestObjectFactory {
 
     private static final String ADMIN_ROLE = "ADMIN";
     private static final String USER_ROLE = "USER";
 
-    private static final List<Role> roles = unmodifiableList(asList(
+    private static final List<Role> roles = List.of(
             Role.of(1L, ADMIN_ROLE),
-            Role.of(2L, USER_ROLE)));
+            Role.of(2L, USER_ROLE));
 
     private static final List<Account> accounts;
 
     static {
-        Account admin = new Account();
+        var admin = new Account();
         admin.setId(1L);
         admin.setUsername("admin");
         admin.setPassword("$2a$04$TeWT/i9Iuht8jAgxMOaKTuHpdaHvrKpVwv9npt13g0BR0H7DPCweW");
-        admin.setRoles(new HashSet<>(asList(getAdminRole(), getUserRole())));
+        admin.setRoles(Set.of(getAdminRole(), getUserRole()));
 
-        Account user = new Account();
+        var user = new Account();
         user.setId(2L);
         user.setUsername("user");
         user.setPassword("$2a$04$QP5sIhM6txQCD6B5Ujem1.oub.LaMiS9hu18hFmNYEx1zNebvmmZy");
-        user.setRoles(singleton(getUserRole()));
+        user.setRoles(Set.of(getUserRole()));
 
-        accounts = unmodifiableList(asList(admin, user));
+        accounts = List.of(admin, user);
     }
 
-    private static final List<MobilePhone> phones = unmodifiableList(asList(
+    private static final List<MobilePhone> phones = List.of(
             new MobilePhone(1L, "Samsung galaxy SII", 600.0),
             new MobilePhone(2L, "Samsung galaxy SIII", 650.0),
-            new MobilePhone(3L, "Samsung galaxy S6", 750.0)));
+            new MobilePhone(3L, "Samsung galaxy S6", 750.0));
 
     private static final List<Order> orders;
 
     static {
-        OrderItem ci11 = new OrderItem();
-        ci11.setPhone(getMobilePhone(1L));
-        ci11.setPrice(400.0);
-        ci11.setQuantity(2);
+        var oi11 = new OrderItem();
+        oi11.setPhone(getMobilePhone(1L));
+        oi11.setPrice(400.0);
+        oi11.setQuantity(2);
 
-        OrderItem ci12 = new OrderItem();
-        ci12.setPhone(getMobilePhone(2L));
-        ci12.setPrice(500.0);
-        ci12.setQuantity(3);
+        var oi12 = new OrderItem();
+        oi12.setPhone(getMobilePhone(2L));
+        oi12.setPrice(500.0);
+        oi12.setQuantity(3);
 
-        OrderItem ci13 = new OrderItem();
-        ci13.setPhone(getMobilePhone(3L));
-        ci13.setPrice(550.0);
-        ci13.setQuantity(1);
+        var oi13 = new OrderItem();
+        oi13.setPhone(getMobilePhone(3L));
+        oi13.setPrice(550.0);
+        oi13.setQuantity(1);
 
-        Order order1 = new Order();
+        var order1 = new Order();
         order1.setId(1L);
         order1.setFirstName("James");
         order1.setLastName("Smith");
@@ -79,21 +76,21 @@ public class TestObjectFactory {
         order1.setState(SUBMITTED);
         order1.setAccount(getUserAccount());
 
-        order1.addOrderItem(ci11);
-        order1.addOrderItem(ci12);
-        order1.addOrderItem(ci13);
+        order1.addOrderItem(oi11);
+        order1.addOrderItem(oi12);
+        order1.addOrderItem(oi13);
 
-        OrderItem ci21 = new OrderItem();
-        ci21.setPhone(getMobilePhone(2L));
-        ci21.setPrice(550.0);
-        ci21.setQuantity(4);
+        var oi21 = new OrderItem();
+        oi21.setPhone(getMobilePhone(2L));
+        oi21.setPrice(550.0);
+        oi21.setQuantity(4);
 
-        OrderItem ci22 = new OrderItem();
-        ci22.setPhone(getMobilePhone(3L));
-        ci22.setPrice(600.0);
-        ci22.setQuantity(2);
+        var oi22 = new OrderItem();
+        oi22.setPhone(getMobilePhone(3L));
+        oi22.setPrice(600.0);
+        oi22.setQuantity(2);
 
-        Order order2 = new Order();
+        var order2 = new Order();
         order2.setId(2L);
         order2.setFirstName("John");
         order2.setLastName("Johnson");
@@ -106,15 +103,15 @@ public class TestObjectFactory {
         order2.setState(SUBMITTED);
         order2.setAccount(getAdminAccount());
 
-        order2.addOrderItem(ci21);
-        order2.addOrderItem(ci22);
+        order2.addOrderItem(oi21);
+        order2.addOrderItem(oi22);
 
-        OrderItem ci31 = new OrderItem();
-        ci31.setPhone(getMobilePhone(3L));
-        ci31.setPrice(500.0);
-        ci31.setQuantity(8);
+        var oi31 = new OrderItem();
+        oi31.setPhone(getMobilePhone(3L));
+        oi31.setPrice(500.0);
+        oi31.setQuantity(8);
 
-        Order order3 = new Order();
+        var order3 = new Order();
         order3.setId(3L);
         order3.setFirstName("Robert");
         order3.setLastName("Williams");
@@ -126,9 +123,9 @@ public class TestObjectFactory {
         order3.setState(DELIVERED);
         order3.setAccount(getUserAccount());
 
-        order3.addOrderItem(ci31);
+        order3.addOrderItem(oi31);
 
-        orders = unmodifiableList(asList(order1, order2, order3));
+        orders = List.of(order1, order2, order3);
     }
 
     public static MobilePhone getTestMobilePhone() {
@@ -174,12 +171,12 @@ public class TestObjectFactory {
     }
 
     public static Order createTestOrder(final EntityManager entityManager) {
-        OrderItem item = new OrderItem();
+        var item = new OrderItem();
         item.setPhone(entityManager.merge(getTestMobilePhone()));
         item.setPrice(500.0);
         item.setQuantity(2);
 
-        Order order = new Order();
+        var order = new Order();
         order.setFirstName("John");
         order.setLastName("Smith");
         order.setPhoneNumber("+375 44 000-00-00");

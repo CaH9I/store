@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import java.util.List;
 
 import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
 import static com.expertsoft.core.test.TestObjectFactory.createTestOrder;
@@ -34,7 +32,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
     @Test
     public void deleteById() {
-        Order testOrder = getTestOrder();
+        var testOrder = getTestOrder();
 
         orderService.deleteById(testOrder.getId());
 
@@ -43,20 +41,20 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
     @Test
     public void save() {
-        Order order = createTestOrder(entityManager);
+        var order = createTestOrder(entityManager);
 
-        Order savedOrder = orderService.save(order);
+        var savedOrder = orderService.save(order);
 
         assertEquals(order, savedOrder);
     }
 
     @Test
     public void changeOrderState() {
-        TypedQuery<Order> query = entityManager.createQuery(
+        var query = entityManager.createQuery(
                 "select o from Order o where o.state <> :state", Order.class);
         query.setParameter("state", DELIVERED);
         query.setMaxResults(1);
-        Order order = query.getSingleResult();
+        var order = query.getSingleResult();
 
         orderService.changeOrderState(order.getId(), DELIVERED);
 
@@ -65,9 +63,9 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
     @Test
     public void getOrderByIdWithItemsAndProducts() {
-        Order testOrder = getTestOrder();
+        var testOrder = getTestOrder();
 
-        Order order = orderService.findById(testOrder.getId());
+        var order = orderService.findById(testOrder.getId());
 
         assertEquals(testOrder, order);
         assertEquals(testOrder.getOrderItems(), order.getOrderItems());
@@ -80,7 +78,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
     @Test
     public void findAll() {
-        List<Order> orders = orderService.findAll();
+        var orders = orderService.findAll();
 
         assertThat(orders, containsInAnyOrder(getTestOrders().toArray()));
     }

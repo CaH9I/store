@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.empty;
@@ -63,7 +62,7 @@ public class ShoppingCartUnitTest {
 
     @Test
     public void update() {
-        Map<Long, Integer> newItems = new HashMap<>();
+        var newItems = new HashMap<Long, Integer>();
         newItems.put(1L, 4);
         newItems.put(2L, 5);
         newItems.put(3L, 6);

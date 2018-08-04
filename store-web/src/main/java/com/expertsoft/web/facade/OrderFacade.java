@@ -1,21 +1,18 @@
 package com.expertsoft.web.facade;
 
+import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.core.exception.RecordNotFoundException;
-import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.service.AccountService;
 import com.expertsoft.core.service.OrderService;
 import com.expertsoft.core.service.ProductService;
-import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.web.dto.form.OrderForm;
 import com.expertsoft.web.security.AclManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static com.expertsoft.web.util.SecurityUtils.username;
 
@@ -46,13 +43,13 @@ public class OrderFacade {
 
     @Transactional
     public long placeOrder(OrderForm form) {
-        Order order = createOrderFromCart();
+        var order = createOrderFromCart();
 
         order.setAccount(accountService.findByUsername(username())
                 .orElseThrow(RecordNotFoundException::new));
         populateOrder(order, form);
 
-        Order newOrder = orderService.save(order);
+        var newOrder = orderService.save(order);
         aclManager.addDefaultPermissions(Order.class, newOrder.getId(), newOrder.getAccount().getUsername());
 
         cart.clear();
@@ -61,13 +58,13 @@ public class OrderFacade {
     }
 
     public Order createOrderFromCart() {
-        Order order = new Order();
-        List<MobilePhone> phones = productService.findAllById(cart.getItems().keySet());
-        double subtotal = 0;
+        var order = new Order();
+        var phones = productService.findAllById(cart.getItems().keySet());
+        var subtotal = 0.0;
 
-        for (MobilePhone phone : phones) {
-            Integer quantity = cart.getItems().get(phone.getId());
-            OrderItem oi = new OrderItem(phone, quantity, phone.getPrice());
+        for (var phone : phones) {
+            var quantity = cart.getItems().get(phone.getId());
+            var oi = new OrderItem(phone, quantity, phone.getPrice());
             order.addOrderItem(oi);
             subtotal += oi.getPrice() * oi.getQuantity();
         }

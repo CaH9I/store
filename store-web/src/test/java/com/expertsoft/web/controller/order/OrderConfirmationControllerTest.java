@@ -1,6 +1,5 @@
 package com.expertsoft.web.controller.order;
 
-import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +24,7 @@ public class OrderConfirmationControllerTest extends WebApplicationTest {
 
     @Test
     public void confirmOrder() throws Exception {
-        Order testOrder = getUserOrder();
+        var testOrder = getUserOrder();
 
         mockMvc.perform(get("/order/" + testOrder.getId()))
                 .andExpect(model().attribute("order", testOrder))
@@ -35,7 +34,7 @@ public class OrderConfirmationControllerTest extends WebApplicationTest {
 
     @Test
     public void confirmOrderNoPermission() throws Exception {
-        Order testOrder = getAdminOrder();
+        var testOrder = getAdminOrder();
 
         mockMvc.perform(get("/order/" + testOrder.getId()))
                 .andExpect(status().isForbidden());

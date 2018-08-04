@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Cache;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
@@ -31,11 +30,11 @@ public abstract class RepositoryService<T, ID, R extends JpaRepository<T, ID>> {
 
     @Transactional(readOnly = true)
     public List<T> findAllById(Iterable<ID> ids) {
-        List<T> result = new ArrayList<>();
-        List<ID> notCachedIds = new ArrayList<>();
-        Cache cache = entityManager.getEntityManagerFactory().getCache();
+        var result = new ArrayList<T>();
+        var notCachedIds = new ArrayList<ID>();
+        var cache = entityManager.getEntityManagerFactory().getCache();
 
-        for (ID id : ids) {
+        for (var id : ids) {
             if (cache.contains(clazz, id)) {
                 result.add(repository.findById(id)
                         .orElseThrow(RecordNotFoundException::new));
@@ -53,7 +52,7 @@ public abstract class RepositoryService<T, ID, R extends JpaRepository<T, ID>> {
 
     @Transactional(readOnly = true)
     public Optional<T> findBySimpleNaturalId(Object naturalId) {
-        Session session = entityManager.unwrap(Session.class);
+        var session = entityManager.unwrap(Session.class);
         return ofNullable(session.bySimpleNaturalId(clazz).load(naturalId));
     }
 

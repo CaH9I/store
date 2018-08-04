@@ -1,16 +1,13 @@
 package com.expertsoft.core.service;
 
-import com.expertsoft.core.exception.RecordNotFoundException;
-import com.expertsoft.core.model.entity.Account;
 import com.expertsoft.core.test.IntegrationTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-
 import static com.expertsoft.core.test.TestObjectFactory.getTestAccount;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class AccountServiceIntegrationTest extends IntegrationTest {
 
@@ -19,18 +16,18 @@ public class AccountServiceIntegrationTest extends IntegrationTest {
 
     @Test
     public void findByUsername() {
-        Account testAccount = getTestAccount();
+        var testAccount = getTestAccount();
 
-        Account account = accountService.findByUsername(testAccount.getUsername())
-                .orElseThrow(RecordNotFoundException::new);
+        var accountOpt = accountService.findByUsername(testAccount.getUsername());
 
-        assertEquals(testAccount, account);
+        assertTrue(accountOpt.isPresent());
+        assertEquals(testAccount, accountOpt.get());
     }
 
     @Test
     public void findByUsernameNotExists() {
-        Optional<Account> account = accountService.findByUsername("fake email");
+        var accountOpt = accountService.findByUsername("fake email");
 
-        assertFalse(account.isPresent());
+        assertFalse(accountOpt.isPresent());
     }
 }

@@ -1,6 +1,5 @@
 package com.expertsoft.web.security;
 
-import com.expertsoft.core.model.entity.Account;
 import com.expertsoft.core.model.entity.Role;
 import com.expertsoft.core.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) {
-        Account account = accountService.findByUsername(username)
+        var account = accountService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Account not found: " + username));
 
         return User.withUsername(username)

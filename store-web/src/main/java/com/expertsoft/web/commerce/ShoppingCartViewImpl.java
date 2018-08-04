@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static java.util.Collections.unmodifiableMap;
 
@@ -30,12 +28,12 @@ public class ShoppingCartViewImpl extends AbstractShoppingCartView implements In
 
     @Override
     public void afterPropertiesSet() {
-        Map<Long, Integer> cartItems = cart.getItems();
-        List<MobilePhone> phones = productService.findAllById(cartItems.keySet());
-        Map<MobilePhone, Integer> items = new HashMap<>();
+        var cartItems = cart.getItems();
+        var phones = productService.findAllById(cartItems.keySet());
+        var items = new HashMap<MobilePhone, Integer>();
 
-        for (MobilePhone phone : phones) {
-            Integer quantity = cartItems.get(phone.getId());
+        for (var phone : phones) {
+            var quantity = cartItems.get(phone.getId());
             items.put(phone, quantity);
             numberOfItems += quantity;
             subtotal += phone.getPrice() * quantity;

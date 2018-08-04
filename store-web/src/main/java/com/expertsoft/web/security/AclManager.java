@@ -7,8 +7,6 @@ import org.springframework.security.acls.domain.PrincipalSid;
 import org.springframework.security.acls.model.MutableAcl;
 import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.acls.model.NotFoundException;
-import org.springframework.security.acls.model.ObjectIdentity;
-import org.springframework.security.acls.model.Sid;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,9 +28,9 @@ public class AclManager {
 
     @Transactional
     public void addDefaultPermissions(Class<?> type, Serializable id, String username) {
-        ObjectIdentity oi = new ObjectIdentityImpl(type, id);
-        Sid sid = new PrincipalSid(username);
-        Sid adminSid = new GrantedAuthoritySid(ROLE_ADMIN);
+        var oi = new ObjectIdentityImpl(type, id);
+        var sid = new PrincipalSid(username);
+        var adminSid = new GrantedAuthoritySid(ROLE_ADMIN);
 
         MutableAcl acl;
         try {

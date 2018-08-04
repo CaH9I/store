@@ -9,7 +9,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
 import static com.expertsoft.core.model.entity.OrderState.SUBMITTED;
@@ -39,7 +38,7 @@ public class AdminOrderDetailControllerTest extends WebApplicationTest {
 
     @Test
     public void orderDetail() throws Exception {
-        Order testOrder = getTestOrder();
+        var testOrder = getTestOrder();
 
         mockMvc.perform(get("/admin/order-detail/" + testOrder.getId()))
                 .andExpect(model().attribute("order", testOrder))
@@ -50,7 +49,7 @@ public class AdminOrderDetailControllerTest extends WebApplicationTest {
     @Test
     @WithMockUser
     public void orderDetailWithNoPermission() throws Exception {
-        Order testOrder = getTestOrder();
+        var testOrder = getTestOrder();
 
         mockMvc.perform(get("/admin/order-detail/" + testOrder.getId()))
                 .andExpect(status().isForbidden());
@@ -58,11 +57,11 @@ public class AdminOrderDetailControllerTest extends WebApplicationTest {
 
     @Test
     public void changeOrderStare() throws Exception {
-        TypedQuery<Order> query = entityManager.createQuery(
+        var query = entityManager.createQuery(
                 "select o from Order o where o.state <> :state", Order.class);
         query.setParameter("state", DELIVERED);
         query.setMaxResults(1);
-        Order order = query.getSingleResult();
+        var order = query.getSingleResult();
 
         mockMvc.perform(put(format("/admin/order-detail/%s/%s", order.getId(), DELIVERED))
                 .with(csrf()))
@@ -75,11 +74,11 @@ public class AdminOrderDetailControllerTest extends WebApplicationTest {
     @Test
     @WithMockUser
     public void changeOrderToDeliveredWithNoPermission() throws Exception {
-        TypedQuery<Order> query = entityManager.createQuery(
+        var query = entityManager.createQuery(
                 "select o from Order o where o.state <> :state", Order.class);
         query.setParameter("state", DELIVERED);
         query.setMaxResults(1);
-        Order order = query.getSingleResult();
+        var order = query.getSingleResult();
 
         mockMvc.perform(put(format("/admin/order-detail/%s/%s", order.getId(), DELIVERED))
                 .with(csrf()))

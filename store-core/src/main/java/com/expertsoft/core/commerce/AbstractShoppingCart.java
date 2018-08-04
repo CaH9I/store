@@ -16,7 +16,7 @@ public abstract class AbstractShoppingCart implements ShoppingCart {
 
     @Override
     public void add(long productId, int quantity) {
-        Integer oldQuantity = items.putIfAbsent(productId, quantity);
+        var oldQuantity = items.putIfAbsent(productId, quantity);
         if (oldQuantity != null) {
             items.put(productId, oldQuantity + quantity);
         }

@@ -170,7 +170,7 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || !getClass().isAssignableFrom(o.getClass())) return false;
-        Order order = (Order) o;
+        var order = (Order) o;
         return Objects.equals(firstName, order.getFirstName()) &&
                 Objects.equals(lastName, order.getLastName()) &&
                 Objects.equals(phoneNumber, order.getPhoneNumber()) &&

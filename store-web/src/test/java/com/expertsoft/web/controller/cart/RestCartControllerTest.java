@@ -1,7 +1,6 @@
 package com.expertsoft.web.controller.cart;
 
 import com.expertsoft.core.commerce.ShoppingCart;
-import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +35,7 @@ public class RestCartControllerTest extends WebApplicationTest {
 
     @Test
     public void addToCart() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
         Integer qty = 10;
 
         mockMvc.perform(put("/ajax/cart")
@@ -52,7 +51,7 @@ public class RestCartControllerTest extends WebApplicationTest {
 
     @Test
     public void addToCartIncorrectQuantity() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
 
         mockMvc.perform(put("/ajax/cart")
                 .param("productId", testPhone.getId().toString())

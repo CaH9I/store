@@ -12,14 +12,14 @@ public class AddToCartResponse {
     private List<String> errors = emptyList();
 
     public static AddToCartResponse of(Integer numberOfItems, String subtotal) {
-        AddToCartResponse result = new AddToCartResponse();
+        var result = new AddToCartResponse();
         result.numberOfItems = numberOfItems;
         result.subtotal = subtotal;
         return result;
     }
 
     public static AddToCartResponse of(List<String> errors) {
-        AddToCartResponse result = new AddToCartResponse();
+        var result = new AddToCartResponse();
         result.errors = errors;
         return result;
     }
@@ -40,7 +40,7 @@ public class AddToCartResponse {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AddToCartResponse response = (AddToCartResponse) o;
+        var response = (AddToCartResponse) o;
         return Objects.equals(numberOfItems, response.numberOfItems) &&
                 Objects.equals(subtotal, response.subtotal) &&
                 Objects.equals(errors, response.errors);

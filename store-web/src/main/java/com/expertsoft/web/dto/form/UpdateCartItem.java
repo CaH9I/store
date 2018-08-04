@@ -8,7 +8,7 @@ public class UpdateCartItem {
     private int quantity;
 
     public static UpdateCartItem of(int quantity) {
-        UpdateCartItem cartItem = new UpdateCartItem();
+        var cartItem = new UpdateCartItem();
         cartItem.quantity = quantity;
         return cartItem;
     }

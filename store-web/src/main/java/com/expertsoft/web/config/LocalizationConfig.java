@@ -21,7 +21,7 @@ public class LocalizationConfig implements WebMvcConfigurer {
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+        var interceptor = new LocaleChangeInterceptor();
         interceptor.setHttpMethods(PUT.name());
         return interceptor;
     }

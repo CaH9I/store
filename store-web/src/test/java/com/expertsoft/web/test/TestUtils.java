@@ -3,7 +3,6 @@ package com.expertsoft.web.test;
 import org.springframework.security.acls.domain.GrantedAuthoritySid;
 import org.springframework.security.acls.domain.PrincipalSid;
 import org.springframework.security.acls.model.Acl;
-import org.springframework.security.acls.model.Sid;
 
 import static com.expertsoft.web.util.Constants.ROLE_ADMIN;
 import static org.hamcrest.Matchers.allOf;
@@ -19,8 +18,8 @@ public final class TestUtils {
     private TestUtils() {}
 
     public static void checkDefaultPermission(Acl acl, String principal) {
-        Sid principalSid = new PrincipalSid(principal);
-        Sid adminSid = new GrantedAuthoritySid(ROLE_ADMIN);
+        var principalSid = new PrincipalSid(principal);
+        var adminSid = new GrantedAuthoritySid(ROLE_ADMIN);
 
         assertThat(acl.getEntries(), allOf(
                 hasItem(allOf(

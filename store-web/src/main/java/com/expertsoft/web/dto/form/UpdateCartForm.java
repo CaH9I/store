@@ -12,7 +12,7 @@ public class UpdateCartForm {
     private final Map<String, UpdateCartItem> items = new HashMap<>();
 
     public static UpdateCartForm of(ShoppingCart cart) {
-        UpdateCartForm result = new UpdateCartForm();
+        var result = new UpdateCartForm();
 
         cart.getItems().forEach((key, value) ->
                 result.items.put(key.toString(), UpdateCartItem.of(value)));

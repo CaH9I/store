@@ -1,20 +1,17 @@
 package com.expertsoft.web.controller.order;
 
-import com.expertsoft.core.model.OrderRepository;
-import com.expertsoft.core.model.entity.MobilePhone;
-import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.commerce.ShoppingCart;
+import com.expertsoft.core.model.OrderRepository;
+import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.web.dto.form.OrderForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
-import org.springframework.security.acls.model.Acl;
 import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MvcResult;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
 import static com.expertsoft.web.controller.LoginPageController.LOGIN_URL;
@@ -69,11 +66,11 @@ public class OrderControllerTest extends WebApplicationTest {
     @Test
     public void placeOrder() throws Exception {
         // given
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
         // when
-        MvcResult result = mockMvc.perform(post("/order").with(csrf())
+        var mvcResult = mockMvc.perform(post("/order").with(csrf())
                 .param("firstName", "John")
                 .param("lastName", "Smith")
                 .param("address", "Minsk")
@@ -85,14 +82,14 @@ public class OrderControllerTest extends WebApplicationTest {
         //then
         assertEquals(0, cart.getItems().size());
 
-        String location = result.getResponse().getHeader("Location");
+        var location = mvcResult.getResponse().getHeader("Location");
         assertNotNull(location);
         assertTrue(location.matches("/order/[1-9]+\\d*"));
 
-        Long orderId = Long.valueOf(location.replaceAll(".*/", ""));
+        var orderId = Long.valueOf(location.replaceAll(".*/", ""));
         assertTrue(orderRepository.existsById(orderId));
 
-        Acl acl = aclService.readAclById(new ObjectIdentityImpl(Order.class, orderId));
+        var acl = aclService.readAclById(new ObjectIdentityImpl(Order.class, orderId));
         checkDefaultPermission(acl, "user");
     }
 

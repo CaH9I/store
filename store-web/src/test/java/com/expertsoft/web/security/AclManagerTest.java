@@ -5,11 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
-import org.springframework.security.acls.model.Acl;
 import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.test.context.support.WithMockUser;
-
-import java.io.Serializable;
 
 import static com.expertsoft.web.test.TestUtils.checkDefaultPermission;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -31,13 +28,13 @@ public class AclManagerTest extends WebApplicationTest {
 
     @Test
     public void addDefaultPermissions() {
-        final Class<?> type = Object.class;
-        final Serializable id = 1L;
-        final String principal = "manager";
+        final var type = Object.class;
+        final var id = 1L;
+        final var principal = "manager";
 
         aclManager.addDefaultPermissions(type, id, principal);
 
-        Acl acl = aclService.readAclById(new ObjectIdentityImpl(type, id));
+        var acl = aclService.readAclById(new ObjectIdentityImpl(type, id));
         checkDefaultPermission(acl, principal);
     }
 }

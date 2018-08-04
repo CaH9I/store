@@ -12,7 +12,8 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 
-import static java.util.Collections.singletonList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -33,14 +34,14 @@ public class CartFacadeUnitTest {
 
     @Before
     public void setup() {
-        when(errors.getAllErrors()).thenReturn(singletonList(new ObjectError("", MESSAGE)));
+        when(errors.getAllErrors()).thenReturn(List.of(new ObjectError("", MESSAGE)));
         when(messageSourceAccessor.getMessage(any(MessageSourceResolvable.class))).thenReturn(MESSAGE);
     }
 
     @Test
     public void addToCartError() {
-        AddToCartResponse response = cartFacade.addToCartError(errors);
+        var response = cartFacade.addToCartError(errors);
 
-        assertEquals(AddToCartResponse.of(singletonList(MESSAGE)), response);
+        assertEquals(AddToCartResponse.of(List.of(MESSAGE)), response);
     }
 }

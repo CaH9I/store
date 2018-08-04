@@ -2,7 +2,6 @@ package com.expertsoft.web.controller.cart;
 
 import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.core.commerce.ShoppingCartView;
-import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.web.dto.form.UpdateCartForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
@@ -44,7 +43,7 @@ public class CartControllerTest extends WebApplicationTest {
 
     @Test
     public void removeFromCart() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
@@ -58,7 +57,7 @@ public class CartControllerTest extends WebApplicationTest {
 
     @Test
     public void updateCart() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
@@ -72,7 +71,7 @@ public class CartControllerTest extends WebApplicationTest {
 
     @Test
     public void updateCartProceedCheckout() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
@@ -87,7 +86,7 @@ public class CartControllerTest extends WebApplicationTest {
 
     @Test
     public void updateCartIncorrectQuantity() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")

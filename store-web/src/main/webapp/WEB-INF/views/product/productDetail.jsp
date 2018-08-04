@@ -5,7 +5,7 @@
 <app:template>
     <a class="btn btn-default" href="${s:mvcUrl('PLC#productList').build()}">&#8592;&nbsp;<s:message code="navigation.productList"/></a>
     <h2>${mobilePhone.model}</h2>
-    <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 no-padding">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12 no-padding">
         <table class="table table-bordered table-striped">
             <tr>
                 <td><s:message code="product.display"/></td>

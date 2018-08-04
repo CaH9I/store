@@ -40,7 +40,7 @@ public class CartFacadeTest extends WebApplicationTest {
 
     @Test
     public void addToCartSuccess() {
-        AddToCartResponse response = cartFacade.addToCartSuccess(form);
+        var response = cartFacade.addToCartSuccess(form);
 
         assertEquals(qty, cart.getView().getNumberOfItems());
         assertEquals(phone.getPrice() * qty, cart.getView().getSubtotal(), 0);

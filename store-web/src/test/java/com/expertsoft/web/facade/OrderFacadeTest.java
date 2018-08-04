@@ -1,16 +1,15 @@
 package com.expertsoft.web.facade;
 
+import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.model.entity.OrderItem;
 import com.expertsoft.core.service.OrderService;
-import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.web.dto.form.OrderForm;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
-import org.springframework.security.acls.model.Acl;
 import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -43,25 +42,25 @@ public class OrderFacadeTest extends WebApplicationTest {
     public void placeOrder() {
         // given
         cart.add(PHONE.getId(), QTY);
-        Order order = orderFacade.createOrderFromCart();
+        var order = orderFacade.createOrderFromCart();
         populateOrder(order);
 
         // when
         long orderId = orderFacade.placeOrder(createOrderForm(order));
 
         // then
-        Order placedOrder = orderService.findById(orderId);
+        var placedOrder = orderService.findById(orderId);
         assertEquals(order, placedOrder);
         assertEquals(placedOrder.getAccount(), getUserAccount());
 
-        Acl acl = aclService.readAclById(new ObjectIdentityImpl(Order.class, orderId));
+        var acl = aclService.readAclById(new ObjectIdentityImpl(Order.class, orderId));
         checkDefaultPermission(acl, placedOrder.getAccount().getUsername());
     }
 
     @Test
     public void createOrderFromCart() {
         cart.add(PHONE.getId(), QTY);
-        Order order = orderFacade.createOrderFromCart();
+        var order = orderFacade.createOrderFromCart();
 
         assertEquals(PHONE.getPrice(), order.getSubtotal());
         assertEquals(PHONE.getPrice() + order.getDelivery(), order.getTotal(), 0);
@@ -77,7 +76,7 @@ public class OrderFacadeTest extends WebApplicationTest {
     }
 
     private OrderItem createOrderItem(Order order, MobilePhone phone, int qty) {
-        OrderItem orderItem = new OrderItem();
+        var orderItem = new OrderItem();
         orderItem.setOrder(order);
         orderItem.setPhone(phone);
         orderItem.setQuantity(qty);
@@ -86,7 +85,7 @@ public class OrderFacadeTest extends WebApplicationTest {
     }
 
     private OrderForm createOrderForm(Order order) {
-        OrderForm form = new OrderForm();
+        var form = new OrderForm();
         form.setFirstName(order.getFirstName());
         form.setLastName(order.getLastName());
         form.setAddress(order.getAddress());

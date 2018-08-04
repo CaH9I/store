@@ -2,15 +2,11 @@ package com.expertsoft.core.service;
 
 import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.ProductRepository;
-import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.test.IntegrationTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
-import java.util.List;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhones;
@@ -31,9 +27,9 @@ public class ProductServiceIntegrationTest extends IntegrationTest {
 
     @Test
     public void findById() {
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
 
-        MobilePhone phone = productService.findById(testPhone.getId());
+        var phone = productService.findById(testPhone.getId());
 
         assertEquals(testPhone, phone);
     }
@@ -45,14 +41,14 @@ public class ProductServiceIntegrationTest extends IntegrationTest {
 
     @Test
     public void findAll() {
-        List<MobilePhone> phones = productService.findAll();
+        var phones = productService.findAll();
 
         assertEquals(getTestMobilePhones(), phones);
     }
 
     @Test
     public void findAllForPage() {
-        Page<MobilePhone> phones = productService.findAll(PAGE_NUMBER);
+        var phones = productService.findAll(PAGE_NUMBER);
 
         assertEquals(productRepository.findAll(PageRequest.of(PAGE_NUMBER, pageSize)), phones);
     }

@@ -1,6 +1,5 @@
 package com.expertsoft.web.controller.product;
 
-import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.commerce.ShoppingCartView;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
@@ -23,7 +22,7 @@ public class ProductDetailControllerTest extends WebApplicationTest {
 
     @Test
     public void productDetail() throws Exception {
-        MobilePhone testPhone = getTestMobilePhone();
+        var testPhone = getTestMobilePhone();
         mockMvc.perform(get("/product-detail/" + testPhone.getId()))
                 .andExpect(model().attribute("mobilePhone", testPhone))
                 .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))

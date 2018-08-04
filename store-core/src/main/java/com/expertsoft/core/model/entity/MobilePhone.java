@@ -130,8 +130,8 @@ public class MobilePhone {
         if ((o == null) || !getClass().isAssignableFrom(o.getClass())) {
             return false;
         }
-        MobilePhone other = (MobilePhone) o;
-        return Objects.equals(model, other.getModel());
+        var phone = (MobilePhone) o;
+        return Objects.equals(model, phone.getModel());
     }
 
     @Override

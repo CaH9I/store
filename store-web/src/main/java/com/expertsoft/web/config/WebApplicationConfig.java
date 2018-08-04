@@ -22,7 +22,7 @@ public class WebApplicationConfig {
 
     @Bean
     public NumberFormat priceFormatter() {
-        NumberFormat formatter = new DecimalFormat("$#,###.##", DecimalFormatSymbols.getInstance());
+        var formatter = new DecimalFormat("$#,###.##", DecimalFormatSymbols.getInstance());
         formatter.setMaximumFractionDigits(2);
         formatter.setMinimumFractionDigits(2);
         return formatter;

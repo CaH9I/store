@@ -82,7 +82,7 @@ public class OrderItem {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        final OrderItem oi = (OrderItem) o;
+        final var oi = (OrderItem) o;
         return Objects.equals(order, oi.order) &&
                 Objects.equals(phone, oi.phone);
     }
@@ -115,10 +115,10 @@ class OrderItemId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderItemId that = (OrderItemId) o;
+        var oiId = (OrderItemId) o;
 
-        return Objects.equals(orderId, that.orderId) &&
-                Objects.equals(phoneId, that.phoneId);
+        return Objects.equals(orderId, oiId.orderId) &&
+                Objects.equals(phoneId, oiId.phoneId);
     }
 
     @Override

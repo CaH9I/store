@@ -1,6 +1,7 @@
 package com.expertsoft.web.config;
 
 import com.expertsoft.web.security.UserDetailsServiceImpl;
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public RoleHierarchy roleHierarchy() {
-        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        var roleHierarchy = new RoleHierarchyImpl();
         roleHierarchy.setHierarchy(format("%s > %s", ROLE_ADMIN, ROLE_USER));
         return roleHierarchy;
     }
@@ -124,7 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AclCache aclCache(CacheManager cacheManager) {
-        Ehcache cache = cacheManager.getCache("aclCache");
+        var cache = cacheManager.getCache("aclCache");
         return new EhCacheBasedAclCache(cache, permissionGrantingStrategy(), aclAuthorizationStrategy());
     }
 
@@ -135,7 +136,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public MutableAclService aclService(DataSource dataSource, LookupStrategy lookupStrategy, AclCache aclCache) {
-        JdbcMutableAclService aclService = new JdbcMutableAclService(dataSource, lookupStrategy, aclCache);
+        var aclService = new JdbcMutableAclService(dataSource, lookupStrategy, aclCache);
         aclService.setClassIdentityQuery(classIdentityQuery);
         aclService.setSidIdentityQuery(sidIdentityQuery);
         aclService.setObjectIdentityPrimaryKeyQuery(objectIdentityPrimaryKeyQuery);

@@ -2,9 +2,6 @@ package com.expertsoft.web.util;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
-
 public interface Constants {
 
     String ROLE_PREFIX = "ROLE_";
@@ -13,5 +10,5 @@ public interface Constants {
     String USER = "USER";
     String ROLE_USER = ROLE_PREFIX + USER;
 
-    List<String> SUPPORTED_LANGUAGES = unmodifiableList(asList("en", "ru"));
+    List<String> SUPPORTED_LANGUAGES = List.of("en", "ru");
 }

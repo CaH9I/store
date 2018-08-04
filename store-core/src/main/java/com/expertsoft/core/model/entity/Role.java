@@ -40,7 +40,7 @@ public class Role {
     }
 
     public static Role of(Long id, String name) {
-        Role role = new Role();
+        var role = new Role();
         role.setId(id);
         role.setName(name);
         return role;
@@ -50,7 +50,7 @@ public class Role {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
+        var role = (Role) o;
         return Objects.equals(name, role.name);
     }
 
