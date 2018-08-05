@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class ProductService extends RepositoryService<MobilePhone, Long, ProductRepository> {
 
-    @Value("${productList.pageSize:10}")
+    @Value("${productList.pageSize:8}")
     private int pageSize;
 
     @Autowired
