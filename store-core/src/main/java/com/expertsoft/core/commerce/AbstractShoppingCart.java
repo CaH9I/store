@@ -16,10 +16,7 @@ public abstract class AbstractShoppingCart implements ShoppingCart {
 
     @Override
     public void add(long productId, int quantity) {
-        var oldQuantity = items.putIfAbsent(productId, quantity);
-        if (oldQuantity != null) {
-            items.put(productId, oldQuantity + quantity);
-        }
+        items.merge(productId, quantity, Integer::sum);
     }
 
     @Override

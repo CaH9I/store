@@ -14,6 +14,7 @@ import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -46,8 +47,7 @@ public class CartControllerTest extends WebApplicationTest {
         var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
-        mockMvc.perform(post("/cart")
-                .param("productToRemoveId", testPhone.getId().toString())
+        mockMvc.perform(delete("/cart/" + testPhone.getId())
                 .session(session))
                 .andExpect(redirectedUrl("/cart"))
                 .andExpect(status().is3xxRedirection());

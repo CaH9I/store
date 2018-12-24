@@ -38,7 +38,7 @@
                                 <form:errors path="items[${phone.id}].quantity" cssClass="error-text"/>
                             </td>
                             <td>
-                                <button type="submit" name="productToRemoveId" value="${phone.id}" class="btn btn-default">
+                                <button type="submit" formaction="${s:mvcUrl('CC#removeCartItem').arg(0, phone.id).build()}" name="_method" value="DELETE" class="btn btn-default">
                                     <s:message code="general.button.delete"/>
                                 </button>
                             </td>
