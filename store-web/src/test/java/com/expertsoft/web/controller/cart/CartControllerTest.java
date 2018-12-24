@@ -43,7 +43,7 @@ public class CartControllerTest extends WebApplicationTest {
     }
 
     @Test
-    public void removeFromCart() throws Exception {
+    public void removeCartItem() throws Exception {
         var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 

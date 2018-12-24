@@ -1,9 +1,7 @@
 package com.expertsoft.web.config;
 
 import com.expertsoft.web.security.UserDetailsServiceImpl;
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Ehcache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -39,14 +37,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 import static com.expertsoft.web.controller.LoginPageController.LOGIN_URL;
-import static com.expertsoft.web.util.Constants.ADMIN;
-import static com.expertsoft.web.util.Constants.ROLE_ADMIN;
-import static com.expertsoft.web.util.Constants.ROLE_USER;
 import static java.lang.String.format;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String ROLE_PREFIX = "ROLE_";
+
+    public static final String ADMIN = "ADMIN";
+    public static final String ROLE_ADMIN = ROLE_PREFIX + ADMIN;
+    public static final String USER = "USER";
+    public static final String ROLE_USER = ROLE_PREFIX + USER;
 
     @Value("${rememberMe.key}")
     private String rememberMeKey;

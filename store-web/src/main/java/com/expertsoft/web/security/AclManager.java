@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
-import static com.expertsoft.web.util.Constants.ROLE_ADMIN;
+import static com.expertsoft.web.config.SecurityConfig.ROLE_ADMIN;
 import static org.springframework.security.acls.domain.BasePermission.READ;
 import static org.springframework.security.acls.domain.BasePermission.WRITE;
 

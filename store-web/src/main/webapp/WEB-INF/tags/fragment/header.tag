@@ -45,7 +45,7 @@
     <c:if test="${not hideLogin}">
         <div class="flex-center flex-end padding-aside-15">
             <security:authorize access="isAuthenticated()">
-                <security:authorize access="hasRole(T(com.expertsoft.web.util.Constants).ADMIN)">
+                <security:authorize access="hasRole(T(com.expertsoft.web.config.SecurityConfig).ADMIN)">
                     <a class="admin-link" href="${s:mvcUrl('AHC#adminHome').build()}"><s:message code="header.administration"/></a>
                 </security:authorize>
                 <span class="padding-aside-15">
@@ -58,7 +58,7 @@
                 </form:form>
             </security:authorize>
             <security:authorize access="isAnonymous()">
-                <a href="<s:url value='/login'/>"><s:message code="header.login"/></a>
+                <a href="${s:mvcUrl("LPC#login").build()}"><s:message code="header.login"/></a>
             </security:authorize>
         </div>
     </c:if>

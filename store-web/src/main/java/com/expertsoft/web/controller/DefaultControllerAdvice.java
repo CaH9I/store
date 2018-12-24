@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
-import static com.expertsoft.web.util.Constants.SUPPORTED_LANGUAGES;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static org.springframework.context.i18n.LocaleContextHolder.getLocale;
 
 @ControllerAdvice
 public class DefaultControllerAdvice {
+
+    private static final List<String> SUPPORTED_LANGUAGES = List.of("en", "ru");
 
     private final ShoppingCartView cartView;
 
