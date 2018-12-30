@@ -29,7 +29,9 @@
     </div>
     <div class="flex-center">
         <div class="col-xs-6 flex-center">
-            <img src="<s:url value='/img/phone-ico.jpg'/>" height="50px"/>
+            <a href="${s:mvcUrl('PLC#productList').build()}">
+                <img src="<s:url value='/img/phone-ico.jpg'/>" height="50px"/>
+            </a>
             <span class="text-logo">Phonify</span>
         </div>
         <div class="col-xs-6">

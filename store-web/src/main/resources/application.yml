@@ -3,8 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/shop
     username: postgres
     password: admin
-    schema: classpath:sql/schema/*.sql
-    data: classpath:sql/data/*.sql
+    schema: classpath:sql/*-schema.sql
+    data: classpath*:sql/*-data.sql
     initialization-mode: always
   cache:
     ehcache:
