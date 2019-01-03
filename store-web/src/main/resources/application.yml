@@ -38,3 +38,10 @@ server:
     jsp:
       init-parameters:
         development: true
+
+---
+
+spring:
+  profiles: prod
+server:
+  port: 80
