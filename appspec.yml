@@ -3,3 +3,8 @@ os: linux
 files:
   - source: /
     destination: /webapps/store
+hooks:
+  ApplicationStop:
+    - location: /webapps/scripts/stop-store.sh
+  ApplicationStart:
+    - location: /webapps/scripts/start-store.sh
