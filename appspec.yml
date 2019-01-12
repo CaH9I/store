@@ -5,6 +5,6 @@ files:
     destination: /webapps/store
 hooks:
   ApplicationStop:
-    - location: /webapps/scripts/stop-store.sh
+    - location: scripts/stop.sh
   ApplicationStart:
-    - location: /webapps/scripts/start-store.sh
+    - location: scripts/start.sh
