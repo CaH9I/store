@@ -17,7 +17,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 @Transactional
 public class OrderService extends RepositoryService<Order, Long, OrderRepository> {
 
-    private static final Sort ORDER_SORT = new Sort(DESC, "id");
+    private static final Sort ORDER_SORT = Sort.by(DESC, "id");
 
     @Autowired
     public OrderService(OrderRepository orderRepository) {
