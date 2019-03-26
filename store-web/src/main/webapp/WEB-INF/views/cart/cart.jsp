@@ -34,8 +34,8 @@
                             <td>${phone.display}</td>
                             <td><app:price price="${phone.price * quantity}"/></td>
                             <td>
-                                <form:input path="items[${phone.id}].quantity" class="form-control" cssErrorClass="form-control error-input" maxlength="9"/>
-                                <form:errors path="items[${phone.id}].quantity" cssClass="error-text"/>
+                                <form:input path="items[${phone.id}]" class="form-control" cssErrorClass="form-control error-input" maxlength="9"/>
+                                <form:errors path="items[${phone.id}]" cssClass="error-text"/>
                             </td>
                             <td>
                                 <button type="submit" formaction="${s:mvcUrl('CC#removeCartItem').arg(0, phone.id).build()}" name="_method" value="DELETE" class="btn btn-default">

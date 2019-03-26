@@ -2,7 +2,6 @@ package com.expertsoft.web.controller.cart;
 
 import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.web.dto.form.UpdateCartForm;
-import com.expertsoft.web.util.FormUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +28,7 @@ public class CartController {
 
     @GetMapping
     public String cart(Model model) {
-        model.addAttribute("updateCartForm", UpdateCartForm.of(cart));
+        model.addAttribute("updateCartForm", UpdateCartForm.from(cart));
         return "cart/cart";
     }
 
@@ -44,7 +43,7 @@ public class CartController {
         if (errors.hasErrors()) {
             return "cart/cart";
         }
-        cart.update(FormUtils.buildItemsMap(form));
+        cart.update(form.getItems());
         return checkout ? "redirect:/order" : "redirect:/cart";
     }
 }

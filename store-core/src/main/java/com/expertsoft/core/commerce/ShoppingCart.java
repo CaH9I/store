@@ -8,6 +8,11 @@ public interface ShoppingCart {
 
     void remove(long productId);
 
+    /**
+     * @param items
+     * key: {@link com.expertsoft.core.model.entity.MobilePhone#id}
+     * value: quantity
+     */
     void update(Map<Long, Integer> items);
 
     void clear();

@@ -61,7 +61,7 @@ public class CartControllerTest extends WebApplicationTest {
         cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
-                .param("items[" + testPhone.getId() + "].quantity", "5")
+                .param("items[" + testPhone.getId() + "]", "5")
                 .session(session))
                 .andExpect(redirectedUrl("/cart"))
                 .andExpect(status().is3xxRedirection());
@@ -75,7 +75,7 @@ public class CartControllerTest extends WebApplicationTest {
         cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
-                .param("items[" + testPhone.getId() + "].quantity", "5")
+                .param("items[" + testPhone.getId() + "]", "5")
                 .param("checkout", "true")
                 .session(session))
                 .andExpect(redirectedUrl("/order"))
@@ -90,7 +90,7 @@ public class CartControllerTest extends WebApplicationTest {
         cart.add(testPhone.getId(), 10);
 
         mockMvc.perform(post("/cart")
-                .param("items[" + testPhone.getId() + "].quantity", "0")
+                .param("items[" + testPhone.getId() + "]", "0")
                 .session(session))
                 .andExpect(model().attributeHasErrors("updateCartForm"))
                 .andExpect(model().attribute("cartView", isA(ShoppingCartView.class)))
