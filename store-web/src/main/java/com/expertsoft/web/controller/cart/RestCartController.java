@@ -4,15 +4,16 @@ import com.expertsoft.web.dto.AddToCartResponse;
 import com.expertsoft.web.dto.form.AddToCartForm;
 import com.expertsoft.web.facade.CartFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
+import static org.springframework.http.ResponseEntity.badRequest;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/ajax/cart")
@@ -26,11 +27,10 @@ public class RestCartController {
     }
 
     @PutMapping
-    public AddToCartResponse addToCart(@Valid AddToCartForm form, Errors errors, HttpServletResponse resp) {
+    public ResponseEntity<AddToCartResponse> addToCart(@Valid AddToCartForm form, Errors errors) {
         if (errors.hasErrors()) {
-            resp.setStatus(SC_BAD_REQUEST);
-            return cartFacade.addToCartError(errors);
+            return badRequest().body(cartFacade.addToCartError(errors));
         }
-        return cartFacade.addToCartSuccess(form);
+        return ok().body(cartFacade.addToCartSuccess(form));
     }
 }

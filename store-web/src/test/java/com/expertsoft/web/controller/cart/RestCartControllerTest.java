@@ -44,7 +44,8 @@ public class RestCartControllerTest extends WebApplicationTest {
                 .session(session))
                 .andExpect(jsonPath("$.numberOfItems", is(qty)))
                 .andExpect(jsonPath("$.subtotal", is(priceFormatter.format(testPhone.getPrice() * qty))))
-                .andExpect(jsonPath("$.errors", empty()));
+                .andExpect(jsonPath("$.errors", empty()))
+                .andExpect(status().isOk());
 
         assertThat(cart.getItems(), hasEntry(testPhone.getId(), qty));
     }
