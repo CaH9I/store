@@ -3,6 +3,8 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://store.expertsoft.com/tags" prefix="app"%>
 
+<%-- Allow PUT forwarding to JSP --%>
+<jsp:directive.page isErrorPage="true"/>
 <jsp:useBean id="cartView" type="com.expertsoft.core.commerce.ShoppingCartView" scope="request"/>
 
 <app:template>
@@ -11,7 +13,7 @@
         <a class="btn btn-default" href="${s:mvcUrl('PLC#productList').build()}">&#8592;&nbsp;<s:message code="navigation.productList"/></a>
     </div>
     <c:if test="${not empty cartView.items}">
-        <form:form method="post" modelAttribute="updateCartForm">
+        <form:form method="put" action="${s:mvcUrl('CC#updateCart').build()}" modelAttribute="updateCartForm">
             <button type="submit" name="checkout" value="true" class="btn btn-success pull-right"><s:message code="general.button.order.proceed"/></button>
             <table class="table table-bordered table-striped">
                 <thead>
@@ -38,9 +40,8 @@
                                 <form:errors path="items[${phone.id}]" cssClass="error-text"/>
                             </td>
                             <td>
-                                <button type="submit" formaction="${s:mvcUrl('CC#removeCartItem').arg(0, phone.id).build()}" name="_method" value="DELETE" class="btn btn-default">
-                                    <s:message code="general.button.delete"/>
-                                </button>
+                                <input type="submit" form="deleteForm" formaction="${s:mvcUrl('CC#removeCartItem').arg(0, phone.id).build()}" class="btn btn-default"
+                                    value="<s:message code='general.button.delete'/>"/>
                             </td>
                         </tr>
                     </c:forEach>
@@ -55,5 +56,6 @@
                 </div>
             </div>
         </form:form>
+        <form:form id="deleteForm" cssClass="hidden" method="delete"/>
     </c:if>
 </app:template>

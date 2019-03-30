@@ -5,19 +5,16 @@ $(document).ready(function() {
 function addToCart(e) {
     e.preventDefault();
     $('#errors-section').empty();
-    
+
     var url = $(this).attr('action');
     var data = $(this).serialize();
 
-    $.ajax({
-        url: url,
-        type: 'PUT',
-        data: data,
-        success: function(data) {
+    $.post(url, data)
+        .done(function(data) {
             $('#cart-item .item-number').text(data.numberOfItems);
             $('#cart-item .item-price').text(data.subtotal);
-        },
-        error: function(data) {
+        })
+        .fail(function(data) {
             data.responseJSON.errors.forEach(function(msg) {
                 $('#errors-section').append(
                     $('<div>').addClass('alert alert-danger alert-dismissable').text(msg).append(
@@ -25,6 +22,5 @@ function addToCart(e) {
                     )
                 );
             });
-        }
-    });
+        });
 }

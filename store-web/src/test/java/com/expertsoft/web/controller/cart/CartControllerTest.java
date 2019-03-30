@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,7 +60,7 @@ public class CartControllerTest extends WebApplicationTest {
         var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
-        mockMvc.perform(post("/cart")
+        mockMvc.perform(put("/cart")
                 .param("items[" + testPhone.getId() + "]", "5")
                 .session(session))
                 .andExpect(redirectedUrl("/cart"))
@@ -74,7 +74,7 @@ public class CartControllerTest extends WebApplicationTest {
         var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
-        mockMvc.perform(post("/cart")
+        mockMvc.perform(put("/cart")
                 .param("items[" + testPhone.getId() + "]", "5")
                 .param("checkout", "true")
                 .session(session))
@@ -89,7 +89,7 @@ public class CartControllerTest extends WebApplicationTest {
         var testPhone = getTestMobilePhone();
         cart.add(testPhone.getId(), 10);
 
-        mockMvc.perform(post("/cart")
+        mockMvc.perform(put("/cart")
                 .param("items[" + testPhone.getId() + "]", "0")
                 .session(session))
                 .andExpect(model().attributeHasErrors("updateCartForm"))

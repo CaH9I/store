@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -38,7 +38,7 @@ public class RestCartControllerTest extends WebApplicationTest {
         var testPhone = getTestMobilePhone();
         Integer qty = 10;
 
-        mockMvc.perform(put("/ajax/cart")
+        mockMvc.perform(post("/ajax/cart")
                 .param("productId", testPhone.getId().toString())
                 .param("quantity", qty.toString())
                 .session(session))
@@ -54,7 +54,7 @@ public class RestCartControllerTest extends WebApplicationTest {
     public void addToCartIncorrectQuantity() throws Exception {
         var testPhone = getTestMobilePhone();
 
-        mockMvc.perform(put("/ajax/cart")
+        mockMvc.perform(post("/ajax/cart")
                 .param("productId", testPhone.getId().toString())
                 .param("quantity", "0")
                 .session(session))

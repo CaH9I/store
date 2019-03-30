@@ -37,14 +37,12 @@
                         <td>
                             <s:eval var="delivered" expression="T(com.expertsoft.core.model.entity.OrderState).DELIVERED"/>
                             <c:if test="${order.state ne delivered}">
-                                <form:form method="post" action="${s:mvcUrl('AHC#changeOrderState').arg(0, order.id).arg(1, delivered).build()}">
-                                    <input type="hidden" name="_method" value="PUT"/>
+                                <form:form method="put" action="${s:mvcUrl('AHC#changeOrderState').arg(0, order.id).arg(1, delivered).build()}">
                                     <input type="submit" value="<s:message code='order.state.set' arguments='${delivered}'/>"
                                            class="btn btn-primary col-xs-12 margin-bottom-15"/>
                                 </form:form>
                             </c:if>
-                            <form:form method="post" action="${s:mvcUrl('AHC#deleteOrder').arg(0, order.id).build()}">
-                                <input type="hidden" name="_method" value="DELETE"/>
+                            <form:form method="delete" action="${s:mvcUrl('AHC#deleteOrder').arg(0, order.id).build()}">
                                 <input type="submit" value="<s:message code='general.button.delete'/>" class="btn btn-danger col-xs-12">
                             </form:form>
                         </td>

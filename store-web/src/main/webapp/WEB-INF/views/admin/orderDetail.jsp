@@ -12,15 +12,13 @@
     <app:orderInfo order="${order}" displayState="${true}"/>
     <s:eval var="delivered" expression="T(com.expertsoft.core.model.entity.OrderState).DELIVERED"/>
     <c:if test="${order.state ne delivered}">
-        <form:form method="post" action="${s:mvcUrl('AODC#changeOrderState').arg(0, order.id).arg(1, delivered).build()}">
-            <input type="hidden" name="_method" value="PUT"/>
+        <form:form method="put" action="${s:mvcUrl('AODC#changeOrderState').arg(0, order.id).arg(1, delivered).build()}">
             <div class="form-group">
                 <input type="submit" value="<s:message code='order.state.set' arguments='${delivered}'/>" class="btn btn-primary"/>
             </div>
         </form:form>
     </c:if>
-    <form:form method="post" action="${s:mvcUrl('AHC#deleteOrder').arg(0, order.id).build()}">
-        <input type="hidden" name="_method" value="DELETE"/>
+    <form:form method="delete" action="${s:mvcUrl('AHC#deleteOrder').arg(0, order.id).build()}">
         <div class="form-group">
             <input type="submit" value="<s:message code='general.button.delete'/>" class="btn btn-danger"/>
         </div>

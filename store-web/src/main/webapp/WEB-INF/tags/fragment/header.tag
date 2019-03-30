@@ -18,8 +18,7 @@
                     <span class="text-muted text-uppercase lang-element">${lang}</span>
                 </c:when>
                 <c:otherwise>
-                    <form:form method="post" cssClass="lang-element" action="${s:mvcUrl('SLC#setLanguage').arg(0, requestScope['javax.servlet.forward.request_uri']).build()}">
-                        <input type="hidden" name="_method" value="PUT"/>
+                    <form:form method="put" cssClass="lang-element" action="${s:mvcUrl('SLC#setLanguage').arg(0, requestScope['javax.servlet.forward.request_uri']).build()}">
                         <input type="hidden" name="<s:eval expression='@localeChangeInterceptor.paramName'/>" value="${lang}"/>
                         <input type="submit" class="link text-uppercase" value="${lang}"/>
                     </form:form>
