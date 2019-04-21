@@ -71,4 +71,9 @@ public abstract class RepositoryService<T, ID, R extends JpaRepository<T, ID>> {
         repository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
+    public T getOne(ID id) {
+        return repository.getOne(id);
+    }
+
 }

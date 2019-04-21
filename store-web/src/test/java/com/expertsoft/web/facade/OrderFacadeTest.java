@@ -1,6 +1,7 @@
 package com.expertsoft.web.facade;
 
 import com.expertsoft.core.commerce.ShoppingCart;
+import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.entity.MobilePhone;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.model.entity.OrderItem;
@@ -11,13 +12,20 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
+import static com.expertsoft.core.test.TestObjectFactory.getTestOrder;
 import static com.expertsoft.core.test.TestObjectFactory.getUserAccount;
 import static com.expertsoft.web.test.TestUtils.checkDefaultPermission;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class OrderFacadeTest extends WebApplicationTest {
@@ -29,10 +37,16 @@ public class OrderFacadeTest extends WebApplicationTest {
     private OrderFacade orderFacade;
 
     @Autowired
-    private ShoppingCart cart;
+    private OrderRepository orderRepository;
 
     @Autowired
     private OrderService orderService;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Autowired
+    private ShoppingCart cart;
 
     @Autowired
     private MutableAclService aclService;
@@ -55,6 +69,29 @@ public class OrderFacadeTest extends WebApplicationTest {
 
         var acl = aclService.readAclById(new ObjectIdentityImpl(Order.class, orderId));
         checkDefaultPermission(acl, placedOrder.getAccount().getUsername());
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void deleteOrderById() {
+        var testOrderId = getTestOrder().getId();
+
+        orderFacade.deleteOrderById(testOrderId);
+
+        assertFalse(orderRepository.findById(testOrderId).isPresent());
+        aclService.readAclById(new ObjectIdentityImpl(Order.class, testOrderId));
+    }
+
+    @Test
+    public void updateOrderState() {
+        var query = entityManager.createQuery(
+                "select o from Order o where o.state <> :state", Order.class);
+        query.setParameter("state", DELIVERED);
+        query.setMaxResults(1);
+        var order = query.getSingleResult();
+
+        orderFacade.updateOrderState(order.getId(), DELIVERED);
+
+        assertEquals(DELIVERED, order.getState());
     }
 
     @Test

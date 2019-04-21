@@ -3,7 +3,6 @@ package com.expertsoft.core.service;
 import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.entity.Order;
-import com.expertsoft.core.model.entity.OrderState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -26,11 +25,6 @@ public class OrderService extends RepositoryService<Order, Long, OrderRepository
 
     public Order save(Order order) {
         return repository.save(order);
-    }
-
-    public void changeOrderState(Long orderId, OrderState state) {
-        var order = repository.getOne(orderId);
-        order.setState(state);
     }
 
     @Transactional(readOnly = true)

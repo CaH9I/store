@@ -2,7 +2,6 @@ package com.expertsoft.core.service;
 
 import com.expertsoft.core.exception.RecordNotFoundException;
 import com.expertsoft.core.model.OrderRepository;
-import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.core.test.IntegrationTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import static com.expertsoft.core.model.entity.OrderState.DELIVERED;
 import static com.expertsoft.core.test.TestObjectFactory.createTestOrder;
 import static com.expertsoft.core.test.TestObjectFactory.getTestOrder;
 import static com.expertsoft.core.test.TestObjectFactory.getTestOrders;
@@ -46,19 +44,6 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
         var savedOrder = orderService.save(order);
 
         assertEquals(order, savedOrder);
-    }
-
-    @Test
-    public void changeOrderState() {
-        var query = entityManager.createQuery(
-                "select o from Order o where o.state <> :state", Order.class);
-        query.setParameter("state", DELIVERED);
-        query.setMaxResults(1);
-        var order = query.getSingleResult();
-
-        orderService.changeOrderState(order.getId(), DELIVERED);
-
-        assertEquals(DELIVERED, order.getState());
     }
 
     @Test

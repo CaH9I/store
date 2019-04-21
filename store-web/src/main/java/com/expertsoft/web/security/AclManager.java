@@ -17,6 +17,7 @@ import static org.springframework.security.acls.domain.BasePermission.READ;
 import static org.springframework.security.acls.domain.BasePermission.WRITE;
 
 @Component
+@Transactional
 public class AclManager {
 
     private final MutableAclService aclService;
@@ -26,7 +27,6 @@ public class AclManager {
         this.aclService = aclService;
     }
 
-    @Transactional
     public void addDefaultPermissions(Class<?> type, Serializable id, String username) {
         var oi = new ObjectIdentityImpl(type, id);
         var sid = new PrincipalSid(username);
@@ -43,5 +43,9 @@ public class AclManager {
         acl.insertAce(acl.getEntries().size(), READ, adminSid, true);
         acl.insertAce(acl.getEntries().size(), WRITE, adminSid, true);
         aclService.updateAcl(acl);
+    }
+
+    public void deletePermissions(Class<?> type, Serializable id) {
+        aclService.deleteAcl(new ObjectIdentityImpl(type, id), true);
     }
 }

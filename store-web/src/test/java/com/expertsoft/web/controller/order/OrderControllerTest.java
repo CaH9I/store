@@ -4,6 +4,7 @@ import com.expertsoft.core.commerce.ShoppingCart;
 import com.expertsoft.core.model.OrderRepository;
 import com.expertsoft.core.model.entity.Order;
 import com.expertsoft.web.dto.form.OrderForm;
+import com.expertsoft.web.facade.OrderFacade;
 import com.expertsoft.web.test.WebApplicationTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.expertsoft.core.test.TestObjectFactory.getTestMobilePhone;
 import static com.expertsoft.web.controller.LoginPageController.LOGIN_URL;
@@ -29,12 +31,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import static org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED;
 
 @WithMockUser
 public class OrderControllerTest extends WebApplicationTest {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderFacade orderFacade;
 
     @Autowired
     private ShoppingCart cart;
@@ -64,6 +70,7 @@ public class OrderControllerTest extends WebApplicationTest {
     }
 
     @Test
+    @Transactional(propagation = NOT_SUPPORTED)
     public void placeOrder() throws Exception {
         // given
         var testPhone = getTestMobilePhone();
@@ -91,6 +98,8 @@ public class OrderControllerTest extends WebApplicationTest {
 
         var acl = aclService.readAclById(new ObjectIdentityImpl(Order.class, orderId));
         checkDefaultPermission(acl, "user");
+
+        orderFacade.deleteOrderById(orderId);
     }
 
     @Test

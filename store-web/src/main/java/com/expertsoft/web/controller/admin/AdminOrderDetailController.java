@@ -2,6 +2,7 @@ package com.expertsoft.web.controller.admin;
 
 import com.expertsoft.core.model.entity.OrderState;
 import com.expertsoft.core.service.OrderService;
+import com.expertsoft.web.facade.OrderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminOrderDetailController {
 
     private OrderService orderService;
+    private OrderFacade orderFacade;
 
     @Autowired
-    public AdminOrderDetailController(OrderService orderService) {
+    public AdminOrderDetailController(OrderService orderService, OrderFacade orderFacade) {
         this.orderService = orderService;
+        this.orderFacade = orderFacade;
     }
 
     @GetMapping
@@ -32,7 +35,7 @@ public class AdminOrderDetailController {
     @PutMapping("{state}")
     @PreAuthorize("hasPermission(#id, 'com.expertsoft.core.model.entity.Order', T(org.springframework.security.acls.domain.BasePermission).WRITE)")
     public String changeOrderState(@PathVariable long id, @PathVariable OrderState state) {
-        orderService.changeOrderState(id, state);
+        orderFacade.updateOrderState(id, state);
         return "redirect:/admin/order-detail/{id}";
     }
 }
